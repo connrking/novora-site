@@ -59,13 +59,13 @@ export default function AdvisoryPage() {
           <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 60 }}>
             <FadeIn>
               <div style={{ fontFamily: F.h }}>
-                <div style={{ fontSize: 48, fontWeight: 200, color: C.gray500, letterSpacing: "-0.02em" }}>{s.num}</div>
+                <div style={{ fontSize: 48, fontWeight: 200, color: C.gray400, letterSpacing: "-0.02em" }}>{s.num}</div>
               </div>
             </FadeIn>
             <FadeIn delay={0.1}>
               <div style={{ fontFamily: F.h }}>
                 <h2 style={{ fontSize: 28, fontWeight: 400, color: C.white, margin: "0 0 8px", letterSpacing: "-0.01em" }}>{s.title}</h2>
-                <p style={{ fontSize: 14, color: C.gray200, margin: "0 0 20px", fontWeight: 400, fontStyle: "italic" }}>{s.subtitle}</p>
+                <p style={{ fontSize: 15, color: C.gray100, margin: "0 0 20px", fontWeight: 400 }}>{s.subtitle}</p>
                 <p style={{ fontSize: 15, lineHeight: 1.75, color: C.gray200, margin: 0, fontWeight: 400 }}>{s.body}</p>
               </div>
             </FadeIn>
