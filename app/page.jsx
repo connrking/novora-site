@@ -15,21 +15,21 @@ export default function HomePage() {
         {/* Grid */}
         <div style={{
           position: "absolute", inset: 0,
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)`,
           backgroundSize: "80px 80px",
-          maskImage: "radial-gradient(ellipse at 65% 50%, black 30%, transparent 75%)",
-          WebkitMaskImage: "radial-gradient(ellipse at 65% 50%, black 30%, transparent 75%)",
+          maskImage: "radial-gradient(ellipse at 75% 45%, black 15%, transparent 65%)",
+          WebkitMaskImage: "radial-gradient(ellipse at 75% 45%, black 15%, transparent 65%)",
         }} />
         {/* Glow top-right */}
         <div style={{
           position: "absolute", top: "-10%", right: "-5%", width: "55%", height: "70%",
-          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, transparent 65%)",
           filter: "blur(60px)",
         }} />
         {/* Horizon line */}
         <div style={{
           position: "absolute", bottom: "15%", left: 0, right: 0, height: 1,
-          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.12) 30%, rgba(255,255,255,0.12) 70%, transparent 100%)",
         }} />
         <FadeIn>
           <h1 style={{
