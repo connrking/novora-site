@@ -12,6 +12,9 @@ export default function HomePage() {
         .service-card:hover { background: #1A1A1A !important; }
         .partner-name { color: rgba(255,255,255,0.58); transition: color 0.2s; cursor: default; }
         .partner-name:hover { color: #fff; }
+        .lb-row { transition: background 0.2s, padding-left 0.2s; border-radius: 4px; cursor: pointer; }
+        .lb-row:hover { background: rgba(255,255,255,0.04); padding-left: 8px; }
+        .lb-row:hover .lb-score { color: #fff !important; }
       `}</style>
 
       {/* Hero */}
@@ -93,13 +96,13 @@ export default function HomePage() {
                 { name: "Jito", score: 67, ticker: "JTO" },
                 { name: "MetaDAO", score: 53, ticker: "META" },
               ].map((p, i) => (
-                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderBottom: i < 4 ? `0.5px solid ${C.border}` : "none" }}>
+                <div key={i} className="lb-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderBottom: i < 4 ? `0.5px solid ${C.border}` : "none" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                     <span style={{ fontSize: 12, color: C.gray500, width: 20, textAlign: "right" }}>{i + 1}</span>
                     <span style={{ fontSize: 14, color: C.white, fontWeight: 400 }}>{p.name}</span>
                     <span style={{ fontSize: 10, color: C.gray400, letterSpacing: "0.05em", background: C.gray700, padding: "2px 6px", borderRadius: 2 }}>{p.ticker}</span>
                   </div>
-                  <div style={{ fontSize: 16, fontWeight: 500, color: p.score >= 80 ? C.white : C.gray200 }}>{p.score}</div>
+                  <div className="lb-score" style={{ fontSize: 16, fontWeight: 500, color: p.score >= 80 ? C.white : C.gray200, transition: "color 0.2s" }}>{p.score}</div>
                 </div>
               ))}
             </div>
