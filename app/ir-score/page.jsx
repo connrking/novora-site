@@ -1,6 +1,63 @@
 "use client";
+import { useState, useEffect, useRef } from "react";
 import { C, F } from "@/components/tokens";
 import FadeIn from "@/components/FadeIn";
+
+function Counter({ end, duration = 1500 }) {
+  const [count, setCount] = useState(0);
+  const [started, setStarted] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started) { setStarted(true); obs.disconnect(); }
+    }, { threshold: 0.3 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [started]);
+  useEffect(() => {
+    if (!started) return;
+    const steps = 40;
+    const stepTime = duration / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current++;
+      const eased = 1 - Math.pow(1 - current / steps, 3);
+      setCount(Math.round(eased * end));
+      if (current >= steps) clearInterval(timer);
+    }, stepTime);
+    return () => clearInterval(timer);
+  }, [started, end, duration]);
+  return <span ref={ref}>{count}</span>;
+}
+
+function PillarCard({ pillar, index, maxScore }) {
+  const [show, setShow] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setTimeout(() => setShow(true), index * 120); obs.disconnect(); }
+    }, { threshold: 0.15 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [index]);
+  return (
+    <div ref={ref} className="pillar-card" style={{
+      padding: "32px 28px", fontFamily: F.h,
+      borderTop: `0.5px solid ${C.border}`,
+      borderRight: index < 4 ? `0.5px solid ${C.border}` : "none",
+      minHeight: 200,
+      opacity: show ? 1 : 0,
+      transform: show ? "translateY(0)" : "translateY(24px)",
+      transition: "opacity 0.7s ease, transform 0.7s ease, background 0.3s",
+    }}>
+      <div style={{ fontSize: 36, fontWeight: 200, color: C.gray500, marginBottom: 16 }}>
+        <Counter end={maxScore} />
+      </div>
+      <h3 style={{ fontSize: 15, fontWeight: 500, color: C.white, margin: "0 0 10px" }}>{pillar.name}</h3>
+      <p style={{ fontSize: 13, lineHeight: 1.6, color: C.gray200, margin: 0, fontWeight: 400 }}>{pillar.desc}</p>
+    </div>
+  );
+}
 
 export default function IRScorePage() {
   const pillars = [
@@ -13,8 +70,22 @@ export default function IRScorePage() {
 
   return (
     <div>
+      <style>{`
+        .pillar-card:hover { background: rgba(255,255,255,0.03) !important; }
+        .ir-row { transition: background 0.2s, padding-left 0.2s; border-radius: 4px; }
+        .ir-row:hover { background: rgba(255,255,255,0.04); padding-left: 8px; }
+        .ir-row:hover .ir-score { color: #fff !important; }
+      `}</style>
+
       {/* Hero */}
-      <section style={{ padding: "140px 80px 100px", background: C.bg, textAlign: "center" }}>
+      <section style={{ padding: "140px 80px 100px", background: C.bg, textAlign: "center", position: "relative", overflow: "hidden" }}>
+        {/* Subtle glow */}
+        <div style={{
+          position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)",
+          width: "60%", height: "50%",
+          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%)",
+          filter: "blur(40px)",
+        }} />
         <FadeIn>
           <div style={{
             fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
@@ -24,12 +95,16 @@ export default function IRScorePage() {
             fontFamily: F.h, fontSize: 52, fontWeight: 300,
             color: C.white, letterSpacing: "-0.02em", margin: "0 0 24px", lineHeight: 1.15,
           }}>The independent standard<br />for crypto IR.</h1>
+        </FadeIn>
+        <FadeIn delay={0.2}>
           <p style={{
             fontFamily: F.h, fontSize: 17, color: C.gray200, fontWeight: 400,
             maxWidth: 520, margin: "0 auto 48px", lineHeight: 1.65,
           }}>
             Five pillars. 100 points. A concrete diagnostic for how well crypto protocols communicate with their investors.
           </p>
+        </FadeIn>
+        <FadeIn delay={0.4}>
           <a href="https://ir.novora.co" style={{
             fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500,
             color: C.bg, background: C.white, padding: "14px 32px",
@@ -52,18 +127,7 @@ export default function IRScorePage() {
         </FadeIn>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: 0 }}>
           {pillars.map((p, i) => (
-            <FadeIn key={i} delay={i * 0.08}>
-              <div style={{
-                padding: "32px 28px", fontFamily: F.h,
-                borderTop: `0.5px solid ${C.border}`,
-                borderRight: i < 4 ? `0.5px solid ${C.border}` : "none",
-                minHeight: 180,
-              }}>
-                <div style={{ fontSize: 32, fontWeight: 200, color: C.gray500, marginBottom: 16 }}>{(i + 1) * 20}</div>
-                <h3 style={{ fontSize: 15, fontWeight: 500, color: C.white, margin: "0 0 10px" }}>{p.name}</h3>
-                <p style={{ fontSize: 13, lineHeight: 1.6, color: C.gray200, margin: 0, fontWeight: 400 }}>{p.desc}</p>
-              </div>
-            </FadeIn>
+            <PillarCard key={i} pillar={p} index={i} maxScore={(i + 1) * 20} />
           ))}
         </div>
       </section>
@@ -99,10 +163,6 @@ export default function IRScorePage() {
               background: C.bgCard, borderRadius: 4, padding: "28px 24px", fontFamily: F.h,
               border: `0.5px solid ${C.border}`,
             }}>
-              <style>{`
-                .ir-row { transition: background 0.2s, padding-left 0.2s; border-radius: 4px; }
-                .ir-row:hover { background: rgba(255,255,255,0.04); padding-left: 8px; }
-              `}</style>
               <div style={{ fontSize: 11, letterSpacing: "0.15em", color: C.gray400, marginBottom: 20, textTransform: "uppercase" }}>
                 Top Scores · Q1 2026
               </div>
@@ -127,9 +187,10 @@ export default function IRScorePage() {
                       background: C.gray700, padding: "2px 6px", borderRadius: 2,
                     }}>{p.ticker}</span>
                   </div>
-                  <div style={{
+                  <div className="ir-score" style={{
                     fontSize: 16, fontWeight: 500,
                     color: p.score >= 80 ? C.white : C.gray200,
+                    transition: "color 0.2s",
                   }}>{p.score}</div>
                 </div>
               ))}
