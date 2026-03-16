@@ -2,38 +2,32 @@
 import { C } from "./tokens";
 
 export default function Marquee() {
-  const logoSvg = (
-    <svg width="320" height="64" viewBox="130 150 430 110" fill="currentColor">
-      <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z"/>
-      <rect x="150.07" y="207.66" width="80.09" height="32.39"/>
-      <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z"/>
-      <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/>
-      <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z"/>
-      <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/>
-      <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z"/>
-      <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z"/>
+  const logomark = (
+    <svg width="80" height="80" viewBox="0 0 300 300" fill="currentColor">
+      <path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z"/>
+      <rect x="77.87" y="163.79" width="144.25" height="58.33"/>
     </svg>
   );
   return (
     <div style={{
-      overflow: "hidden", padding: "64px 0",
+      overflow: "hidden", padding: "56px 0",
       borderTop: `0.5px solid ${C.border}`,
       borderBottom: `0.5px solid ${C.border}`,
       background: C.bg,
     }}>
       <style>{`
         @keyframes novora-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        .novora-marquee-track { display: flex; align-items: center; animation: novora-marquee 20s linear infinite; width: max-content; }
+        .novora-marquee-track { display: flex; align-items: center; animation: novora-marquee 18s linear infinite; width: max-content; }
         .novora-marquee-track:hover { animation-play-state: paused; }
       `}</style>
       <div className="novora-marquee-track">
-        {[...Array(10)].map((_, i) => (
+        {[...Array(14)].map((_, i) => (
           <div key={i} style={{
             display: "flex", alignItems: "center",
-            marginRight: 100, flexShrink: 0,
-            color: "rgba(255,255,255,0.15)",
+            marginRight: 80, flexShrink: 0,
+            color: "rgba(255,255,255,0.25)",
           }}>
-            {logoSvg}
+            {logomark}
           </div>
         ))}
       </div>
