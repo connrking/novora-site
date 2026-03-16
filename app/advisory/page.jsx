@@ -152,11 +152,11 @@ export default function AdvisoryPage() {
           <h2 style={{
             fontFamily: F.h, fontSize: 36, fontWeight: 300,
             color: C.creamText, letterSpacing: "-0.02em", margin: "0 0 16px",
-          }}>Let&apos;s discuss your protocol.</h2>
+          }}>Explore an engagement with Novora.</h2>
           <p style={{
             fontFamily: F.h, fontSize: 15, color: C.creamSub,
             fontWeight: 400, marginBottom: 40,
-          }}>Every engagement starts with a conversation. No pitch deck required.</p>
+          }}>We work with a select number of protocols at any given time. Conversations are confidential and commitment-free.</p>
           <a href="https://calendly.com/connor_king" style={{
             fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500,
             color: C.cream, background: C.creamText, padding: "14px 32px",
