@@ -52,9 +52,9 @@ export default function HomePage() {
           <div style={{ width: 40, height: 0.5, background: C.gray500, marginBottom: 60 }} />
         </FadeIn>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0 }}>
-          <ServiceCard index={0} num="01" title="Capital Markets Advisory" desc="End-to-end support to design, launch, and sustain efficient token markets — from tokenomics architecture and exchange strategy through roadshow execution, fundraising, and capital introductions to institutional allocators." />
-          <ServiceCard index={1} num="02" title="Investor Relations" desc="Building long-term credibility and tokenholder alignment through transparent, professional communication. The Novora IR Score diagnoses where protocols fall short — and what to fix." />
-          <ServiceCard index={2} num="03" title="Principal Investing" desc="We invest alongside the teams we advise — ensuring long-term alignment between Novora and our partners." />
+          <ServiceCard index={0} num="01" title="Capital Markets Advisory" desc="End-to-end support to design, launch, and sustain efficient token markets. From tokenomics architecture and exchange strategy through roadshow execution, fundraising, and capital introductions to institutional allocators." />
+          <ServiceCard index={1} num="02" title="Investor Relations" desc="Building long-term credibility and tokenholder alignment through transparent, professional communication. The Novora IR Score diagnoses where protocols fall short and what to fix." />
+          <ServiceCard index={2} num="03" title="Principal Investing" desc="We invest alongside the teams we advise, ensuring long-term alignment between Novora and our partners." />
         </div>
       </section>
 
