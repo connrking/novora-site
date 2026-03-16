@@ -47,26 +47,31 @@ function ServiceSection({ num, title, subtitle, body, index }) {
     return () => obs.disconnect();
   }, []);
   return (
-    <section ref={ref} style={{
+    <section ref={ref} className="advisory-section" style={{
       padding: "80px 80px",
       borderTop: `0.5px solid ${C.border}`,
       background: index % 2 === 1 ? C.surface : C.bg,
+      cursor: "default",
     }}>
       <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 60 }}>
         <div style={{ fontFamily: F.h }}>
-          <div style={{
+          <div className="advisory-num" style={{
             fontSize: 56, fontWeight: 200, color: C.gray400, letterSpacing: "-0.02em",
             opacity: show ? 1 : 0,
             transform: show ? "translateX(0)" : "translateX(-30px)",
-            transition: "opacity 0.8s ease, transform 0.8s ease",
+            transition: "opacity 0.8s ease, transform 0.8s ease, color 0.3s",
           }}>{num}</div>
+          <div className="advisory-bar" style={{
+            width: 32, height: 1, background: "rgba(255,255,255,0.15)", marginTop: 16,
+            transition: "width 0.3s ease",
+          }} />
         </div>
         <div style={{ fontFamily: F.h }}>
-          <h2 style={{
+          <h2 className="advisory-title" style={{
             fontSize: 28, fontWeight: 400, color: C.white, margin: "0 0 8px", letterSpacing: "-0.01em",
             opacity: show ? 1 : 0,
             transform: show ? "translateY(0)" : "translateY(16px)",
-            transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
+            transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s, color 0.3s",
           }}>{title}</h2>
           <p style={{
             fontSize: 15, color: C.gray100, margin: "0 0 20px", fontWeight: 400,
@@ -89,6 +94,13 @@ function ServiceSection({ num, title, subtitle, body, index }) {
 export default function AdvisoryPage() {
   return (
     <div>
+      <style>{`
+        .advisory-section { transition: background 0.3s; }
+        .advisory-section:hover { background: rgba(255,255,255,0.02) !important; }
+        .advisory-section:hover .advisory-num { color: rgba(255,255,255,0.5) !important; }
+        .advisory-section:hover .advisory-title { color: #fff !important; }
+        .advisory-section:hover .advisory-bar { width: 60px !important; }
+      `}</style>
       <section style={{ padding: "120px 80px 80px", background: C.bg, position: "relative", overflow: "hidden" }}>
         <div style={{
           position: "absolute", top: "0%", right: "10%", width: "40%", height: "60%",
