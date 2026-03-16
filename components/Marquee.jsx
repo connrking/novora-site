@@ -3,14 +3,14 @@ import { C } from "./tokens";
 
 export default function Marquee() {
   const logomark = (
-    <svg width="160" height="160" viewBox="0 0 300 300" fill="currentColor">
+    <svg width="320" height="320" viewBox="0 0 300 300" fill="currentColor">
       <path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z"/>
       <rect x="77.87" y="163.79" width="144.25" height="58.33"/>
     </svg>
   );
   return (
     <div style={{
-      overflow: "hidden", padding: "72px 0",
+      overflow: "hidden", padding: "40px 0",
       borderTop: `0.5px solid ${C.border}`,
       borderBottom: `0.5px solid ${C.border}`,
       background: C.bg,
@@ -24,7 +24,7 @@ export default function Marquee() {
         {[...Array(12)].map((_, i) => (
           <div key={i} style={{
             display: "flex", alignItems: "center",
-            marginRight: 180, flexShrink: 0,
+            marginRight: 240, flexShrink: 0,
             color: "rgba(255,255,255,0.2)",
           }}>
             {logomark}
