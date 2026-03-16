@@ -42,7 +42,7 @@ export default function HomePage() {
         </FadeIn>
         <FadeIn delay={0.1}>
           <p style={{
-            fontFamily: F.h, fontSize: 18, lineHeight: 1.65, color: C.gray300,
+            fontFamily: F.h, fontSize: 18, lineHeight: 1.65, color: C.gray200,
             maxWidth: 520, marginTop: 32, fontWeight: 300,
           }}>
             We combine capital markets advisory, investor relations infrastructure, and principal investing to serve as the connective tissue between early-stage protocols and institutional capital.
@@ -108,7 +108,7 @@ export default function HomePage() {
               }}>
                 <div style={{ fontSize: 12, color: C.gray500, letterSpacing: "0.1em", marginBottom: 20 }}>{s.num}</div>
                 <h3 style={{ fontSize: 22, fontWeight: 400, color: C.white, margin: "0 0 16px", letterSpacing: "-0.01em" }}>{s.title}</h3>
-                <p style={{ fontSize: 14, lineHeight: 1.7, color: C.gray300, margin: 0, fontWeight: 300 }}>{s.desc}</p>
+                <p style={{ fontSize: 14, lineHeight: 1.7, color: C.gray200, margin: 0, fontWeight: 300 }}>{s.desc}</p>
               </div>
             </FadeIn>
           ))}
@@ -247,7 +247,7 @@ export default function HomePage() {
             color: C.white, letterSpacing: "-0.02em", margin: "0 0 16px",
           }}>Ready to work together?</h2>
           <p style={{
-            fontFamily: F.h, fontSize: 15, color: C.gray300,
+            fontFamily: F.h, fontSize: 15, color: C.gray200,
             fontWeight: 300, marginBottom: 40,
           }}>We partner with protocols serious about institutional capital markets.</p>
           <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
