@@ -12,24 +12,24 @@ export default function HomePage() {
         background: C.bg,
         position: "relative", overflow: "hidden",
       }}>
-        {/* Subtle grid */}
+        {/* Grid */}
         <div style={{
           position: "absolute", inset: 0,
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)`,
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)`,
           backgroundSize: "80px 80px",
-          maskImage: "radial-gradient(ellipse at 70% 50%, black 20%, transparent 70%)",
-          WebkitMaskImage: "radial-gradient(ellipse at 70% 50%, black 20%, transparent 70%)",
+          maskImage: "radial-gradient(ellipse at 65% 50%, black 30%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse at 65% 50%, black 30%, transparent 75%)",
         }} />
-        {/* Warm glow top-right */}
+        {/* Glow top-right */}
         <div style={{
-          position: "absolute", top: "-20%", right: "-10%", width: "60%", height: "80%",
-          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, transparent 60%)",
-          filter: "blur(40px)",
+          position: "absolute", top: "-10%", right: "-5%", width: "55%", height: "70%",
+          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 65%)",
+          filter: "blur(60px)",
         }} />
-        {/* Subtle horizon line */}
+        {/* Horizon line */}
         <div style={{
           position: "absolute", bottom: "15%", left: 0, right: 0, height: 1,
-          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.1) 70%, transparent 100%)",
+          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 30%, rgba(255,255,255,0.15) 70%, transparent 100%)",
         }} />
         <FadeIn>
           <h1 style={{
@@ -99,16 +99,13 @@ export default function HomePage() {
             },
           ].map((s, i) => (
             <FadeIn key={i} delay={i * 0.08}>
-              <div style={{
+              <style>{`.service-card { transition: background 0.3s; } .service-card:hover { background: #1A1A1A !important; }`}</style>
+              <div className="service-card" style={{
                 padding: "48px 40px",
                 borderTop: `0.5px solid ${C.border}`,
                 borderRight: i < 2 ? `0.5px solid ${C.border}` : "none",
-                fontFamily: F.h, minHeight: 240,
-                transition: "background 0.3s", cursor: "default",
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = C.bgHover}
-              onMouseLeave={e => e.currentTarget.style.background = "transparent"}
-              >
+                fontFamily: F.h, minHeight: 240, cursor: "default",
+              }}>
                 <div style={{ fontSize: 12, color: C.gray500, letterSpacing: "0.1em", marginBottom: 20 }}>{s.num}</div>
                 <h3 style={{ fontSize: 22, fontWeight: 400, color: C.white, margin: "0 0 16px", letterSpacing: "-0.01em" }}>{s.title}</h3>
                 <p style={{ fontSize: 14, lineHeight: 1.7, color: C.gray300, margin: 0, fontWeight: 300 }}>{s.desc}</p>
@@ -134,15 +131,12 @@ export default function HomePage() {
             display: "flex", justifyContent: "center", alignItems: "center",
             gap: 56, flexWrap: "wrap",
           }}>
+            <style>{`.partner-name { color: rgba(255,255,255,0.5); transition: color 0.2s; cursor: default; } .partner-name:hover { color: #fff; }`}</style>
             {["Artemis", "MetaDAO", "deBridge", "Bullpen", "Katana", "Chakra"].map(name => (
-              <span key={name} style={{
+              <span key={name} className="partner-name" style={{
                 fontFamily: F.h, fontSize: 17, fontWeight: 300,
-                color: C.gray300, letterSpacing: "0.01em",
-                transition: "color 0.2s", cursor: "default",
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = C.white}
-              onMouseLeave={e => e.currentTarget.style.color = C.gray300}
-              >{name}</span>
+                letterSpacing: "0.01em",
+              }}>{name}</span>
             ))}
           </div>
         </FadeIn>
