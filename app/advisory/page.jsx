@@ -23,7 +23,7 @@ export default function AdvisoryPage() {
         </FadeIn>
         <FadeIn delay={0.2}>
           <p style={{
-            fontFamily: F.h, fontSize: 17, color: C.gray300,
+            fontFamily: F.h, fontSize: 17, color: C.gray200,
             fontWeight: 400, lineHeight: 1.65, maxWidth: 560, marginTop: 24,
           }}>
             We serve as the connective tissue between early-stage protocols and institutional capital — with a buy-side lens no other advisor can offer.
@@ -65,7 +65,7 @@ export default function AdvisoryPage() {
             <FadeIn delay={0.1}>
               <div style={{ fontFamily: F.h }}>
                 <h2 style={{ fontSize: 28, fontWeight: 400, color: C.white, margin: "0 0 8px", letterSpacing: "-0.01em" }}>{s.title}</h2>
-                <p style={{ fontSize: 14, color: C.gray400, margin: "0 0 20px", fontWeight: 300, fontStyle: "italic" }}>{s.subtitle}</p>
+                <p style={{ fontSize: 14, color: C.gray200, margin: "0 0 20px", fontWeight: 400, fontStyle: "italic" }}>{s.subtitle}</p>
                 <p style={{ fontSize: 15, lineHeight: 1.75, color: C.gray200, margin: 0, fontWeight: 400 }}>{s.body}</p>
               </div>
             </FadeIn>
