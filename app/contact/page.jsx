@@ -4,7 +4,7 @@ import FadeIn from "@/components/FadeIn";
 
 export default function ContactPage() {
   return (
-    <div style={{ padding: "120px 80px", background: C.bg, minHeight: "calc(100vh - 64px)" }}>
+    <div style={{ padding: "80px 80px 40px", background: C.bg }}>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80 }}>
         <FadeIn>
           <div style={{ fontFamily: F.h }}>
