@@ -36,19 +36,19 @@ export default function AdvisoryPage() {
           num: "I",
           title: "Capital Markets Advisory",
           subtitle: "End-to-end support to design, launch, and sustain efficient token markets",
-          body: "Novora guides crypto protocols through the full lifecycle of capital raising and token launch — from tokenomics architecture and exchange listing strategy through roadshow execution, investor identification, and capital introductions. We combine institutional fundraising experience with a deep understanding of crypto capital markets to position our partners with the right investors, valuation frameworks, and go-to-market strategies.",
+          body: "Novora guides crypto protocols through the full lifecycle of capital raising and token launch, from tokenomics architecture and exchange listing strategy through roadshow execution, investor identification, and capital introductions. We combine institutional fundraising experience with a deep understanding of crypto capital markets to position our partners with the right investors, valuation frameworks, and go-to-market strategies.",
         },
         {
           num: "II",
           title: "Investor Relations Infrastructure",
           subtitle: "Building long-term credibility and tokenholder alignment",
-          body: "Most crypto protocols have no structured investor relations. The Novora IR Score identifies exactly where they fall short — and what to fix. We build the full spectrum of IR infrastructure: public dashboards, regular reporting cycles, tokenholder communications, narrative development, and strategic content creation — ensuring strong alignment between protocols and their stakeholders.",
+          body: "Most crypto protocols have no structured investor relations. The Novora IR Score identifies exactly where they fall short and what to fix. We build the full spectrum of IR infrastructure: public dashboards, regular reporting cycles, tokenholder communications, narrative development, and strategic content creation to ensure strong alignment between protocols and their stakeholders.",
         },
         {
           num: "III",
           title: "Principal Investing",
           subtitle: "Long-term alignment with the teams we believe in",
-          body: "We invest alongside the teams we advise — ensuring long-term alignment between Novora and our partners. Our investment thesis is informed by the same buy-side framework we built managing institutional capital at Social Capital and Arca.",
+          body: "We invest alongside the teams we advise, ensuring long-term alignment between Novora and our partners. Our investment thesis is informed by the same buy-side framework we built managing institutional capital at Social Capital and Arca.",
         },
       ].map((s, i) => (
         <section key={i} style={{
