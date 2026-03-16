@@ -17,7 +17,7 @@ export default function ContactPage() {
               letterSpacing: "-0.02em", lineHeight: 1.15, margin: "0 0 24px",
             }}>Let&apos;s talk.</h1>
             <p style={{
-              fontSize: 16, lineHeight: 1.7, color: C.gray300, fontWeight: 300,
+              fontSize: 16, lineHeight: 1.7, color: C.gray300, fontWeight: 400,
               margin: "0 0 48px",
             }}>
               Whether you&apos;re a protocol exploring advisory, or a fund looking for deal flow — we&apos;d like to hear from you.
@@ -42,7 +42,7 @@ export default function ContactPage() {
             border: `0.5px solid ${C.border}`, borderRadius: 4,
           }}>
             <div style={{ fontSize: 11, letterSpacing: "0.15em", color: C.gray500, marginBottom: 32, textTransform: "uppercase" }}>For Protocols</div>
-            <p style={{ fontSize: 14, lineHeight: 1.7, color: C.gray300, fontWeight: 300, marginBottom: 32 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.7, color: C.gray200, fontWeight: 400, marginBottom: 32 }}>
               Every engagement starts with a conversation. We&apos;ll discuss your protocol&apos;s positioning, capital markets needs, and whether there&apos;s a fit for advisory.
             </p>
             <a href="https://calendly.com/connor_king" style={{
@@ -53,7 +53,7 @@ export default function ContactPage() {
 
             <div style={{ borderTop: `0.5px solid ${C.border}`, marginTop: 40, paddingTop: 40 }}>
               <div style={{ fontSize: 11, letterSpacing: "0.15em", color: C.gray500, marginBottom: 16, textTransform: "uppercase" }}>For Funds & Allocators</div>
-              <p style={{ fontSize: 14, lineHeight: 1.7, color: C.gray300, fontWeight: 300, marginBottom: 24 }}>
+              <p style={{ fontSize: 14, lineHeight: 1.7, color: C.gray200, fontWeight: 400, marginBottom: 24 }}>
                 Access differentiated deal flow, IR-scored protocols, and curated investment opportunities through the Novora Network.
               </p>
               <a href="mailto:contact@novora.co" style={{

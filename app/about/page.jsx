@@ -20,7 +20,7 @@ export default function AboutPage() {
               Built on the thesis that crypto deserves better.
             </h1>
             <p style={{
-              fontSize: 16, lineHeight: 1.7, color: C.gray200, fontWeight: 300, margin: 0,
+              fontSize: 16, lineHeight: 1.7, color: C.gray200, fontWeight: 400, margin: 0,
             }}>
               Crypto protocols systematically underinvest in their capital markets infrastructure. The gap between what exists and what should exist is the opportunity Novora was built to address.
             </p>
@@ -50,7 +50,7 @@ export default function AboutPage() {
               <div style={{ fontSize: 11, letterSpacing: "0.15em", color: C.gray500, marginBottom: 20, textTransform: "uppercase" }}>Team</div>
               <h3 style={{ fontSize: 28, fontWeight: 400, color: C.white, margin: "0 0 4px", letterSpacing: "-0.01em" }}>Connor King</h3>
               <p style={{ fontSize: 14, color: C.gray400, margin: "0 0 24px" }}>Founder & CEO</p>
-              <p style={{ fontSize: 15, lineHeight: 1.75, color: C.gray200, fontWeight: 300, margin: 0 }}>
+              <p style={{ fontSize: 15, lineHeight: 1.75, color: C.gray200, fontWeight: 400, margin: 0 }}>
                 Connor is Founder & CEO of Novora. Prior to starting Novora, Connor spent 9 years actively building and investing in the industry. He was the first growth hire at MoonPay, led business development and investor relations efforts at asset management firm Arca raising $35M+ personally, built and ran the first liquid crypto investment strategy for Chamath at Social Capital, and led GTM and business development at data protocol Irys.
               </p>
               <div style={{ display: "flex", gap: 20, marginTop: 24 }}>
@@ -79,7 +79,7 @@ export default function AboutPage() {
               Crypto protocols systematically underinvest in IR and capital markets infrastructure. That creates a measurable gap between fundamentals and market perception.
             </h2>
             <p style={{
-              fontFamily: F.h, fontSize: 15, lineHeight: 1.75, color: C.gray200, fontWeight: 300,
+              fontFamily: F.h, fontSize: 15, lineHeight: 1.75, color: C.gray200, fontWeight: 400,
             }}>
               Novora diagnoses the gap, fixes it, and executes alongside the teams we believe in. As crypto-natives who&apos;ve been actively investing and building since 2017, we partner with exceptional companies across the entire lifecycle — from seed stage to liquid capital markets.
             </p>
