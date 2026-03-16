@@ -7,7 +7,7 @@ export default function AboutPage() {
     <div>
       {/* Hero + Team side by side */}
       <section style={{ padding: "120px 80px 100px", background: C.bg }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 80, alignItems: "start" }}>
           {/* Left: About thesis */}
           <FadeIn>
             <div style={{ fontFamily: F.h }}>
@@ -33,24 +33,20 @@ export default function AboutPage() {
           <FadeIn delay={0.15}>
             <div style={{ fontFamily: F.h }}>
               <div style={{ fontSize: 11, letterSpacing: "0.15em", color: C.gray500, marginBottom: 20, textTransform: "uppercase" }}>Team</div>
-              <div style={{ display: "flex", gap: 24, alignItems: "start" }}>
-                <img
-                  src="/connor-king.jpg"
-                  alt="Connor King"
-                  style={{ width: 200, borderRadius: 4, display: "block", flexShrink: 0 }}
-                />
-                <div>
-                  <h3 style={{ fontSize: 22, fontWeight: 400, color: C.white, margin: "0 0 4px", letterSpacing: "-0.01em" }}>Connor King</h3>
-                  <p style={{ fontSize: 13, color: C.gray400, margin: "0 0 16px" }}>Founder & CEO</p>
-                  <div style={{ display: "flex", gap: 16 }}>
-                    <a href="https://x.com/connorking" style={{ fontSize: 12, color: C.gray300, textDecoration: "none", borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2 }}>X</a>
-                    <a href="https://www.linkedin.com/in/connorking1/" style={{ fontSize: 12, color: C.gray300, textDecoration: "none", borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2 }}>LinkedIn</a>
-                  </div>
-                </div>
+              <img
+                src="/connor-king.jpg"
+                alt="Connor King"
+                style={{ width: "100%", maxWidth: 360, borderRadius: 4, display: "block", marginBottom: 24 }}
+              />
+              <h3 style={{ fontSize: 24, fontWeight: 400, color: C.white, margin: "0 0 4px", letterSpacing: "-0.01em" }}>Connor King</h3>
+              <p style={{ fontSize: 13, color: C.gray400, margin: "0 0 16px" }}>Founder & CEO</p>
+              <div style={{ display: "flex", gap: 16, marginBottom: 24 }}>
+                <a href="https://x.com/connorking" style={{ fontSize: 12, color: C.gray300, textDecoration: "none", borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2 }}>X</a>
+                <a href="https://www.linkedin.com/in/connorking1/" style={{ fontSize: 12, color: C.gray300, textDecoration: "none", borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2 }}>LinkedIn</a>
               </div>
               <p style={{
-                fontSize: 14, lineHeight: 1.75, color: C.gray200, fontWeight: 400, marginTop: 24,
-                maxWidth: 480,
+                fontSize: 14, lineHeight: 1.75, color: C.gray200, fontWeight: 400, margin: 0,
+                maxWidth: 440,
               }}>
                 Prior to founding Novora, Connor spent 9 years actively building and investing in crypto. He was the first growth hire at MoonPay, led BD and IR at Arca raising $35M+ personally, built and ran the first liquid crypto investment strategy for Chamath at Social Capital, and led GTM at data protocol Irys.
               </p>
