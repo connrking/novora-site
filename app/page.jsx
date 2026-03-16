@@ -9,12 +9,27 @@ export default function HomePage() {
       <section style={{
         minHeight: "92vh", display: "flex", flexDirection: "column",
         justifyContent: "center", padding: "0 80px",
-        background: `linear-gradient(180deg, ${C.bg} 0%, #0D0D0D 100%)`,
+        background: C.bg,
         position: "relative", overflow: "hidden",
       }}>
+        {/* Subtle grid */}
         <div style={{
-          position: "absolute", top: 0, right: 0, width: "50%", height: "100%",
-          background: "radial-gradient(ellipse at 80% 40%, rgba(255,255,255,0.015) 0%, transparent 70%)",
+          position: "absolute", inset: 0,
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)`,
+          backgroundSize: "80px 80px",
+          maskImage: "radial-gradient(ellipse at 70% 50%, black 20%, transparent 70%)",
+          WebkitMaskImage: "radial-gradient(ellipse at 70% 50%, black 20%, transparent 70%)",
+        }} />
+        {/* Warm glow top-right */}
+        <div style={{
+          position: "absolute", top: "-20%", right: "-10%", width: "60%", height: "80%",
+          background: "radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, transparent 60%)",
+          filter: "blur(40px)",
+        }} />
+        {/* Subtle horizon line */}
+        <div style={{
+          position: "absolute", bottom: "15%", left: 0, right: 0, height: 1,
+          background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 30%, rgba(255,255,255,0.1) 70%, transparent 100%)",
         }} />
         <FadeIn>
           <h1 style={{
@@ -124,7 +139,10 @@ export default function HomePage() {
                 fontFamily: F.h, fontSize: 17, fontWeight: 300,
                 color: C.gray300, letterSpacing: "0.01em",
                 transition: "color 0.2s", cursor: "default",
-              }}>{name}</span>
+              }}
+              onMouseEnter={e => e.currentTarget.style.color = C.white}
+              onMouseLeave={e => e.currentTarget.style.color = C.gray300}
+              >{name}</span>
             ))}
           </div>
         </FadeIn>
