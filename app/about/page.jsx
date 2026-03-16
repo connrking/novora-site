@@ -37,7 +37,7 @@ export default function AboutPage() {
                 <img
                   src="/connor-king.jpg"
                   alt="Connor King"
-                  style={{ width: 140, borderRadius: 4, display: "block", flexShrink: 0 }}
+                  style={{ width: 200, borderRadius: 4, display: "block", flexShrink: 0 }}
                 />
                 <div>
                   <h3 style={{ fontSize: 22, fontWeight: 400, color: C.white, margin: "0 0 4px", letterSpacing: "-0.01em" }}>Connor King</h3>
