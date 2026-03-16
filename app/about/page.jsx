@@ -48,7 +48,7 @@ export default function AboutPage() {
                 fontSize: 14, lineHeight: 1.75, color: C.gray200, fontWeight: 400, margin: 0,
                 maxWidth: 440,
               }}>
-                Prior to founding Novora, Connor spent 9 years actively building and investing in crypto. He was the first growth hire at MoonPay, led BD and IR at Arca raising $35M+ personally, built and ran the first liquid crypto investment strategy for Chamath at Social Capital, and led GTM at data protocol Irys.
+                Prior to founding Novora, Connor spent 9 years actively building and investing in crypto. He was the first growth hire at MoonPay, led BD and IR efforts at Arca raising $35M+ personally, built and ran the first liquid crypto investment strategy for Chamath at Social Capital, and led GTM at data protocol Irys.
               </p>
             </div>
           </FadeIn>
