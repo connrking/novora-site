@@ -218,7 +218,7 @@ export default function IRScorePage() {
           <p style={{
             fontFamily: F.h, fontSize: 15, color: C.gray200,
             fontWeight: 400, marginBottom: 40,
-          }}>IR Scores are free. Full IR Analyses start at $5K.</p>
+          }}>Every score includes a detailed analysis and actionable roadmap.</p>
           <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
             <a href="mailto:contact@novora.co" style={{
               fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500,
