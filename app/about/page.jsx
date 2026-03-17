@@ -42,7 +42,7 @@ export default function AboutPage() {
               <p style={{ fontSize: 13, color: C.gray400, margin: "0 0 16px" }}>Founder & CEO</p>
               <div style={{ display: "flex", gap: 16, marginBottom: 24 }}>
                 <a href="https://x.com/connorking" style={{ fontSize: 12, color: C.gray300, textDecoration: "none", borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2 }}>X</a>
-                <a href="https://www.linkedin.com/in/connorking1/" style={{ fontSize: 12, color: C.gray300, textDecoration: "none", borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2 }}>LinkedIn</a>
+                <a href="https://www.linkedin.com/in/connrking/" style={{ fontSize: 12, color: C.gray300, textDecoration: "none", borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2 }}>LinkedIn</a>
               </div>
               <p style={{
                 fontSize: 14, lineHeight: 1.75, color: C.gray200, fontWeight: 400, margin: 0,
