@@ -192,7 +192,7 @@ export default function AdvisoryPage() {
         <FadeIn delay={0.15}>
           <div style={{ maxWidth: 720, margin: "0 auto", borderRadius: 4, overflow: "hidden" }}>
             <iframe
-              src="https://tally.so/embed/ZjJP50?alignLeft=1&hideTitle=1&transparentBackground=1"
+              src="https://tally.so/embed/ZjJP50?alignLeft=1&hideTitle=1"
               style={{
                 width: "100%", height: 700, border: "none",
                 borderRadius: 4,
