@@ -73,11 +73,19 @@ export default function HomePage() {
             display: "flex", justifyContent: "center", alignItems: "center",
             gap: 56, flexWrap: "wrap",
           }}>
-            {["Artemis", "MetaDAO", "deBridge", "Bullpen", "Katana", "Chakra", "Jolly"].map(name => (
-              <a key={name} href={name === "Jolly" ? "https://jolly.com" : undefined} target={name === "Jolly" ? "_blank" : undefined} rel={name === "Jolly" ? "noopener noreferrer" : undefined} className="partner-name" style={{
+            {[
+              { name: "Artemis", url: "https://artemis.xyz" },
+              { name: "MetaDAO", url: "https://metadao.fi" },
+              { name: "deBridge", url: "https://debridge.finance" },
+              { name: "Bullpen", url: "https://bullpen.fi" },
+              { name: "Katana", url: "https://katana.network" },
+              { name: "Chakra", url: "https://chakra.dev" },
+              { name: "Jolly", url: "https://jolly.com" },
+            ].map(p => (
+              <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer" className="partner-name" style={{
                 fontFamily: F.h, fontSize: 17, fontWeight: 300,
                 letterSpacing: "0.01em", textDecoration: "none",
-              }}>{name}</a>
+              }}>{p.name}</a>
             ))}
           </div>
         </FadeIn>
