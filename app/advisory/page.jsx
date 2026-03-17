@@ -36,13 +36,13 @@ function HeroWords({ text }) {
   );
 }
 
-function ServiceSection({ num, title, subtitle, body, index }) {
+function ServiceSection({ num, title, desc, capabilities, index }) {
   const [show, setShow] = useState(false);
   const ref = useRef(null);
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) { setShow(true); obs.disconnect(); }
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
@@ -66,25 +66,33 @@ function ServiceSection({ num, title, subtitle, body, index }) {
             transition: "width 0.3s ease",
           }} />
         </div>
-        <div style={{ fontFamily: F.h }}>
+        <div style={{ fontFamily: F.h, maxWidth: 640 }}>
           <h2 className="advisory-title" style={{
-            fontSize: 28, fontWeight: 400, color: C.white, margin: "0 0 8px", letterSpacing: "-0.01em",
+            fontSize: 28, fontWeight: 400, color: C.white, margin: "0 0 20px", letterSpacing: "-0.01em",
             opacity: show ? 1 : 0,
             transform: show ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s, color 0.3s",
           }}>{title}</h2>
           <p style={{
-            fontSize: 15, color: C.gray100, margin: "0 0 20px", fontWeight: 400,
+            fontSize: 15, lineHeight: 1.8, color: C.gray200, margin: "0 0 32px", fontWeight: 400,
             opacity: show ? 1 : 0,
             transform: show ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
-          }}>{subtitle}</p>
-          <p style={{
-            fontSize: 15, lineHeight: 1.75, color: C.gray200, margin: 0, fontWeight: 400,
+          }}>{desc}</p>
+          <div style={{
             opacity: show ? 1 : 0,
             transform: show ? "translateY(0)" : "translateY(16px)",
             transition: "opacity 0.7s ease 0.35s, transform 0.7s ease 0.35s",
-          }}>{body}</p>
+          }}>
+            <div style={{ fontSize: 11, letterSpacing: "0.15em", color: C.gray400, marginBottom: 16, textTransform: "uppercase" }}>Capabilities</div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px 24px" }}>
+              {capabilities.map((cap, i) => (
+                <span key={i} style={{
+                  fontSize: 13, color: C.gray300, fontWeight: 400, lineHeight: 2,
+                }}>{cap}</span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -101,6 +109,8 @@ export default function AdvisoryPage() {
         .advisory-section:hover .advisory-title { color: #fff !important; }
         .advisory-section:hover .advisory-bar { width: 60px !important; }
       `}</style>
+
+      {/* Hero */}
       <section style={{ padding: "120px 80px 80px", background: C.bg, position: "relative", overflow: "hidden" }}>
         <div style={{
           position: "absolute", top: "0%", right: "10%", width: "40%", height: "60%",
@@ -124,29 +134,52 @@ export default function AdvisoryPage() {
         </FadeIn>
       </section>
 
-      {[
-        {
-          num: "I",
-          title: "Capital Markets Advisory",
-          subtitle: "End-to-end support to design, launch, and sustain efficient token markets",
-          body: "Novora guides crypto protocols through the full lifecycle of capital raising and token launch, from tokenomics architecture and exchange listing strategy through roadshow execution, investor identification, and capital introductions. We combine institutional fundraising experience with a deep understanding of crypto capital markets to position our partners with the right investors, valuation frameworks, and go-to-market strategies.",
-        },
-        {
-          num: "II",
-          title: "Investor Relations Infrastructure",
-          subtitle: "Building long-term credibility and tokenholder alignment",
-          body: "Most crypto protocols have no structured investor relations. The Novora IR Score identifies exactly where they fall short and what to fix. We build the full spectrum of IR infrastructure: public dashboards, regular reporting cycles, tokenholder communications, narrative development, and strategic content creation to ensure strong alignment between protocols and their stakeholders.",
-        },
-        {
-          num: "III",
-          title: "Principal Investing",
-          subtitle: "Long-term alignment with the teams we believe in",
-          body: "We invest alongside the teams we advise, ensuring long-term alignment between Novora and our partners. Our investment thesis is informed by the same buy-side framework we built managing institutional capital at Social Capital and Arca.",
-        },
-      ].map((s, i) => (
-        <ServiceSection key={i} num={s.num} title={s.title} subtitle={s.subtitle} body={s.body} index={i} />
-      ))}
+      {/* Service Lines */}
+      <ServiceSection
+        index={0}
+        num="I"
+        title="Token Capital Markets Advisory"
+        desc="Novora advises crypto protocols on the full spectrum of token capital markets strategy. Our approach is built on independent counsel, a buy-side perspective most advisory firms cannot offer, and deep familiarity with how institutional allocators evaluate liquid crypto assets. For post-TGE protocols, we advise on token design, special situations, and onchain strategies."
+        capabilities={[
+          "Tokenomics design & optimization",
+          "Exchange listing strategy",
+          "TGE planning & go-to-market",
+          "Market maker evaluation & terms",
+          "Treasury management",
+          "Token buyback strategy",
+          "Secondary market structure",
+        ]}
+      />
+      <ServiceSection
+        index={1}
+        num="II"
+        title="Investor Relations & Capital Markets Positioning"
+        desc="Novora advises protocols on how to build the credibility and communication infrastructure that institutional capital requires. Through the Novora IR Score, we provide a quantitative diagnostic across five pillars, benchmarking each protocol against the scored universe and identifying where to focus effort. We advise on roadshow preparation, investor materials, and how to structure conversations with allocators at every stage from pre-seed through liquid markets."
+        capabilities={[
+          "Novora IR Score diagnostic",
+          "Full IR Analysis & benchmarking",
+          "Reporting cadences & tokenholder communication",
+          "Data dashboards & analytics",
+          "Narrative development & positioning",
+          "Roadshow preparation & materials",
+          "Institutional platform coverage",
+        ]}
+      />
+      <ServiceSection
+        index={2}
+        num="III"
+        title="Strategic Network & Market Intelligence"
+        desc="Novora maintains relationships with 170+ institutional funds, trading firms, and allocators through the Novora Network. We leverage this network to provide protocols with market intelligence, sentiment feedback, and strategic guidance on how institutional capital is evaluating their sector, competitors, and positioning."
+        capabilities={[
+          "Market intelligence & sentiment",
+          "Institutional positioning guidance",
+          "Sector & competitive analysis",
+          "Network-facilitated introductions",
+          "Event programming & investor roundtables",
+        ]}
+      />
 
+      {/* CTA */}
       <section style={{ padding: "100px 80px", background: C.cream, textAlign: "center" }}>
         <FadeIn>
           <h2 style={{
