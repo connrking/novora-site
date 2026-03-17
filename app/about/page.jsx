@@ -55,29 +55,72 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Why Novora */}
+      {/* The Novora Difference */}
       <section style={{
-        padding: "100px 80px", borderTop: `0.5px solid ${C.border}`, background: C.bg,
+        padding: "120px 80px", borderTop: `0.5px solid ${C.border}`, background: C.bg,
       }}>
-        <FadeIn>
-          <div style={{ maxWidth: 640, fontFamily: F.h }}>
+        <div style={{ maxWidth: 680, fontFamily: F.h }}>
+          <FadeIn>
             <div style={{
               fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
-              marginBottom: 16, textTransform: "uppercase",
-            }}>Why Novora</div>
+              marginBottom: 24, textTransform: "uppercase",
+            }}>The Novora Difference</div>
+          </FadeIn>
+
+          <FadeIn delay={0.1}>
             <h2 style={{
-              fontSize: 28, fontWeight: 300,
-              color: C.white, letterSpacing: "-0.01em", lineHeight: 1.4, margin: "0 0 24px",
+              fontSize: 36, fontWeight: 300,
+              color: C.white, letterSpacing: "-0.015em", lineHeight: 1.35, margin: "0 0 48px",
             }}>
-              Crypto protocols systematically underinvest in IR and capital markets infrastructure. That creates a measurable gap between fundamentals and market perception.
+              Most advisory firms in crypto come from one world. We come from three.
             </h2>
+          </FadeIn>
+
+          <FadeIn delay={0.2}>
             <p style={{
-              fontSize: 15, lineHeight: 1.75, color: C.gray200, fontWeight: 400,
+              fontSize: 16, lineHeight: 1.8, color: C.gray200, fontWeight: 400, margin: "0 0 28px",
             }}>
-              Novora diagnoses the gap, fixes it, and executes alongside the teams we believe in. As crypto-natives who have been actively investing and building since 2017, we partner with exceptional companies across the entire lifecycle, from seed stage to liquid capital markets.
+              Before Novora, Connor built and ran a liquid crypto fund at Social Capital for Chamath Palihapitiya. He sat in the seat that most advisory clients are trying to reach: the allocator reviewing pitch decks, sizing positions, and deciding which tokens deserved institutional capital.
             </p>
-          </div>
-        </FadeIn>
+          </FadeIn>
+
+          <FadeIn delay={0.3}>
+            <p style={{
+              fontSize: 16, lineHeight: 1.8, color: C.gray200, fontWeight: 400, margin: "0 0 28px",
+            }}>
+              Then he moved to the other side. At Arca, he led business development and investor relations, raising over $35M personally. He learned what it takes to build trust with allocators, structure a narrative that survives diligence, and communicate with discipline in volatile markets.
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.4}>
+            <p style={{
+              fontSize: 16, lineHeight: 1.8, color: C.gray200, fontWeight: 400, margin: "0 0 28px",
+            }}>
+              Then he built. As the first growth hire at MoonPay and head of GTM at Irys, he operated inside the companies that advisory firms typically advise from the outside.
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.5}>
+            <p style={{
+              fontSize: 16, lineHeight: 1.8, color: C.gray200, fontWeight: 400, margin: "0 0 48px",
+            }}>
+              That combination does not exist anywhere else in crypto advisory. Novora is not guessing at what investors want to see. We have been the investor. We have been the operator. And we have raised the capital. That is the lens we bring to every engagement.
+            </p>
+          </FadeIn>
+
+          <FadeIn delay={0.6}>
+            <div style={{
+              borderTop: `0.5px solid ${C.border}`, paddingTop: 40,
+            }}>
+              <p style={{
+                fontSize: 22, lineHeight: 1.5, color: C.white, fontWeight: 300,
+                letterSpacing: "-0.01em", margin: 0,
+              }}>
+                Independent. Conflict-free. Senior-led. Built on the conviction that crypto protocols deserve the same caliber of capital markets infrastructure as the best public companies in the world.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
       </section>
     </div>
   );
