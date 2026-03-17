@@ -195,6 +195,32 @@ export default function AdvisoryPage() {
           }}>SCHEDULE A CALL</a>
         </FadeIn>
       </section>
+
+      {/* Intake Form */}
+      <section style={{ padding: "100px 80px 120px", background: C.bg, textAlign: "center" }}>
+        <FadeIn>
+          <div style={{
+            fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
+            marginBottom: 16, fontFamily: F.h, textTransform: "uppercase",
+          }}>Get Started</div>
+          <h2 style={{
+            fontFamily: F.h, fontSize: 32, fontWeight: 300,
+            color: C.white, letterSpacing: "-0.02em", margin: "0 0 48px",
+          }}>Tell us about your protocol.</h2>
+        </FadeIn>
+        <FadeIn delay={0.15}>
+          <div style={{ maxWidth: 720, margin: "0 auto", borderRadius: 4, overflow: "hidden" }}>
+            <iframe
+              src="https://form.typeform.com/to/g3PnHOSv"
+              style={{
+                width: "100%", height: 600, border: "none",
+                borderRadius: 4,
+              }}
+              allow="camera; microphone; autoplay; encrypted-media;"
+            />
+          </div>
+        </FadeIn>
+      </section>
     </div>
   );
 }
