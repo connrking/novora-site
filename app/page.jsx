@@ -64,10 +64,20 @@ export default function HomePage() {
       {/* Partners */}
       <section style={{ padding: "80px 80px", background: C.bg }}>
         <FadeIn>
-          <div style={{ fontSize: 11, letterSpacing: "0.2em", color: C.gray400, marginBottom: 48, fontFamily: F.h, textTransform: "uppercase", textAlign: "center" }}>Select Partners</div>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 56, flexWrap: "wrap" }}>
-            {["Artemis", "MetaDAO", "deBridge", "Bullpen", "Katana", "Chakra"].map(name => (
-              <span key={name} className="partner-name" style={{ fontFamily: F.h, fontSize: 17, fontWeight: 300, letterSpacing: "0.01em" }}>{name}</span>
+          <div style={{
+            fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
+            marginBottom: 48, fontFamily: F.h, textTransform: "uppercase",
+            textAlign: "center",
+          }}>Select Partners</div>
+          <div style={{
+            display: "flex", justifyContent: "center", alignItems: "center",
+            gap: 56, flexWrap: "wrap",
+          }}>
+            {["Artemis", "MetaDAO", "deBridge", "Bullpen", "Katana", "Chakra", "Jolly"].map(name => (
+              <a key={name} href={name === "Jolly" ? "https://jolly.com" : undefined} target={name === "Jolly" ? "_blank" : undefined} rel={name === "Jolly" ? "noopener noreferrer" : undefined} className="partner-name" style={{
+                fontFamily: F.h, fontSize: 17, fontWeight: 300,
+                letterSpacing: "0.01em", textDecoration: "none",
+              }}>{name}</a>
             ))}
           </div>
         </FadeIn>
