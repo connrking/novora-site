@@ -142,11 +142,9 @@ export default function AdvisoryPage() {
         desc="Novora advises crypto protocols on the full spectrum of token capital markets strategy. Our approach is built on independent counsel, a buy-side perspective most advisory firms cannot offer, and deep familiarity with how institutional allocators evaluate liquid crypto assets. For post-TGE protocols, we advise on token design, special situations, and onchain strategies."
         capabilities={[
           "Tokenomics design & optimization",
-          "Exchange listing strategy",
           "TGE planning & go-to-market",
-          "Market maker evaluation & terms",
-          "Treasury management",
-          "Token buyback strategy",
+          "Token design",
+          "Liquidity strategy",
           "Secondary market structure",
         ]}
       />
