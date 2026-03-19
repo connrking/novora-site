@@ -31,7 +31,7 @@ export default function HomePage() {
 
         <FadeIn delay={0.6}>
           <p style={{ fontFamily: F.h, fontSize: 18, lineHeight: 1.65, color: C.gray200, maxWidth: 520, marginTop: 32, fontWeight: 400 }}>
-            We combine capital markets advisory, investor relations infrastructure, and principal investing to serve as the connective tissue between early-stage protocols and institutional capital.
+            We combine capital markets advisory, investor relations infrastructure, and principal investing to serve as the connective tissue between protocols and institutional capital.
           </p>
         </FadeIn>
         <FadeIn delay={0.8}>

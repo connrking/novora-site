@@ -129,7 +129,7 @@ export default function AdvisoryPage() {
             fontFamily: F.h, fontSize: 17, color: C.gray200,
             fontWeight: 400, lineHeight: 1.65, maxWidth: 560, marginTop: 24,
           }}>
-            We serve as the connective tissue between early-stage protocols and institutional capital, with a buy-side lens no other advisor can offer.
+            We serve as the connective tissue between protocols and institutional capital, with a buy-side lens no other advisor can offer.
           </p>
         </FadeIn>
       </section>
