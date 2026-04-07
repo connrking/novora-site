@@ -10,10 +10,10 @@ const S = {
 export default function LegalPage() {
   return (
     <div>
-      <section style={{ padding: "120px 80px 100px", background: C.bg }}>
+      <section className="section-pad hero-v-pad" style={{ padding: "120px 80px 100px", background: C.bg }}>
         <FadeIn>
           <div style={{ maxWidth: 720 }}>
-            <h1 style={{ fontFamily: F.h, fontSize: 48, fontWeight: 300, color: C.white, letterSpacing: "-0.02em", margin: "0 0 8px" }}>Legal</h1>
+            <h1 className="legal-h1" style={{ fontFamily: F.h, fontSize: 48, fontWeight: 300, color: C.white, letterSpacing: "-0.02em", margin: "0 0 8px" }}>Legal</h1>
             <p style={{ fontFamily: F.h, fontSize: 13, color: C.gray400, margin: "0 0 60px" }}>Effective Date: May 1, 2025</p>
 
             <h2 style={S.h2}>No Representation or Warranties</h2>

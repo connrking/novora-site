@@ -18,7 +18,7 @@ export default function HomePage() {
       `}</style>
 
       {/* Hero */}
-      <section style={{
+      <section className="hero-section hero-pad" style={{
         minHeight: "92vh", display: "flex", flexDirection: "column",
         justifyContent: "center", padding: "0 80px",
         background: C.bg, position: "relative", overflow: "hidden",
@@ -30,12 +30,12 @@ export default function HomePage() {
         <HeroText text={"Independent capital\nmarkets advisory\nfor crypto."} />
 
         <FadeIn delay={0.6}>
-          <p style={{ fontFamily: F.h, fontSize: 18, lineHeight: 1.65, color: C.gray200, maxWidth: 520, marginTop: 32, fontWeight: 400 }}>
+          <p className="hero-sub" style={{ fontFamily: F.h, fontSize: 18, lineHeight: 1.65, color: C.gray200, maxWidth: 520, marginTop: 32, fontWeight: 400 }}>
             We combine capital markets advisory, investor relations infrastructure, and principal investing to serve as the connective tissue between protocols and institutional capital.
           </p>
         </FadeIn>
         <FadeIn delay={0.8}>
-          <div style={{ display: "flex", gap: 16, marginTop: 48 }}>
+          <div className="cta-row" style={{ display: "flex", gap: 16, marginTop: 48 }}>
             <a href="mailto:contact@novora.co" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500, color: C.bg, background: C.white, padding: "14px 32px", textDecoration: "none", borderRadius: 2 }}>CONTACT US</a>
             <a href="https://ir.novora.co" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 400, color: C.gray200, background: "transparent", padding: "14px 32px", textDecoration: "none", borderRadius: 2, border: `0.5px solid ${C.border}` }}>VIEW IR SCORES →</a>
           </div>
@@ -46,12 +46,12 @@ export default function HomePage() {
       </section>
 
       {/* What We Do */}
-      <section style={{ padding: "120px 80px", background: C.bg }}>
+      <section className="section-pad section-v-pad" style={{ padding: "120px 80px", background: C.bg }}>
         <FadeIn>
           <div style={{ fontSize: 11, letterSpacing: "0.2em", color: C.gray400, marginBottom: 16, fontFamily: F.h, textTransform: "uppercase" }}>What We Do</div>
           <div style={{ width: 40, height: 0.5, background: C.gray500, marginBottom: 60 }} />
         </FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0 }}>
+        <div className="service-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0 }}>
           <ServiceCard index={0} num="01" title="Capital Markets Advisory" desc="End-to-end support to design, launch, and sustain efficient token markets. From tokenomics architecture and exchange strategy through roadshow execution, fundraising, and capital introductions to institutional allocators." />
           <ServiceCard index={1} num="02" title="Investor Relations" desc="Building long-term credibility and tokenholder alignment through transparent, professional communication. The Novora IR Score diagnoses where protocols fall short and what to fix." />
           <ServiceCard index={2} num="03" title="Principal Investing" desc="We invest alongside the teams we advise, ensuring long-term alignment between Novora and our partners." />
@@ -62,14 +62,14 @@ export default function HomePage() {
       <Marquee />
 
       {/* Partners */}
-      <section style={{ padding: "80px 80px", background: C.bg }}>
+      <section className="section-pad" style={{ padding: "80px 80px", background: C.bg }}>
         <FadeIn>
           <div style={{
             fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
             marginBottom: 48, fontFamily: F.h, textTransform: "uppercase",
             textAlign: "center",
           }}>Select Partners</div>
-          <div style={{
+          <div className="partners-row" style={{
             display: "flex", justifyContent: "center", alignItems: "center",
             gap: 56, flexWrap: "wrap",
           }}>
@@ -92,12 +92,12 @@ export default function HomePage() {
       </section>
 
       {/* IR Score Feature */}
-      <section style={{ padding: "120px 80px", background: C.cream }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
+      <section className="section-pad section-v-pad" style={{ padding: "120px 80px", background: C.cream }}>
+        <div className="two-col-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
           <FadeIn>
             <div style={{ fontFamily: F.h }}>
               <div style={{ fontSize: 11, letterSpacing: "0.2em", color: C.creamSub, marginBottom: 16, textTransform: "uppercase", opacity: 0.6 }}>Featured Product</div>
-              <h2 style={{ fontSize: 42, fontWeight: 300, color: C.creamText, letterSpacing: "-0.02em", lineHeight: 1.15, margin: "0 0 24px" }}>Novora IR Score</h2>
+              <h2 className="section-h2" style={{ fontSize: 42, fontWeight: 300, color: C.creamText, letterSpacing: "-0.02em", lineHeight: 1.15, margin: "0 0 24px" }}>Novora IR Score</h2>
               <p style={{ fontSize: 16, lineHeight: 1.7, color: C.creamSub, fontWeight: 400, margin: "0 0 32px" }}>
                 The independent standard for crypto investor relations. Five pillars, 100 points. Protocols are scored, benchmarked, and given a concrete roadmap to institutional-grade IR.
               </p>
@@ -129,13 +129,13 @@ export default function HomePage() {
       </section>
 
       {/* Thesis */}
-      <section style={{ padding: "120px 80px", background: C.bg }}>
+      <section className="section-pad section-v-pad" style={{ padding: "120px 80px", background: C.bg }}>
         <div style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
           <FadeIn>
             <div style={{ fontSize: 11, letterSpacing: "0.2em", color: C.gray400, marginBottom: 40, fontFamily: F.h, textTransform: "uppercase" }}>Our Thesis</div>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <blockquote style={{ fontFamily: F.h, fontSize: 28, fontWeight: 300, lineHeight: 1.5, color: C.gray100, margin: 0, letterSpacing: "-0.01em" }}>
+            <blockquote className="thesis-quote" style={{ fontFamily: F.h, fontSize: 28, fontWeight: 300, lineHeight: 1.5, color: C.gray100, margin: 0, letterSpacing: "-0.01em" }}>
               &ldquo;Crypto protocols generate billions in revenue. Almost none of them talk to their investors.&rdquo;
             </blockquote>
           </FadeIn>
@@ -148,11 +148,11 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section style={{ padding: "100px 80px", borderTop: `0.5px solid ${C.border}`, background: C.bg, textAlign: "center" }}>
+      <section className="section-pad section-v-pad" style={{ padding: "100px 80px", borderTop: `0.5px solid ${C.border}`, background: C.bg, textAlign: "center" }}>
         <FadeIn>
-          <h2 style={{ fontFamily: F.h, fontSize: 36, fontWeight: 300, color: C.white, letterSpacing: "-0.02em", margin: "0 0 16px" }}>Ready to work together?</h2>
+          <h2 className="section-h2" style={{ fontFamily: F.h, fontSize: 36, fontWeight: 300, color: C.white, letterSpacing: "-0.02em", margin: "0 0 16px" }}>Ready to work together?</h2>
           <p style={{ fontFamily: F.h, fontSize: 15, color: C.gray200, fontWeight: 400, marginBottom: 40 }}>We partner with protocols serious about institutional capital markets.</p>
-          <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
+          <div className="cta-row" style={{ display: "flex", gap: 16, justifyContent: "center" }}>
             <a href="mailto:contact@novora.co" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500, color: C.bg, background: C.white, padding: "14px 32px", textDecoration: "none", borderRadius: 2 }}>CONTACT US</a>
             <a href="https://calendly.com/connor_king" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 400, color: C.gray200, padding: "14px 32px", textDecoration: "none", borderRadius: 2, border: `0.5px solid ${C.border}` }}>SCHEDULE A CALL</a>
           </div>

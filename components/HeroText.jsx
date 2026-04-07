@@ -23,7 +23,7 @@ export default function HeroText({ text }) {
 
   let wordIndex = 0;
   return (
-    <h1 style={{
+    <h1 className="hero-title" style={{
       fontSize: 64, fontWeight: 300, lineHeight: 1.1,
       letterSpacing: "-0.02em", margin: 0, maxWidth: 780,
       fontFamily: F.h, color: C.white,

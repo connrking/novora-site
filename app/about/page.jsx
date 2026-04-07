@@ -6,8 +6,8 @@ export default function AboutPage() {
   return (
     <div>
       {/* Hero + Team side by side */}
-      <section style={{ padding: "120px 80px 100px", background: C.bg }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 80, alignItems: "start" }}>
+      <section className="section-pad hero-v-pad" style={{ padding: "120px 80px 100px", background: C.bg }}>
+        <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "2fr 3fr", gap: 80, alignItems: "start" }}>
           {/* Left: About thesis */}
           <FadeIn>
             <div style={{ fontFamily: F.h }}>
@@ -15,7 +15,7 @@ export default function AboutPage() {
                 fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
                 marginBottom: 16, textTransform: "uppercase",
               }}>About Novora</div>
-              <h1 style={{
+              <h1 className="page-h1" style={{
                 fontSize: 44, fontWeight: 300, color: C.white,
                 letterSpacing: "-0.02em", lineHeight: 1.15, margin: "0 0 24px",
               }}>
@@ -56,7 +56,7 @@ export default function AboutPage() {
       </section>
 
       {/* The Novora Difference */}
-      <section style={{
+      <section className="section-pad section-v-pad" style={{
         padding: "120px 80px", borderTop: `0.5px solid ${C.border}`, background: C.bg,
       }}>
         <div style={{ maxWidth: 680, fontFamily: F.h }}>
@@ -68,7 +68,7 @@ export default function AboutPage() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <h2 style={{
+            <h2 className="section-h2" style={{
               fontSize: 36, fontWeight: 300,
               color: C.white, letterSpacing: "-0.015em", lineHeight: 1.35, margin: "0 0 48px",
             }}>
@@ -112,7 +112,7 @@ export default function AboutPage() {
             <div style={{
               borderTop: `0.5px solid ${C.border}`, paddingTop: 40,
             }}>
-              <p style={{
+              <p className="thesis-quote" style={{
                 fontSize: 22, lineHeight: 1.5, color: C.white, fontWeight: 300,
                 letterSpacing: "-0.01em", margin: 0,
               }}>

@@ -75,11 +75,13 @@ export default function IRScorePage() {
         .ir-row { transition: background 0.2s, padding-left 0.2s; border-radius: 4px; }
         .ir-row:hover { background: rgba(255,255,255,0.04); padding-left: 8px; }
         .ir-row:hover .ir-score { color: #fff !important; }
+        @media (max-width: 768px) {
+          .pillar-card { border-right: none !important; }
+        }
       `}</style>
 
       {/* Hero */}
-      <section style={{ padding: "140px 80px 100px", background: C.bg, textAlign: "center", position: "relative", overflow: "hidden" }}>
-        {/* Subtle glow */}
+      <section className="section-pad section-v-pad" style={{ padding: "140px 80px 100px", background: C.bg, textAlign: "center", position: "relative", overflow: "hidden" }}>
         <div style={{
           position: "absolute", top: "10%", left: "50%", transform: "translateX(-50%)",
           width: "60%", height: "50%",
@@ -91,13 +93,13 @@ export default function IRScorePage() {
             fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
             marginBottom: 16, fontFamily: F.h, textTransform: "uppercase",
           }}>Novora IR Score</div>
-          <h1 style={{
+          <h1 className="ir-hero-h1" style={{
             fontFamily: F.h, fontSize: 52, fontWeight: 300,
             color: C.white, letterSpacing: "-0.02em", margin: "0 0 24px", lineHeight: 1.15,
           }}>The independent standard<br />for crypto IR.</h1>
         </FadeIn>
         <FadeIn delay={0.2}>
-          <p style={{
+          <p className="hero-sub" style={{
             fontFamily: F.h, fontSize: 17, color: C.gray200, fontWeight: 400,
             maxWidth: 520, margin: "0 auto 48px", lineHeight: 1.65,
           }}>
@@ -114,18 +116,18 @@ export default function IRScorePage() {
       </section>
 
       {/* 5 Pillars */}
-      <section style={{ padding: "100px 80px", background: C.bg, borderTop: `0.5px solid ${C.border}` }}>
+      <section className="section-pad section-v-pad" style={{ padding: "100px 80px", background: C.bg, borderTop: `0.5px solid ${C.border}` }}>
         <FadeIn>
           <div style={{
             fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
             marginBottom: 16, fontFamily: F.h, textTransform: "uppercase",
           }}>Methodology</div>
-          <h2 style={{
+          <h2 className="section-h2" style={{
             fontFamily: F.h, fontSize: 32, fontWeight: 300, color: C.white,
             letterSpacing: "-0.01em", margin: "0 0 60px",
           }}>Five pillars, each scored out of 20</h2>
         </FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: 0 }}>
+        <div className="pillar-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr", gap: 0 }}>
           {pillars.map((p, i) => (
             <PillarCard key={i} pillar={p} index={i} maxScore={(i + 1) * 20} />
           ))}
@@ -133,15 +135,15 @@ export default function IRScorePage() {
       </section>
 
       {/* Mini Leaderboard */}
-      <section style={{ padding: "100px 80px", background: C.bg, borderTop: `0.5px solid ${C.border}` }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+      <section className="section-pad section-v-pad" style={{ padding: "100px 80px", background: C.bg, borderTop: `0.5px solid ${C.border}` }}>
+        <div className="two-col-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
           <FadeIn>
             <div style={{ fontFamily: F.h }}>
               <div style={{
                 fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
                 marginBottom: 16, textTransform: "uppercase",
               }}>Current Rankings</div>
-              <h2 style={{
+              <h2 className="section-h2" style={{
                 fontSize: 32, fontWeight: 300, color: C.white,
                 letterSpacing: "-0.01em", margin: "0 0 20px",
               }}>11 protocols scored and counting</h2>
@@ -206,12 +208,12 @@ export default function IRScorePage() {
       </section>
 
       {/* CTA */}
-      <section style={{
+      <section className="section-pad section-v-pad" style={{
         padding: "100px 80px", borderTop: `0.5px solid ${C.border}`,
         background: C.bg, textAlign: "center",
       }}>
         <FadeIn>
-          <h2 style={{
+          <h2 className="section-h2" style={{
             fontFamily: F.h, fontSize: 32, fontWeight: 300,
             color: C.white, letterSpacing: "-0.02em", margin: "0 0 16px",
           }}>Want your protocol scored?</h2>
@@ -219,7 +221,7 @@ export default function IRScorePage() {
             fontFamily: F.h, fontSize: 15, color: C.gray200,
             fontWeight: 400, marginBottom: 40,
           }}>Every score includes a detailed analysis and actionable roadmap.</p>
-          <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
+          <div className="cta-row" style={{ display: "flex", gap: 16, justifyContent: "center" }}>
             <a href="mailto:contact@novora.co" style={{
               fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500,
               color: C.bg, background: C.white, padding: "14px 32px",

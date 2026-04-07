@@ -9,7 +9,7 @@ function HeroWords({ text }) {
   const lines = text.split("\n");
   let wordIndex = 0;
   return (
-    <h1 style={{
+    <h1 className="page-h1" style={{
       fontFamily: F.h, fontSize: 52, fontWeight: 300,
       color: C.white, letterSpacing: "-0.02em", lineHeight: 1.15,
       maxWidth: 640, margin: 0,
@@ -47,13 +47,13 @@ function ServiceSection({ num, title, desc, capabilities, index }) {
     return () => obs.disconnect();
   }, []);
   return (
-    <section ref={ref} className="advisory-section" style={{
+    <section ref={ref} className="advisory-section section-pad" style={{
       padding: "80px 80px",
       borderTop: `0.5px solid ${C.border}`,
       background: index % 2 === 1 ? C.surface : C.bg,
       cursor: "default",
     }}>
-      <div style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 60 }}>
+      <div className="advisory-grid" style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 60 }}>
         <div style={{ fontFamily: F.h }}>
           <div className="advisory-num" style={{
             fontSize: 56, fontWeight: 200, color: C.gray400, letterSpacing: "-0.02em",
@@ -67,7 +67,7 @@ function ServiceSection({ num, title, desc, capabilities, index }) {
           }} />
         </div>
         <div style={{ fontFamily: F.h, maxWidth: 640 }}>
-          <h2 className="advisory-title" style={{
+          <h2 className="advisory-title page-h2" style={{
             fontSize: 28, fontWeight: 400, color: C.white, margin: "0 0 20px", letterSpacing: "-0.01em",
             opacity: show ? 1 : 0,
             transform: show ? "translateY(0)" : "translateY(16px)",
@@ -111,7 +111,7 @@ export default function AdvisoryPage() {
       `}</style>
 
       {/* Hero */}
-      <section style={{ padding: "120px 80px 80px", background: C.bg, position: "relative", overflow: "hidden" }}>
+      <section className="section-pad hero-v-pad" style={{ padding: "120px 80px 80px", background: C.bg, position: "relative", overflow: "hidden" }}>
         <div style={{
           position: "absolute", top: "0%", right: "10%", width: "40%", height: "60%",
           background: "radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%)",
@@ -125,7 +125,7 @@ export default function AdvisoryPage() {
         </FadeIn>
         <HeroWords text={"Bespoke capital markets\nadvisory for crypto."} />
         <FadeIn delay={0.5}>
-          <p style={{
+          <p className="hero-sub" style={{
             fontFamily: F.h, fontSize: 17, color: C.gray200,
             fontWeight: 400, lineHeight: 1.65, maxWidth: 560, marginTop: 24,
           }}>
@@ -178,13 +178,13 @@ export default function AdvisoryPage() {
       />
 
       {/* Intake Form */}
-      <section style={{ padding: "100px 80px 120px", background: C.bg, textAlign: "center" }}>
+      <section className="section-pad section-v-pad" style={{ padding: "100px 80px 120px", background: C.bg, textAlign: "center" }}>
         <FadeIn>
           <div style={{
             fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
             marginBottom: 16, fontFamily: F.h, textTransform: "uppercase",
           }}>Get Started</div>
-          <h2 style={{
+          <h2 className="section-h2" style={{
             fontFamily: F.h, fontSize: 32, fontWeight: 300,
             color: C.white, letterSpacing: "-0.02em", margin: "0 0 48px",
           }}>Tell us about your protocol.</h2>

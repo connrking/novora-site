@@ -4,15 +4,15 @@ import FadeIn from "@/components/FadeIn";
 
 export default function ContactPage() {
   return (
-    <div style={{ padding: "80px 80px 40px", background: C.bg }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80 }}>
+    <div className="section-pad hero-v-pad" style={{ padding: "80px 80px 40px", background: C.bg }}>
+      <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80 }}>
         <FadeIn>
           <div style={{ fontFamily: F.h }}>
             <div style={{
               fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
               marginBottom: 16, textTransform: "uppercase",
             }}>Contact</div>
-            <h1 style={{
+            <h1 className="contact-h1" style={{
               fontSize: 48, fontWeight: 300, color: C.white,
               letterSpacing: "-0.02em", lineHeight: 1.15, margin: "0 0 24px",
             }}>Let&apos;s talk.</h1>
