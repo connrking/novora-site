@@ -24,7 +24,7 @@ const RESEARCH = [
     tags: ["IR", "Institutional", "Capital Markets"],
     featured: false,
     stats: null,
-    embedUrl: "https://ir.novora.co/research",
+    embedUrl: "/research/does-ir-matter-in-crypto",
     description:
       "The crypto industry has a communication problem. As institutional capital enters digital assets at scale, the gap between how protocols build and how they communicate with capital allocators has become the binding constraint on adoption. This research report examines why investor relations infrastructure is the most underbuilt layer in crypto.",
   },
