@@ -29,6 +29,19 @@ const RESEARCH = [
       "We analyzed six distinct token value accrual models across 18 protocols to determine which approaches actually drive returns. The data challenges common assumptions about buybacks, staking rewards, and direct distribution.",
   },
   {
+    id: "value-accrual-models",
+    title: "Which Token Value Accrual Model Works?",
+    subtitle: "A data-driven analysis of six token value accrual models and their relationship to returns",
+    date: "2026-04-10",
+    category: "Research",
+    tags: ["Tokenomics", "Value Accrual", "DeFi"],
+    featured: false,
+    stats: { models: 6, protocols: 18 },
+    embedUrl: "https://novora.co/research/value-accrual-models-2026.html",
+    description:
+      "We analyzed six distinct token value accrual models across 18 protocols to determine which approaches actually drive returns. The data challenges common assumptions about buybacks, staking rewards, and direct distribution.",
+  },
+  {
     id: "does-ir-matter",
     title: "Does IR Matter in Crypto?",
     subtitle: "Why the next leg of institutional adoption depends on how protocols communicate, not just what they build",
