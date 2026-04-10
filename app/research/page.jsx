@@ -24,7 +24,7 @@ const RESEARCH = [
     tags: ["IR", "Institutional", "Capital Markets"],
     featured: false,
     stats: null,
-    embedUrl: "https://novora.co/research/ir-transparency-2026.html",
+    embedUrl: "https://ir.novora.co/research",
     description:
       "The crypto industry has a communication problem. As institutional capital enters digital assets at scale, the gap between how protocols build and how they communicate with capital allocators has become the binding constraint on adoption. This research report examines why investor relations infrastructure is the most underbuilt layer in crypto.",
   },
@@ -358,7 +358,7 @@ export default function NovoraResearch() {
       <FadeIn>
         <div style={{ borderTop: `0.5px solid ${T.border}`, padding: "56px 48px", textAlign: "center" }}>
           <p style={{ fontFamily: F, fontSize: 13, color: T.textMuted, marginBottom: 20 }}>Want a custom IR analysis for your protocol?</p>
-          <a href="https://novora.co/apply"
+          <a href="https://ir.novora.co/apply"
             style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: T.white, textDecoration: "none", padding: "12px 32px", border: `0.5px solid ${T.borderLight}` }}>
             GET IN TOUCH
           </a>
