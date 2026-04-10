@@ -132,15 +132,15 @@ export default function HomePage() {
       <section className="section-pad section-v-pad" style={{ padding: "120px 80px", background: C.bg }}>
         <div style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
           <FadeIn>
-            <div style={{ fontSize: 11, letterSpacing: "0.2em", color: C.gray400, marginBottom: 40, fontFamily: F.h, textTransform: "uppercase" }}>Our Thesis</div>
+            <div style={{ fontSize: 11, letterSpacing: "0.2em", color: C.gray400, marginBottom: 40, fontFamily: F.h, textTransform: "uppercase" }}>Core Thesis</div>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <blockquote className="thesis-quote" style={{ fontFamily: F.h, fontSize: 28, fontWeight: 300, lineHeight: 1.5, color: C.gray100, margin: 0, letterSpacing: "-0.01em" }}>
+            <blockquote className="thesis-quote" style={{ fontFamily: F.h, fontSize: 20, fontWeight: 400, lineHeight: 1.55, color: C.white, margin: 0, letterSpacing: "-0.005em" }}>
               Crypto protocols systematically underinvest in IR and capital markets infrastructure. That creates a measurable gap between fundamentals and market perception. Novora diagnoses the gap and fixes it.
             </blockquote>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p style={{ fontFamily: F.h, fontSize: 15, lineHeight: 1.7, color: C.gray300, marginTop: 32, fontWeight: 400 }}>
+            <p style={{ fontFamily: F.h, fontSize: 15, lineHeight: 1.7, color: C.gray400, marginTop: 32, fontWeight: 400 }}>
               Novora is the institutional capital markets infrastructure layer for crypto companies.
             </p>
           </FadeIn>
