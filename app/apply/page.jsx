@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Header from "../components/Header";
 
 const SECTORS = [
   "DeFi",
@@ -167,7 +166,7 @@ export default function ApplyPage() {
 
   return (
     <>
-      <Header />
+      
     <main className="apply-page">
       <div className="apply-container">
         {/* Header */}
