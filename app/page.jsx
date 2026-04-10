@@ -136,12 +136,12 @@ export default function HomePage() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <blockquote className="thesis-quote" style={{ fontFamily: F.h, fontSize: 28, fontWeight: 300, lineHeight: 1.5, color: C.gray100, margin: 0, letterSpacing: "-0.01em" }}>
-              &ldquo;Crypto protocols generate billions in revenue. Almost none of them talk to their investors.&rdquo;
+              Crypto protocols systematically underinvest in IR and capital markets infrastructure. That creates a measurable gap between fundamentals and market perception. Novora diagnoses the gap and fixes it.
             </blockquote>
           </FadeIn>
           <FadeIn delay={0.2}>
             <p style={{ fontFamily: F.h, fontSize: 15, lineHeight: 1.7, color: C.gray300, marginTop: 32, fontWeight: 400 }}>
-              The gap between fundamentals and market perception is the opportunity. Novora diagnoses it, fixes it, and invests alongside the teams that take it seriously.
+              Novora is the institutional capital markets infrastructure layer for crypto companies.
             </p>
           </FadeIn>
         </div>
