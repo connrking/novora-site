@@ -16,7 +16,7 @@ export default function AboutPage() {
                 marginBottom: 16, textTransform: "uppercase",
               }}>About Novora</div>
               <h1 className="page-h1" style={{
-                fontSize: 44, fontWeight: 300, color: C.white,
+                fontSize: 28, fontWeight: 400, color: C.white,
                 letterSpacing: "-0.02em", lineHeight: 1.15, margin: "0 0 24px",
               }}>
                 Built on the thesis that crypto deserves better.
@@ -69,7 +69,7 @@ export default function AboutPage() {
 
           <FadeIn delay={0.1}>
             <h2 className="section-h2" style={{
-              fontSize: 36, fontWeight: 300,
+              fontSize: 24, fontWeight: 400,
               color: C.white, letterSpacing: "-0.015em", lineHeight: 1.35, margin: "0 0 48px",
             }}>
               Most advisory firms in crypto come from one world. We come from three.
@@ -113,7 +113,7 @@ export default function AboutPage() {
               borderTop: `0.5px solid ${C.border}`, paddingTop: 40,
             }}>
               <p className="thesis-quote" style={{
-                fontSize: 22, lineHeight: 1.5, color: C.white, fontWeight: 300,
+                fontSize: 20, lineHeight: 1.5, color: C.white, fontWeight: 400,
                 letterSpacing: "-0.01em", margin: 0,
               }}>
                 Independent. Conflict-free. Senior-led. Built on the conviction that crypto protocols deserve the same caliber of capital markets infrastructure as the best public companies in the world.
