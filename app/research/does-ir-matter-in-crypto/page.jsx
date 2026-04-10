@@ -65,18 +65,6 @@ export default function Research() {
   return (
     <div style={{background:"#FAFAF8",color:"#1A1A2E",minHeight:"100vh",fontFamily:"'Helvetica Neue',Helvetica,Arial,sans-serif",overflow:"hidden"}}>
 
-      <nav className="rs-nav" style={{borderBottom:"1px solid #E8E6E0",padding:"16px 48px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-        <div style={{display:"flex",alignItems:"center",gap:10}}>
-          <div style={{width:6,height:6,borderRadius:"50%",background:"#7C6EF0"}} />
-          <span style={{fontSize:11,fontWeight:700,letterSpacing:3,color:"#7C6EF0",textTransform:"uppercase"}}>Novora</span>
-        </div>
-        <div className="rs-nav-links" style={{display:"flex",gap:28,fontSize:11,letterSpacing:1,textTransform:"uppercase"}}>
-          {[["novora.co","https://novora.co"],["Leaderboard","https://ir.novora.co"],["Research","#"]].map(([l,h],i)=>(
-            <a key={l} href={h} style={{color:i===2?"#7C6EF0":"#666",textDecoration:"none",borderBottom:i===2?"1px solid #7C6EF0":"none",paddingBottom:2}}>{l}</a>
-          ))}
-        </div>
-      </nav>
-
       <div className="rs-hero" style={{padding:"120px 48px 80px",maxWidth:900,position:"relative"}}>
         <FadeIn delay={100}>
           <div style={{fontSize:11,fontWeight:700,letterSpacing:4,color:"#7C6EF0",marginBottom:32,textTransform:"uppercase"}}>Novora Research · April 2026</div>
