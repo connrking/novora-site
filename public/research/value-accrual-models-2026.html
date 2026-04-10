@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novora — Which Token Value Accrual Model Works?</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+.nr{font-family:'DM Sans',sans-serif;background:#F9F8F5;color:#1A1A18;max-width:860px;margin:0 auto;border:0.5px solid #D8D5CC;}
+.slide{display:none;animation:fi .3s ease;}
+.slide.active{display:block;}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+.nr-nav{display:flex;align-items:center;justify-content:space-between;padding:11px 20px;border-bottom:0.5px solid #D8D5CC;background:#F9F8F5;position:sticky;top:0;z-index:10;}
+.dots{display:flex;gap:4px;flex-wrap:wrap;max-width:120px;}
+.dot{width:5px;height:5px;border-radius:50%;background:#D8D5CC;cursor:pointer;transition:background .2s;}
+.dot.active{background:#7C6EF0;}
+.btns{display:flex;gap:8px;}
+.btn{background:none;border:0.5px solid #D8D5CC;padding:5px 14px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:#6B6860;cursor:pointer;border-radius:3px;letter-spacing:.05em;}
+.btn:hover{border-color:#7C6EF0;color:#7C6EF0;}
+.sc{font-size:11px;color:#9A9890;letter-spacing:.05em;}
+.cov{background:#0D0C0A;padding:56px 52px 48px;min-height:400px;display:flex;flex-direction:column;justify-content:space-between;}
+.cov-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:48px;}
+.logo{display:flex;align-items:center;gap:9px;}
+.cov-date{font-size:11px;letter-spacing:.1em;color:#5A5850;text-transform:uppercase;}
+.cov-rule{width:32px;height:1px;background:#7C6EF0;margin-bottom:20px;}
+.cov-title{font-family:'EB Garamond',serif;font-size:46px;font-weight:400;line-height:1.1;color:#F5F3EE;max-width:620px;}
+.cov-title em{font-style:italic;color:#C8C0F8;}
+.cov-bot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:36px;}
+.cov-sub{font-size:11px;font-weight:300;letter-spacing:.08em;color:#5A5850;text-transform:uppercase;}
+.body{padding:44px 48px 36px;}
+.body-hd{display:flex;justify-content:space-between;align-items:baseline;border-bottom:0.5px solid #D8D5CC;padding-bottom:14px;margin-bottom:28px;}
+.body-title{font-family:'EB Garamond',serif;font-size:26px;font-weight:400;color:#1A1A18;}
+.body-pg{font-size:11px;color:#9A9890;letter-spacing:.08em;}
+.sec-label{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#7C6EF0;margin-bottom:10px;}
+.tbl-wrap{background:#fff;border:0.5px solid #D8D5CC;overflow-x:auto;}
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#9A9890;text-align:left;padding:10px 12px;border-bottom:0.5px solid #D8D5CC;background:#F9F8F5;}
+.tbl th.r{text-align:right;}
+.tbl td{padding:9px 12px;font-size:12px;font-weight:300;border-bottom:0.5px solid #EDEAE2;vertical-align:middle;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl td.r{text-align:right;font-family:'EB Garamond',serif;font-weight:500;}
+.pname{font-weight:500;color:#1A1A18;}
+.ticker{font-family:'EB Garamond',serif;font-style:italic;font-weight:500;font-size:12px;color:#9A9890;margin-left:5px;}
+.model-badge{font-size:9px;font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:2px;}
+.m-direct{background:#EAF3DE;color:#3B6D11;}
+.m-buyback{background:#F0EEF8;color:#4A3FC7;}
+.m-staking{background:#E1F5EE;color:#0F6E56;}
+.m-conditional{background:#FAEEDA;color:#854F0B;}
+.m-ve{background:#FAECE7;color:#993C1D;}
+.m-governance{background:#FCEBEB;color:#A32D2D;}
+.pos{color:#3B6D11;font-weight:500;}
+.neg{color:#A32D2D;font-weight:500;}
+.callout{background:#F0EEF8;border-left:2px solid #7C6EF0;padding:16px 20px;margin-top:24px;border-radius:0 2px 2px 0;}
+.callout-label{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#4A3FC7;margin-bottom:5px;}
+.callout p{font-size:12px;font-weight:300;color:#3A3A36;line-height:1.65;}
+.chart-panel{background:#fff;border:0.5px solid #D8D5CC;padding:24px;margin-bottom:16px;}
+.chart-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#9A9890;margin-bottom:14px;}
+.chart-wrap{position:relative;width:100%;}
+.legend{display:flex;gap:14px;margin-top:14px;font-size:10px;color:#6B6860;flex-wrap:wrap;}
+.legend-i{display:flex;align-items:center;gap:5px;}
+.legend-d{width:8px;height:8px;border-radius:1px;}
+.finding{padding:22px 0;border-bottom:0.5px solid #EDEAE2;}
+.finding:last-child{border-bottom:none;}
+.finding h3{font-family:'EB Garamond',serif;font-weight:400;font-size:19px;color:#1A1A18;margin-bottom:8px;line-height:1.3;}
+.finding p{font-size:12.5px;font-weight:300;color:#3A3A36;line-height:1.75;max-width:700px;}
+.finding-data{display:inline-block;font-family:'EB Garamond',serif;font-style:italic;font-size:11.5px;color:#4A3FC7;margin-top:8px;}
+.model-card{background:#fff;border:0.5px solid #D8D5CC;padding:20px 22px;margin-bottom:12px;}
+.model-card h4{font-family:'EB Garamond',serif;font-weight:400;font-size:17px;margin-bottom:4px;}
+.model-card .model-desc{font-size:11.5px;font-weight:300;color:#6B6860;margin-bottom:10px;line-height:1.6;}
+.model-card .model-examples{font-size:11px;font-weight:500;color:#1A1A18;}
+.model-card .model-verdict{font-size:11.5px;font-weight:300;color:#3A3A36;line-height:1.6;margin-top:8px;padding-top:8px;border-top:0.5px solid #EDEAE2;}
+.nr-footer{padding:14px 48px;border-top:0.5px solid #D8D5CC;display:flex;justify-content:space-between;align-items:center;}
+.foot-l,.foot-r{font-size:10px;color:#B0ADA5;letter-spacing:.04em;}
+.foot-r a{color:#7C6EF0;text-decoration:none;}
+.pull-quote{border-left:2px solid #7C6EF0;padding:4px 0 4px 16px;margin:20px 0;}
+.pull-quote p{font-family:'EB Garamond',serif;font-size:18px;font-style:italic;color:#1A1A18;line-height:1.45;}
+</style>
+</head>
+<body style="background:#F9F8F5;">
+<div class="nr">
+
+<div class="nr-nav">
+  <div class="dots" id="dots"></div>
+  <span class="sc" id="slideCount">1 / 6</span>
+  <div class="btns">
+    <button class="btn" onclick="prev()">Prev</button>
+    <button class="btn" onclick="next()">Next</button>
+  </div>
+</div>
+
+<!-- SLIDE 1: COVER -->
+<div class="slide active" id="s1">
+<div class="cov">
+  <div class="cov-hd">
+    <div class="logo"><svg width="110" height="22" viewBox="130 150 430 110" fill="#F5F3EE"><path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z"/><rect x="150.07" y="207.66" width="80.09" height="32.39"/><path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z"/><path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/><path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z"/><path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/><path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z"/><path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z"/></svg></div>
+    <span class="cov-date">April 2026</span>
+  </div>
+  <div>
+    <div class="cov-rule"></div>
+    <h1 class="cov-title">Which Token Value Accrual<br>Model <em>Works?</em></h1>
+  </div>
+  <div class="cov-bot">
+    <span class="cov-sub">Six models. Twelve protocols. One year of data.</span>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 2: THE SIX MODELS -->
+<div class="slide" id="s2">
+<div class="body">
+  <div class="body-hd"><span class="body-title">The Six Models</span><span class="body-pg">02</span></div>
+  <div class="sec-label">Token Value Accrual Taxonomy</div>
+
+  <div class="model-card">
+    <h4>1. Direct fee distribution</h4>
+    <div class="model-desc">Protocol revenue flows directly to token stakers as yield. The closest analog to equity dividends. Investors receive real, non-inflationary returns denominated in the protocol's fee currency.</div>
+    <div class="model-examples">dYdX (100% fees to stakers) · GMX (ETH/AVAX yield to stakers)</div>
+  </div>
+  <div class="model-card">
+    <h4>2. Buyback-and-burn</h4>
+    <div class="model-desc">Protocol uses revenue to purchase tokens on the open market and permanently remove them from circulation. Reduces supply over time. The closest analog to share repurchases in traditional equity markets.</div>
+    <div class="model-examples">Meteora ($10M program) · Orca (20% of fees) · Raydium (12% of fees, $196M cumulative)</div>
+  </div>
+  <div class="model-card">
+    <h4>3. Staking revenue share</h4>
+    <div class="model-desc">Holders lock tokens and receive a share of protocol revenue proportional to their stake. Differs from direct distribution by requiring active participation and time-lock commitment.</div>
+    <div class="model-examples">Pendle (80% revenue to vePENDLE + 3% yield fees)</div>
+  </div>
+  <div class="model-card">
+    <h4>4. Conditional buyback</h4>
+    <div class="model-desc">Buyback activation is tied to protocol health metrics. Prevents value extraction during downturns. The most sophisticated governance design, but hardest to explain to allocators.</div>
+    <div class="model-examples">Lido NEST (ETH >$3K, revenue >$40M/yr, $10M/yr cap)</div>
+  </div>
+  <div class="model-card">
+    <h4>5. ve-model epoch distribution</h4>
+    <div class="model-desc">100% of protocol fees distributed to vote-escrowed token holders each epoch. Creates economic flywheel through bribes. Requires active management, limiting passive institutional adoption.</div>
+    <div class="model-examples">Aerodrome (100% fees to veAERO voters)</div>
+  </div>
+  <div class="model-card">
+    <h4>6. Governance-only (no fee switch)</h4>
+    <div class="model-desc">Token grants governance rights but no economic claim on protocol revenue. $0 flows to holders regardless of protocol profitability. The weakest model from an institutional perspective.</div>
+    <div class="model-examples">Compound ($0 to holders) · Morpho ($0 despite $3.8B TVL) · Kamino ($0 despite $1.7B TVL)</div>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 3: PERFORMANCE TABLE -->
+<div class="slide" id="s3">
+<div class="body">
+  <div class="body-hd"><span class="body-title">1-Year Performance by Model</span><span class="body-pg">03</span></div>
+  <div class="sec-label">April 2025 to April 2026 · Price return</div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Protocol</th><th>Model</th><th class="r">1Y Return</th><th class="r">ATH DD</th><th class="r">VA Score</th><th class="r">Daily Rev</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pname">Hyperliquid</span><span class="ticker">HYPE</span></td><td><span class="model-badge m-buyback">Buyback</span></td><td class="r pos">+193%</td><td class="r">-20%</td><td class="r">17/20</td><td class="r">$1.74M</td></tr>
+        <tr><td><span class="pname">Aerodrome</span><span class="ticker">AERO</span></td><td><span class="model-badge m-ve">ve-Model</span></td><td class="r pos">+5%</td><td class="r">-80%</td><td class="r">15/20</td><td class="r">$236K</td></tr>
+        <tr><td><span class="pname">Aave</span><span class="ticker">AAVE</span></td><td><span class="model-badge m-buyback">Buyback</span></td><td class="r neg">-30%</td><td class="r">-82%</td><td class="r">16/20</td><td class="r">$185K</td></tr>
+        <tr><td><span class="pname">Uniswap</span><span class="ticker">UNI</span></td><td><span class="model-badge m-buyback">Buyback</span></td><td class="r neg">-37%</td><td class="r">-93%</td><td class="r">13/20</td><td class="r">$64K</td></tr>
+        <tr><td><span class="pname">Compound</span><span class="ticker">COMP</span></td><td><span class="model-badge m-governance">Gov Only</span></td><td class="r neg">-48%</td><td class="r">-97%</td><td class="r">8/20</td><td class="r">$14K</td></tr>
+        <tr><td><span class="pname">Lido</span><span class="ticker">LDO</span></td><td><span class="model-badge m-conditional">Conditional</span></td><td class="r neg">-53%</td><td class="r">-90%</td><td class="r">15/20</td><td class="r">N/A</td></tr>
+        <tr><td><span class="pname">Kamino</span><span class="ticker">KMNO</span></td><td><span class="model-badge m-governance">Gov Only</span></td><td class="r neg">-54%</td><td class="r">-85%</td><td class="r">6/20</td><td class="r">$22K</td></tr>
+        <tr><td><span class="pname">Jupiter</span><span class="ticker">JUP</span></td><td><span class="model-badge m-buyback">Buyback</span></td><td class="r neg">-55%</td><td class="r">-92%</td><td class="r">9/20</td><td class="r">$63K</td></tr>
+        <tr><td><span class="pname">Raydium</span><span class="ticker">RAY</span></td><td><span class="model-badge m-buyback">Buyback</span></td><td class="r neg">-59%</td><td class="r">-90%</td><td class="r">16/20</td><td class="r">$20K</td></tr>
+        <tr><td><span class="pname">Pendle</span><span class="ticker">PENDLE</span></td><td><span class="model-badge m-staking">Rev Share</span></td><td class="r neg">-66%</td><td class="r">-83%</td><td class="r">14/20</td><td class="r">$19</td></tr>
+        <tr><td><span class="pname">dYdX</span><span class="ticker">DYDX</span></td><td><span class="model-badge m-direct">Direct</span></td><td class="r neg">-82%</td><td class="r">-91%</td><td class="r">16/20</td><td class="r">$9K</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Finding</div>
+    <p>Only Hyperliquid (+193%) and Aerodrome (+5%) posted positive 1-year returns. Both have active value accrual mechanisms. But the remaining buyback protocols (Aave, Jupiter, Raydium) all declined -30% to -59%, proving that buybacks alone don't guarantee outperformance. The worst performer with the best VA score: dYdX at -82%. Revenue scale matters more than mechanism design.</p>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 4: CHARTS -->
+<div class="slide" id="s4">
+<div class="body">
+  <div class="body-hd"><span class="body-title">Does the Model Matter?</span><span class="body-pg">04</span></div>
+  <div class="sec-label">Average 1-Year Return by Accrual Model</div>
+
+  <div class="chart-panel">
+    <div class="chart-wrap" style="height:300px;"><canvas id="barChart"></canvas></div>
+    <div class="legend">
+      <div class="legend-i"><div class="legend-d" style="background:#7C6EF0;"></div>Avg 1Y return</div>
+      <div class="legend-i"><div class="legend-d" style="background:#D8D5CC;"></div>Avg VA pillar score (/20)</div>
+    </div>
+  </div>
+
+  <div class="chart-panel">
+    <div class="chart-label">VA Pillar Score vs. 1-Year Return</div>
+    <div class="chart-wrap" style="height:280px;"><canvas id="scatterChart"></canvas></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Alpha signal</div>
+    <p>The data suggests a weak but directional relationship: protocols with active value accrual mechanisms (buyback, ve-model, direct distribution) outperformed governance-only tokens by an average of 19 percentage points over the past year. But within the active group, execution quality and revenue scale drive the variance. Hyperliquid's +193% return is a revenue story ($1.74M/day), not a mechanism story. Strip out Hyperliquid, and the average buyback return drops to -45%.</p>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 5: FINDINGS -->
+<div class="slide" id="s5">
+<div class="body">
+  <div class="body-hd"><span class="body-title">What Actually Drives Returns</span><span class="body-pg">05</span></div>
+
+  <div class="finding">
+    <h3>Revenue scale beats mechanism design</h3>
+    <p>Hyperliquid generates $1.74M in daily revenue and returned +193% over the past year. Raydium generates $20K daily with a well-designed buyback program and returned -59%. The buyback mechanism is identical in principle. The difference is three orders of magnitude in revenue. Institutional allocators should evaluate the revenue engine first, the accrual mechanism second.</p>
+    <span class="finding-data">$1.74M/day (HYPE) vs. $20K/day (RAY) with same model class</span>
+  </div>
+
+  <div class="finding">
+    <h3>Governance-only is a dead model</h3>
+    <p>Compound (-48%) and Kamino (-54%) both have zero value flowing to holders. Compound trades at a 36x FDV/rev multiple despite $5.3M in annualized revenue. Morpho has $3.8B in TVL and Apollo buying 9% of supply, yet $0 reaches the token. The market is increasingly punishing protocols that generate revenue without distributing it. The average governance-only return was -51% over the past year.</p>
+    <span class="finding-data">Governance-only avg: -51% · Active accrual avg: -32%</span>
+  </div>
+
+  <div class="finding">
+    <h3>Buybacks work, but only at scale</h3>
+    <p>Crypto protocols spent over $1.4B on buybacks in 2025 (CoinGecko data). Hyperliquid alone accounted for 46% of that total. Jupiter spent $70M on buybacks and is still down -55% from a year ago. Helium paused its buyback program entirely after seeing no market impact. The research from Keyrock and altFINS confirms: buybacks are most effective when executed at low P/S ratios with revenue that exceeds unlock-driven sell pressure. Most protocols fail that test.</p>
+    <span class="finding-data">$1.4B spent on buybacks in 2025 · most tokens still down</span>
+  </div>
+
+  <div class="pull-quote">
+    <p>IR doesn't make your token go up. IR makes your token investable by the kind of capital that sustains long-term value.</p>
+  </div>
+</div>
+</div>
+
+<!-- SLIDE 6: FRAMEWORK -->
+<div class="slide" id="s6">
+<div class="body">
+  <div class="body-hd"><span class="body-title">The Value Accrual Framework</span><span class="body-pg">06</span></div>
+  <div class="sec-label">Which Model for Which Stage</div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Model</th><th>Best for</th><th>Institutional legibility</th><th>Risk</th></tr></thead>
+      <tbody>
+        <tr><td><span class="model-badge m-buyback">Buyback-and-burn</span></td><td style="font-size:11.5px;">Revenue-stage protocols with consistent fee generation. Works best when daily revenue exceeds $100K.</td><td style="font-size:11.5px;">High. Mirrors share repurchases. Understood natively by TradFi allocators.</td><td style="font-size:11.5px;">Ineffective at small scale. $70M in JUP buybacks didn't move the price.</td></tr>
+        <tr><td><span class="model-badge m-direct">Direct distribution</span></td><td style="font-size:11.5px;">Protocols with predictable, recurring revenue. Works when fee structure is simple and transparent.</td><td style="font-size:11.5px;">Highest. Dividend analog. Enables yield-based valuation.</td><td style="font-size:11.5px;">Price performance paradox. dYdX proves mechanism quality doesn't drive price.</td></tr>
+        <tr><td><span class="model-badge m-ve">ve-model</span></td><td style="font-size:11.5px;">DEXs and protocols where active governance participation is core to the business model.</td><td style="font-size:11.5px;">Medium. Requires understanding of epoch mechanics and bribe markets.</td><td style="font-size:11.5px;">Limits passive institutional adoption. Active management requirement.</td></tr>
+        <tr><td><span class="model-badge m-staking">Revenue share</span></td><td style="font-size:11.5px;">Protocols that want to incentivize long-term holding. Lock-up period creates duration alignment.</td><td style="font-size:11.5px;">Medium-high. Duration component appreciated by institutional investors.</td><td style="font-size:11.5px;">Revenue cyclicality. Pendle's daily rev dropped from $35K to $19 in one cycle.</td></tr>
+        <tr><td><span class="model-badge m-conditional">Conditional</span></td><td style="font-size:11.5px;">Mature protocols with volatile revenue. Protects treasury during downturns.</td><td style="font-size:11.5px;">Low-medium. Most complex to explain. Conditions may never be met.</td><td style="font-size:11.5px;">Perceived as "maybe accrual." Lido NEST has not yet activated.</td></tr>
+        <tr><td><span class="model-badge m-governance">Governance-only</span></td><td style="font-size:11.5px;">Early-stage protocols where all revenue should be reinvested. Justified pre-PMF. Not justified post-PMF.</td><td style="font-size:11.5px;">Lowest. Institutional allocators actively screen against this.</td><td style="font-size:11.5px;">Dead model post-PMF. Average -51% 1Y return in our dataset.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout" style="margin-top:24px;">
+    <div class="callout-label">Bottom line</div>
+    <p>There is no universally "best" model. The answer depends on revenue scale, protocol maturity, and target investor base. But the data is clear on one thing: governance-only tokens with no value accrual are the worst-performing class. Any active mechanism, executed at sufficient revenue scale, outperforms doing nothing. The alpha is not in the mechanism. The alpha is in the revenue.</p>
+  </div>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="nr-footer">
+  <span class="foot-l">Not Investment Advice. For Illustrative Purposes Only.</span>
+  <span class="foot-r">Novora Holdings LLC · <a href="https://novora.co">novora.co</a> · <a href="https://ir.novora.co/research">ir.novora.co/research</a></span>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const TOTAL=6;
+let cur=0;
+const dots=document.getElementById('dots');
+const sc=document.getElementById('slideCount');
+for(let i=0;i<TOTAL;i++){const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.onclick=()=>go(i);dots.appendChild(d);}
+function go(n){document.querySelector('.slide.active').classList.remove('active');document.getElementById('s'+(n+1)).classList.add('active');dots.querySelectorAll('.dot').forEach((d,i)=>d.className='dot'+(i===n?' active':''));cur=n;sc.textContent=(n+1)+' / '+TOTAL;if(n===3&&!window._bc)initCharts();}
+function next(){go(Math.min(cur+1,TOTAL-1));}
+function prev(){go(Math.max(cur-1,0));}
+
+function initCharts(){
+  const tc='#6B6860',gc='rgba(0,0,0,0.04)';
+
+  // Bar: avg return by model
+  const models=['Buyback\n(excl HYPE)','Direct\nDistribution','ve-Model','Rev Share','Conditional','Governance\nOnly'];
+  const avgReturns=[-45,-82,5,-66,-53,-51];
+  const avgVA=[13.5,16,15,14,15,7];
+
+  window._bc=new Chart(document.getElementById('barChart'),{
+    type:'bar',
+    data:{
+      labels:models,
+      datasets:[
+        {label:'Avg 1Y return (%)',data:avgReturns,backgroundColor:avgReturns.map(v=>v>=0?'rgba(59,109,17,0.7)':'rgba(124,110,240,0.6)'),borderRadius:2,barPercentage:0.6,yAxisID:'y'},
+        {label:'Avg VA score',data:avgVA,backgroundColor:'#D8D5CC',borderRadius:2,barPercentage:0.6,yAxisID:'y2'}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A1A18',titleFont:{family:"'DM Sans'",size:11},bodyFont:{family:"'DM Sans'",size:11}}},
+      scales:{
+        x:{grid:{display:false},ticks:{color:tc,font:{family:"'DM Sans'",size:10},maxRotation:0}},
+        y:{position:'left',title:{display:true,text:'1Y return (%)',color:tc,font:{family:"'DM Sans'",size:10}},grid:{color:gc},ticks:{color:tc,font:{size:9},callback:v=>v+'%'}},
+        y2:{position:'right',title:{display:true,text:'VA score (/20)',color:tc,font:{family:"'DM Sans'",size:10}},grid:{display:false},ticks:{color:tc,font:{size:9}},min:0,max:20}
+      }
+    }
+  });
+
+  // Scatter: VA score vs 1Y return
+  const data=[
+    {x:17,y:193,name:'HYPE',c:'#7C6EF0'},
+    {x:15,y:5,name:'AERO',c:'#993C1D'},
+    {x:16,y:-30,name:'AAVE',c:'#7C6EF0'},
+    {x:13,y:-37,name:'UNI',c:'#7C6EF0'},
+    {x:8,y:-48,name:'COMP',c:'#A32D2D'},
+    {x:15,y:-53,name:'LDO',c:'#854F0B'},
+    {x:6,y:-54,name:'KMNO',c:'#A32D2D'},
+    {x:9,y:-55,name:'JUP',c:'#7C6EF0'},
+    {x:16,y:-59,name:'RAY',c:'#7C6EF0'},
+    {x:14,y:-66,name:'PENDLE',c:'#0F6E56'},
+    {x:16,y:-82,name:'DYDX',c:'#3B6D11'}
+  ];
+
+  new Chart(document.getElementById('scatterChart'),{
+    type:'bubble',
+    data:{datasets:[{
+      data:data.map(d=>({x:d.x,y:d.y,r:6,name:d.name})),
+      backgroundColor:data.map(d=>d.c+'80'),
+      borderColor:data.map(d=>d.c),
+      borderWidth:1
+    }]},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A1A18',bodyFont:{family:"'DM Sans'",size:11},callbacks:{label:ctx=>ctx.raw.name+': VA '+ctx.raw.x+'/20, Return '+ctx.raw.y+'%'}}},
+      scales:{
+        x:{title:{display:true,text:'Value accrual pillar (/20)',color:tc,font:{family:"'DM Sans'",size:10}},min:4,max:19,grid:{color:gc},ticks:{color:tc,font:{size:9}}},
+        y:{title:{display:true,text:'1-year return (%)',color:tc,font:{family:"'DM Sans'",size:10}},min:-100,max:210,grid:{color:gc},ticks:{color:tc,font:{size:9},callback:v=>v+'%'}}
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>
