@@ -150,7 +150,7 @@ export default function HomePage() {
       {/* CTA */}
       <section className="section-pad section-v-pad" style={{ padding: "100px 80px", borderTop: `0.5px solid ${C.border}`, background: C.bg, textAlign: "center" }}>
         <FadeIn>
-          <h2 className="section-h2" style={{ fontFamily: F.h, fontSize: 36, fontWeight: 300, color: C.white, letterSpacing: "-0.02em", margin: "0 0 16px" }}>Ready to work together?</h2>
+          <h2 className="section-h2" style={{ fontFamily: F.h, fontSize: 24, fontWeight: 400, color: C.white, letterSpacing: "-0.01em", margin: "0 0 16px" }}>Ready to work together?</h2>
           <p style={{ fontFamily: F.h, fontSize: 15, color: C.gray200, fontWeight: 400, marginBottom: 40 }}>We partner with protocols serious about institutional capital markets.</p>
           <div className="cta-row" style={{ display: "flex", gap: 16, justifyContent: "center" }}>
             <a href="mailto:contact@novora.co" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500, color: C.bg, background: C.white, padding: "14px 32px", textDecoration: "none", borderRadius: 2 }}>CONTACT US</a>
