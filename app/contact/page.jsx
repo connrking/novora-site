@@ -56,7 +56,7 @@ export default function ContactPage() {
               <p style={{ fontSize: 14, lineHeight: 1.7, color: C.gray200, fontWeight: 400, marginBottom: 24 }}>
                 Access differentiated deal flow, IR-scored protocols, and curated investment opportunities through the Novora Network.
               </p>
-              <a href="mailto:contact@novora.co" style={{
+              <a href="/apply" style={{
                 fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 400,
                 color: C.gray200, padding: "12px 24px", textDecoration: "none",
                 borderRadius: 2, border: `0.5px solid ${C.border}`, display: "inline-block",
