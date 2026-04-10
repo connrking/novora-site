@@ -9,6 +9,7 @@ const links = [
   { label: "Home", href: "/" },
   { label: "Advisory", href: "/advisory" },
   { label: "IR Score", href: "/ir-score" },
+  { label: "Research", href: "/research" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
