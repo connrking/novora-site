@@ -24,7 +24,7 @@ const RESEARCH = [
     tags: ["IR", "Institutional", "Capital Markets"],
     featured: false,
     stats: null,
-    embedUrl: "https://ir.novora.co/research",
+    embedUrl: "https://novora.co/research/ir-transparency-2026.html",
     description:
       "The crypto industry has a communication problem. As institutional capital enters digital assets at scale, the gap between how protocols build and how they communicate with capital allocators has become the binding constraint on adoption. This research report examines why investor relations infrastructure is the most underbuilt layer in crypto.",
   },
@@ -74,13 +74,6 @@ const fmtDate = (d) => {
   return dt.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 };
 
-const NovoraLogo = () => (
-  <svg viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: 14 }}>
-    <circle cx="10" cy="30" r="4.5" fill="#fff" />
-    <text x="24" y="38" fill="#fff" fontFamily={F} fontSize="28" fontWeight="500" letterSpacing="0.18em">NOVORA</text>
-  </svg>
-);
-
 const FadeIn = ({ children, delay = 0, style: extra = {} }) => {
   const ref = useRef(null);
   const [vis, setVis] = useState(false);
@@ -101,62 +94,49 @@ const FadeIn = ({ children, delay = 0, style: extra = {} }) => {
   );
 };
 
-const Nav = ({ onHome }) => (
-  <nav style={{
-    display: "flex", justifyContent: "space-between", alignItems: "center",
-    padding: "14px 32px", borderBottom: `0.5px solid ${T.border}`,
-    position: "sticky", top: 0, background: T.bg, zIndex: 100,
-  }}>
-    <a href="https://novora.co" style={{ textDecoration: "none", display: "block" }}>
-      <svg height="18" viewBox="130 150 430 110" fill="#fff" xmlns="http://www.w3.org/2000/svg">
-        <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z"/>
-        <rect x="150.07" y="207.66" width="80.09" height="32.39"/>
-        <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z"/>
-        <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/>
-        <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z"/>
-        <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/>
-        <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z"/>
-        <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z"/>
-      </svg>
-    </a>
-    <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-      <a href="https://novora.co" style={{ fontFamily: F, fontSize: 11, fontWeight: 400, color: T.textMuted, textDecoration: "none" }}>Home</a>
-      <a href="https://novora.co/advisory" style={{ fontFamily: F, fontSize: 11, fontWeight: 400, color: T.textMuted, textDecoration: "none" }}>Advisory</a>
-      <a href="https://ir.novora.co" style={{ fontFamily: F, fontSize: 11, fontWeight: 400, color: T.textMuted, textDecoration: "none" }}>IR Score</a>
-      <span style={{ fontFamily: F, fontSize: 11, fontWeight: 400, color: T.white, cursor: "pointer" }} onClick={onHome}>Research</span>
-      <a href="https://novora.co/about" style={{ fontFamily: F, fontSize: 11, fontWeight: 400, color: T.textMuted, textDecoration: "none" }}>About</a>
-      <a href="https://novora.co/contact" style={{ fontFamily: F, fontSize: 11, fontWeight: 400, color: T.textMuted, textDecoration: "none" }}>Contact</a>
-      <a href="mailto:contact@novora.co" style={{
-        fontFamily: F, fontSize: 10, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase",
-        color: T.white, textDecoration: "none", padding: "6px 14px", border: `0.5px solid rgba(255,255,255,0.5)`,
-      }}>Get in Touch</a>
-    </div>
-  </nav>
-);
-
-const Footer = () => (
-  <footer style={{ borderTop: `0.5px solid ${T.border}`, padding: "20px 32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-      <svg height="12" viewBox="130 150 430 110" fill="rgba(255,255,255,0.3)">
-        <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z"/>
-        <rect x="150.07" y="207.66" width="80.09" height="32.39"/>
-        <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z"/>
-        <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/>
-        <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z"/>
-        <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/>
-        <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z"/>
-        <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z"/>
-      </svg>
-      <span style={{ fontFamily: F, fontSize: 10, color: "rgba(255,255,255,0.3)", letterSpacing: "0.02em" }}>&copy; 2026 Novora Holdings LLC</span>
-    </div>
-    <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-      <a href="https://novora.co/legal" style={{ fontFamily: F, fontSize: 10, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>Legal</a>
-      <a href="https://x.com/novaboracapital" style={{ fontFamily: F, fontSize: 10, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>X</a>
-      <a href="https://linkedin.com/company/novora" style={{ fontFamily: F, fontSize: 10, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>LinkedIn</a>
-      <a href="mailto:contact@novora.co" style={{ fontFamily: F, fontSize: 10, color: "rgba(255,255,255,0.3)", textDecoration: "none" }}>contact@novora.co</a>
-    </div>
-  </footer>
-);
+const ReportCover = ({ item }) => {
+  if (item.id === "does-ir-matter") {
+    return (
+      <div style={{ background: "#0D0D0D", padding: "48px 52px 44px", border: `0.5px solid ${T.border}`, marginBottom: 32, position: "relative", overflow: "hidden" }}>
+        <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", opacity: 0.06 }} viewBox="0 0 800 400" preserveAspectRatio="none">
+          {Array.from({ length: 12 }).map((_, i) => (<line key={"v"+i} x1={i * 70} y1="0" x2={i * 70} y2="400" stroke="#fff" strokeWidth="0.5" />))}
+          {Array.from({ length: 8 }).map((_, i) => (<line key={"h"+i} x1="0" y1={i * 55} x2="800" y2={i * 55} stroke="#fff" strokeWidth="0.5" />))}
+        </svg>
+        <svg style={{ position: "absolute", right: 60, top: "50%", transform: "translateY(-50%)", opacity: 0.08 }} width="200" height="200" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="90" fill="none" stroke="#fff" strokeWidth="0.5" />
+          <circle cx="100" cy="100" r="60" fill="none" stroke="#fff" strokeWidth="0.5" />
+          <circle cx="100" cy="100" r="30" fill="none" stroke="#fff" strokeWidth="0.5" />
+        </svg>
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 32 }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />
+            <span style={{ fontFamily: F, fontSize: 10, fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>Novora Research</span>
+          </div>
+          <div style={{ fontFamily: F, fontSize: 36, fontWeight: 300, color: T.white, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 440 }}>Does IR Matter<br />in Crypto?</div>
+          <div style={{ marginTop: 24, fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase" }}>March 2026</div>
+        </div>
+      </div>
+    );
+  }
+  if (item.id === "ir-transparency-2026") {
+    return (
+      <div style={{ background: "#0D0D0D", padding: "48px 52px 44px", border: `0.5px solid ${T.border}`, marginBottom: 32, position: "relative", overflow: "hidden" }}>
+        <svg style={{ position: "absolute", top: 0, right: 0, width: "50%", height: "100%", opacity: 0.05 }} viewBox="0 0 400 400" preserveAspectRatio="none">
+          {Array.from({ length: 20 }).map((_, i) => (<rect key={i} x={20 + (i % 5) * 75} y={20 + Math.floor(i / 5) * 95} width="60" height="80" fill="none" stroke="#fff" strokeWidth="0.5" rx="1" />))}
+        </svg>
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 32 }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />
+            <span style={{ fontFamily: F, fontSize: 10, fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>Novora Research</span>
+          </div>
+          <div style={{ fontFamily: F, fontSize: 36, fontWeight: 300, color: T.white, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 480 }}>IR & Token Transparency<br />in 2026</div>
+          <div style={{ marginTop: 24, fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase" }}>April 2026</div>
+        </div>
+      </div>
+    );
+  }
+  return null;
+};
 
 const FeaturedCard = ({ item, onClick }) => {
   const [h, setH] = useState(false);
@@ -223,62 +203,6 @@ const ResearchCard = ({ item, onClick, delay = 0 }) => {
       </div>
     </FadeIn>
   );
-};
-
-const ReportCover = ({ item }) => {
-  if (item.id === "does-ir-matter") {
-    return (
-      <div style={{ background: "#0D0D0D", padding: "48px 52px 44px", border: `0.5px solid ${T.border}`, marginBottom: 32, position: "relative", overflow: "hidden" }}>
-        {/* Abstract grid lines */}
-        <svg style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", opacity: 0.06 }} viewBox="0 0 800 400" preserveAspectRatio="none">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <line key={"v"+i} x1={i * 70} y1="0" x2={i * 70} y2="400" stroke="#fff" strokeWidth="0.5" />
-          ))}
-          {Array.from({ length: 8 }).map((_, i) => (
-            <line key={"h"+i} x1="0" y1={i * 55} x2="800" y2={i * 55} stroke="#fff" strokeWidth="0.5" />
-          ))}
-        </svg>
-        {/* Accent circle */}
-        <svg style={{ position: "absolute", right: 60, top: "50%", transform: "translateY(-50%)", opacity: 0.08 }} width="200" height="200" viewBox="0 0 200 200">
-          <circle cx="100" cy="100" r="90" fill="none" stroke="#fff" strokeWidth="0.5" />
-          <circle cx="100" cy="100" r="60" fill="none" stroke="#fff" strokeWidth="0.5" />
-          <circle cx="100" cy="100" r="30" fill="none" stroke="#fff" strokeWidth="0.5" />
-        </svg>
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 32 }}>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />
-            <span style={{ fontFamily: F, fontSize: 10, fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>Novora Research</span>
-          </div>
-          <div style={{ fontFamily: F, fontSize: 36, fontWeight: 300, color: T.white, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 440 }}>
-            Does IR Matter<br />in Crypto?
-          </div>
-          <div style={{ marginTop: 24, fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase" }}>February 2026</div>
-        </div>
-      </div>
-    );
-  }
-  if (item.id === "ir-transparency-2026") {
-    return (
-      <div style={{ background: "#0D0D0D", padding: "48px 52px 44px", border: `0.5px solid ${T.border}`, marginBottom: 32, position: "relative", overflow: "hidden" }}>
-        <svg style={{ position: "absolute", top: 0, right: 0, width: "50%", height: "100%", opacity: 0.05 }} viewBox="0 0 400 400" preserveAspectRatio="none">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <rect key={i} x={20 + (i % 5) * 75} y={20 + Math.floor(i / 5) * 95} width="60" height="80" fill="none" stroke="#fff" strokeWidth="0.5" rx="1" />
-          ))}
-        </svg>
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 32 }}>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />
-            <span style={{ fontFamily: F, fontSize: 10, fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>Novora Research</span>
-          </div>
-          <div style={{ fontFamily: F, fontSize: 36, fontWeight: 300, color: T.white, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 480 }}>
-            IR & Token Transparency<br />in 2026
-          </div>
-          <div style={{ marginTop: 24, fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase" }}>April 2026</div>
-        </div>
-      </div>
-    );
-  }
-  return null;
 };
 
 const ReportDetail = ({ item, onBack }) => {
@@ -374,19 +298,15 @@ export default function NovoraResearch() {
   if (selectedItem) {
     return (
       <div style={{ background: T.bg, minHeight: "100vh", color: T.white }}>
-        <Nav onHome={goHome} />
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "48px 32px 80px" }}>
           <ReportDetail item={selectedItem} onBack={goHome} />
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div style={{ background: T.bg, minHeight: "100vh", color: T.white }}>
-      <Nav onHome={goHome} />
-
       <FadeIn>
         <div style={{ padding: "64px 48px 0", maxWidth: 900, margin: "0 auto" }}>
           <div style={{ width: 32, height: 1, background: T.textSubtle, marginBottom: 20 }} />
@@ -444,8 +364,6 @@ export default function NovoraResearch() {
           </a>
         </div>
       </FadeIn>
-
-      <Footer />
     </div>
   );
 }
