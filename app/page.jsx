@@ -97,7 +97,7 @@ export default function HomePage() {
           <FadeIn>
             <div style={{ fontFamily: F.h }}>
               <div style={{ fontSize: 11, letterSpacing: "0.2em", color: C.creamSub, marginBottom: 16, textTransform: "uppercase", opacity: 0.6 }}>Featured Product</div>
-              <h2 className="section-h2" style={{ fontSize: 42, fontWeight: 300, color: C.creamText, letterSpacing: "-0.02em", lineHeight: 1.15, margin: "0 0 24px" }}>Novora IR Score</h2>
+              <h2 className="section-h2" style={{ fontSize: 28, fontWeight: 400, color: C.creamText, letterSpacing: "-0.01em", lineHeight: 1.15, margin: "0 0 24px" }}>Novora IR Score</h2>
               <p style={{ fontSize: 16, lineHeight: 1.7, color: C.creamSub, fontWeight: 400, margin: "0 0 32px" }}>
                 The independent standard for crypto investor relations. Five pillars, 100 points. Protocols are scored, benchmarked, and given a concrete roadmap to institutional-grade IR.
               </p>
