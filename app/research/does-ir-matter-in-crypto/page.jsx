@@ -104,7 +104,7 @@ export default function Research() {
         <div className="rs-thesis" style={{padding:"100px 48px",maxWidth:780}}>
           <div style={{fontSize:10,fontWeight:700,letterSpacing:3,color:"#7C6EF0",marginBottom:24,textTransform:"uppercase"}}>The Thesis</div>
           <p style={{fontSize:24,lineHeight:1.8,color:"#444",margin:0,fontWeight:400}}>
-            {`Protocols that invest in institutional-grade IR \u2014 consistent reporting, third-party data coverage, accessible communication \u2014 trade at multiples that reflect their fundamentals.`}
+            {`Protocols that invest in institutional-grade IR (consistent reporting, third-party data coverage, accessible communication) trade at multiples that reflect their fundamentals.`}
           </p>
           <p style={{fontSize:24,lineHeight:1.8,color:"#444",margin:"24px 0 0",fontWeight:400}}>
             {`Protocols that don\u2019t are subject to `}<span style={{color:"#1A1A2E",fontWeight:500}}>opacity discounts</span>{`: the market either overpays because it can\u2019t see the risks, or underpays because it can\u2019t see the value.`}
@@ -197,15 +197,15 @@ export default function Research() {
       <div className="rs-insight-grid" style={{padding:"0 48px 80px",display:"grid",gridTemplateColumns:"1fr 1fr",gap:2}}>
         <div style={{background:"#fff",padding:"48px 40px",borderLeft:"3px solid #7C6EF0"}}>
           <div style={{fontSize:10,fontWeight:700,letterSpacing:3,color:"#7C6EF0",marginBottom:20,textTransform:"uppercase"}}>What The Data Shows</div>
-          <p style={{fontSize:15,lineHeight:1.9,color:"#666",margin:0,fontWeight:300}}>
+          <p style={{fontSize:15,lineHeight:1.9,color:"#333",margin:0,fontWeight:400}}>
             {`Higher IR scores correlate with `}<span style={{color:"#1A1A2E",fontWeight:500}}>tighter valuation multiples</span>.
-            {` The market isn\u2019t overpaying for transparency \u2014 it\u2019s pricing well-covered protocols closer to fundamentals. Protocols with low IR and high multiples are trading on opacity. That\u2019s rerating risk.`}
+            {` The market isn't overpaying for transparency. It's pricing well-covered protocols closer to fundamentals. Protocols with low IR and high multiples are trading on opacity. That\u2019s rerating risk.`}
           </p>
         </div>
         <div style={{background:"#fff",padding:"48px 40px",borderLeft:"3px solid #E0DED8"}}>
           <div style={{fontSize:10,fontWeight:700,letterSpacing:3,color:"#555",marginBottom:20,textTransform:"uppercase"}}>Why This Matters</div>
-          <p style={{fontSize:15,lineHeight:1.9,color:"#555",margin:0,fontWeight:300}}>
-            {`For protocols: improving IR doesn\u2019t inflate your multiple \u2014 it `}<span style={{color:"#666"}}>removes the opacity discount</span>{` keeping your token mispriced. For investors: low IR + high multiple = highest correction risk when institutional scrutiny arrives.`}
+          <p style={{fontSize:15,lineHeight:1.9,color:"#333",margin:0,fontWeight:400}}>
+            {`For protocols: improving IR doesn't inflate your multiple. It `}<span style={{color:"#666"}}>removes the opacity discount</span>{` keeping your token mispriced. For investors: low IR + high multiple = highest correction risk when institutional scrutiny arrives.`}
           </p>
         </div>
       </div>
@@ -270,21 +270,21 @@ export default function Research() {
             </tbody>
           </table>
           <div style={{padding:"12px 16px",fontSize:10,color:"#555",borderTop:"1px solid #F0EEE8"}}>
-            {`* Excluded from scatter and correlation \u2014 MCap/Rev not meaningful for governance protocols with sub-$1M revenue`}
+            {`* Excluded from scatter and correlation. MCap/Rev not meaningful for governance protocols with sub-$1M revenue`}
           </div>
         </div>
       </div>
 
       <div className="rs-methodology" style={{padding:"0 48px 100px",maxWidth:700}}>
         <div style={{fontSize:10,fontWeight:700,letterSpacing:3,color:"#666",marginBottom:16,textTransform:"uppercase"}}>Methodology</div>
-        <p style={{fontSize:13,lineHeight:2,color:"#666",margin:0,fontWeight:300}}>
-          {`The Novora IR Score\u2122 evaluates protocols across 5 equally-weighted pillars (20 points each) for a 100-point composite. Each pillar contains 6 sub-criteria scored on a 0/5/10/15 scale, normalized to the pillar weight. Valuation data sourced from CoinGecko and Artemis. Revenue data sourced from Artemis and DefiLlama. Sample limited to protocols with verifiable on-chain revenue. Pearson\u2019s r used for correlation. This is observational \u2014 correlation does not imply causation. Market data as of April 1, 2026.`}
+        <p style={{fontSize:13,lineHeight:2,color:"#444",margin:0,fontWeight:400}}>
+          {`The Novora IR Score\u2122 evaluates protocols across 5 equally-weighted pillars (20 points each) for a 100-point composite. Each pillar contains 6 sub-criteria scored on a 0/5/10/15 scale, normalized to the pillar weight. Valuation data sourced from CoinGecko and Artemis. Revenue data sourced from Artemis and DefiLlama. Sample limited to protocols with verifiable on-chain revenue. Pearson\u2019s r used for correlation. This is observational. Correlation does not imply causation. Market data as of April 1, 2026.`}
         </p>
       </div>
 
       <div className="rs-cta-section" style={{borderTop:"1px solid #E8E6E0",padding:"80px 48px",textAlign:"center",background:"#fff"}}>
         <div style={{fontSize:10,fontWeight:700,letterSpacing:4,color:"#7C6EF0",marginBottom:20,textTransform:"uppercase"}}>Get Your Protocol Scored</div>
-        <p style={{fontSize:16,color:"#666",maxWidth:460,margin:"0 auto 36px",fontWeight:300,lineHeight:1.8}}>
+        <p style={{fontSize:16,color:"#444",maxWidth:460,margin:"0 auto 36px",fontWeight:400,lineHeight:1.8}}>
           The IR Score is the starting point. From there: Full IR Diagnostic, IR Monitor, or hands-on capital markets advisory.
         </p>
         <div className="rs-cta-links" style={{display:"flex",justifyContent:"center",gap:36,fontSize:13}}>
