@@ -146,7 +146,7 @@ export default function IRScorePage() {
               <h2 className="section-h2" style={{
                 fontSize: 32, fontWeight: 300, color: C.white,
                 letterSpacing: "-0.01em", margin: "0 0 20px",
-              }}>11 protocols scored and counting</h2>
+              }}>30+ protocols scored and counting</h2>
               <p style={{
                 fontSize: 15, lineHeight: 1.7, color: C.gray200, fontWeight: 400, margin: "0 0 32px",
               }}>
@@ -200,7 +200,7 @@ export default function IRScorePage() {
                 <a href="https://ir.novora.co" style={{
                   fontSize: 12, color: C.gray300, textDecoration: "none",
                   borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2,
-                }}>View all 11 protocols →</a>
+                }}>View all protocols →</a>
               </div>
             </div>
           </FadeIn>
