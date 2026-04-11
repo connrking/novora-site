@@ -75,7 +75,7 @@ export default function Research() {
           </h1>
         </FadeIn>
         <FadeIn delay={500}>
-          <p style={{fontSize:18,lineHeight:1.9,color:"#555",margin:"40px 0 0",maxWidth:520,fontWeight:300}}>
+          <p style={{fontSize:18,lineHeight:1.9,color:"#333",margin:"40px 0 0",maxWidth:520,fontWeight:400}}>
             We scored {protocols.length} protocols on investor relations practices and measured the relationship to valuation multiples. The data tells a clear story.
           </p>
         </FadeIn>
@@ -93,7 +93,7 @@ export default function Research() {
             <div key={i} style={{background:"#E8E6E0",alignSelf:"stretch"}} />
           ):(
             <div key={i} className="rs-stats-item" style={{padding:"36px 48px",textAlign:"center"}}>
-              <div style={{fontSize:36,fontWeight:200,color:"#1A1A2E",letterSpacing:"-1px",fontVariantNumeric:"tabular-nums"}}>{item[0]}</div>
+              <div style={{fontSize:36,fontWeight:300,color:"#1A1A2E",letterSpacing:"-1px",fontVariantNumeric:"tabular-nums"}}>{item[0]}</div>
               <div style={{fontSize:10,letterSpacing:2,color:"#666",marginTop:8,textTransform:"uppercase"}}>{item[1]}</div>
             </div>
           ))}
@@ -103,10 +103,10 @@ export default function Research() {
       <FadeIn delay={900}>
         <div className="rs-thesis" style={{padding:"100px 48px",maxWidth:780}}>
           <div style={{fontSize:10,fontWeight:700,letterSpacing:3,color:"#7C6EF0",marginBottom:24,textTransform:"uppercase"}}>The Thesis</div>
-          <p style={{fontSize:24,lineHeight:1.8,color:"#666",margin:0,fontWeight:300}}>
+          <p style={{fontSize:24,lineHeight:1.8,color:"#444",margin:0,fontWeight:400}}>
             {`Protocols that invest in institutional-grade IR \u2014 consistent reporting, third-party data coverage, accessible communication \u2014 trade at multiples that reflect their fundamentals.`}
           </p>
-          <p style={{fontSize:24,lineHeight:1.8,color:"#777",margin:"24px 0 0",fontWeight:300}}>
+          <p style={{fontSize:24,lineHeight:1.8,color:"#444",margin:"24px 0 0",fontWeight:400}}>
             {`Protocols that don\u2019t are subject to `}<span style={{color:"#1A1A2E",fontWeight:500}}>opacity discounts</span>{`: the market either overpays because it can\u2019t see the risks, or underpays because it can\u2019t see the value.`}
           </p>
         </div>
