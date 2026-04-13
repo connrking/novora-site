@@ -29,7 +29,6 @@ const RESEARCH = [
 //      "We analyzed six distinct token value accrual models across 60+ protocols to determine which approaches actually drive returns. The data challenges common assumptions about buybacks, staking rewards, and direct distribution.",
 //  },
   {
-  {
     id: "reintroducing-novora",
     title: "Reintroducing Novora",
     subtitle: "Why the next era of crypto needs an independent capital markets advisory firm",
@@ -42,6 +41,7 @@ const RESEARCH = [
     description:
       "The gap between protocols and institutional capital is not an investment problem. It is an infrastructure problem. Novora is an independent capital markets advisory firm for crypto, combining advisory, IR infrastructure, and principal investing to serve as the connective tissue between protocols and institutional capital.",
   },
+  {
     id: "does-ir-matter",
     title: "Does IR Matter in Crypto?",
     subtitle: "Why the next leg of institutional adoption depends on how protocols communicate, not just what they build",
