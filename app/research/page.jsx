@@ -191,7 +191,7 @@ const FeaturedCard = ({ item, onClick }) => {
       <div style={{ padding: "28px 52px 32px" }}>
         <p style={{ fontFamily: F, fontSize: 13, fontWeight: 400, color: T.textMuted, lineHeight: 1.7, maxWidth: 620 }}>{item.description}</p>
         <div style={{ marginTop: 24, display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", color: h ? T.white : T.textMuted, transition: "color 0.2s ease" }}>{{item.category === "IR Report" ? "Read report" : "Read article"}}</span>
+          <span style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", color: h ? T.white : T.textMuted, transition: "color 0.2s ease" }}>{item.category === "IR Report" ? "Read report" : "Read article"}</span>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: h ? "translateX(3px)" : "translateX(0)", transition: "transform 0.2s ease" }}>
             <path d="M5.5 3L9.5 7L5.5 11" stroke={h ? T.white : T.textMuted} strokeWidth="1.2" />
           </svg>
@@ -233,7 +233,7 @@ const ResearchCard = ({ item, onClick, delay = 0 }) => {
 
 const ReportDetail = ({ item, onBack }) => {
   const mailSubject = encodeURIComponent("Request: " + item.title);
-  const mailBody = encodeURIComponent("Hi Connor,\n\nInterested in the full report: " + item.title + ". Would love to learn more.\n\nThanks");
+  const mailBody = encodeURIComponent("Hi Connor,\n\nInterested in the full " + (item.category === "IR Report" ? "report" : "article") + ": " + item.title + ". Would love to learn more.\n\nThanks");
   const mailHref = "mailto:connor@novora.co?subject=" + mailSubject + "&body=" + mailBody;
 
   return (
@@ -273,13 +273,13 @@ const ReportDetail = ({ item, onBack }) => {
         <div style={{ borderTop: `0.5px solid ${T.border}`, paddingTop: 32 }}>
           <p style={{ fontFamily: F, fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.8, maxWidth: 620, marginBottom: 32 }}>{item.description}</p>
           <div style={{ border: `0.5px solid ${T.border}`, padding: "60px 40px", textAlign: "center" }}>
-            <div style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", color: T.textSubtle, marginBottom: 12 }}>Full Report</div>
+            <div style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase", color: T.textSubtle, marginBottom: 12 }}>{item.category === "IR Report" ? "Full Report" : "Full Article"}</div>
             {item.embedUrl ? (
               <div>
-                <p style={{ fontFamily: F, fontSize: 13, color: T.textMuted, lineHeight: 1.6, maxWidth: 400, margin: "0 auto 24px" }}>Read the full interactive research report.</p>
+                <p style={{ fontFamily: F, fontSize: 13, color: T.textMuted, lineHeight: 1.6, maxWidth: 400, margin: "0 auto 24px" }}>{item.category === "IR Report" ? "Read the full interactive research report." : "Read the full article."}</p>
                 <a href={item.embedUrl} target="_blank" rel="noopener noreferrer"
                   style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 24px", border: `0.5px solid ${T.borderLight}`, fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", color: T.white, textDecoration: "none" }}>
-                  READ FULL REPORT
+                  {item.category === "IR Report" ? "READ FULL REPORT" : "READ FULL ARTICLE"}
                 </a>
               </div>
             ) : (
