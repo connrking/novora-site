@@ -191,7 +191,7 @@ const FeaturedCard = ({ item, onClick }) => {
       <div style={{ padding: "28px 52px 32px" }}>
         <p style={{ fontFamily: F, fontSize: 13, fontWeight: 400, color: T.textMuted, lineHeight: 1.7, maxWidth: 620 }}>{item.description}</p>
         <div style={{ marginTop: 24, display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", color: h ? T.white : T.textMuted, transition: "color 0.2s ease" }}>Read report</span>
+          <span style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", color: h ? T.white : T.textMuted, transition: "color 0.2s ease" }}>{{item.category === "IR Report" ? "Read report" : "Read article"}}</span>
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style={{ transform: h ? "translateX(3px)" : "translateX(0)", transition: "transform 0.2s ease" }}>
             <path d="M5.5 3L9.5 7L5.5 11" stroke={h ? T.white : T.textMuted} strokeWidth="1.2" />
           </svg>
