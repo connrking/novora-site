@@ -188,9 +188,7 @@ export default function ApplyPage() {
           </div>
           <h1>Apply for Your Score</h1>
           <p className="subtitle">
-            Request a private IR Health Check for your protocol. We&apos;ll
-            score your investor relations across five pillars and deliver
-            results within 5 business days — free, no commitment.
+            Request the Novora IR Score for your protocol.
           </p>
         </div>
 
