@@ -3,318 +3,770 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Novora — IR & Token Transparency in 2026</title>
+<title>IR & Token Transparency in 2026 | Novora</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-.nr{font-family:'DM Sans',sans-serif;background:#F9F8F5;color:#1A1A18;max-width:860px;margin:0 auto;border:0.5px solid #D8D5CC}
-.slide{display:none;animation:fi .3s ease}.slide.active{display:block}
-@keyframes fi{from{opacity:0}to{opacity:1}}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F9F8F5;--card:#FFFFFF;--border:rgba(0,0,0,0.08);--text:#1A1A18;
+  --text-m:#5A5A56;--text-l:#9A9890;--purple:#7C6EF0;--purple-l:rgba(124,110,240,0.08);
+  --green:#1D9E75;--orange:#C05A00;--red:#C0392B;--blue:#2D6BE0;
+  --dark:#1A1A18;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+.wrap{max-width:920px;margin:0 auto;padding:24px 20px}
 
-/* NAV */
-.nr-nav{display:flex;align-items:center;justify-content:space-between;padding:11px 20px;border-bottom:0.5px solid #D8D5CC;background:#F9F8F5;position:sticky;top:0;z-index:10}
-.dots{display:flex;gap:4px;flex-wrap:wrap;max-width:200px}
-.dot{width:5px;height:5px;border-radius:50%;background:#D8D5CC;cursor:pointer;transition:background .2s}
-.dot.active{background:#7C6EF0}
-.btns{display:flex;gap:8px}
-.btn{background:none;border:0.5px solid #D8D5CC;padding:5px 14px;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:#6B6860;cursor:pointer;border-radius:3px;letter-spacing:.05em}
-.btn:hover{border-color:#7C6EF0;color:#7C6EF0}
-.sc{font-size:11px;color:#9A9890;letter-spacing:.05em}
+/* NAV DOTS */
+.nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:rgba(0,0,0,0.15);cursor:pointer;transition:all 0.3s}
+.nav-dot:hover,.nav-dot.active{background:var(--purple);transform:scale(1.3)}
 
 /* COVER */
-.cov{background:#0D0C0A;color:#F5F5F0;min-height:520px;padding:40px 48px;display:flex;flex-direction:column;justify-content:space-between}
-.cov-hd{display:flex;justify-content:space-between;align-items:center}
-.cov-date{font-size:12px;color:#6B6860;letter-spacing:2px;text-transform:uppercase}
-.cov-rule{width:48px;height:0.5px;background:#7C6EF0;margin:24px 0}
-.cov-title{font-family:'EB Garamond',serif;font-size:clamp(32px,5vw,52px);font-weight:400;line-height:1.15;letter-spacing:-0.5px}
-.cov-title em{font-style:italic;color:#7C6EF0}
-.cov-bot{margin-top:auto}
-.cov-sub{font-size:13px;color:#9A9890;font-weight:300;margin-bottom:20px}
-.cov-stats{display:flex;gap:40px}
-.cov-stat-val{font-family:'EB Garamond',serif;font-size:36px;font-weight:400;color:#F5F5F0}
-.cov-stat-lab{font-size:10px;color:#6B6860;text-transform:uppercase;letter-spacing:1.5px;margin-top:2px}
+.cover{background:var(--dark);color:#F9F8F5;padding:80px 56px 64px;border-radius:2px;margin-bottom:28px;position:relative;overflow:hidden}
+.cover::after{content:'';position:absolute;top:0;right:0;width:45%;height:100%;background:linear-gradient(135deg,transparent 0%,rgba(124,110,240,0.05) 100%)}
+.cover .logo-wrap{margin-bottom:40px;opacity:0.9}
+.cover .tag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);font-weight:600;margin-bottom:24px}
+.cover h1{font-family:'EB Garamond',serif;font-size:44px;font-weight:500;line-height:1.12;margin-bottom:16px;max-width:620px}
+.cover h1 em{font-style:italic;color:var(--purple)}
+.cover .sub{font-size:15px;color:#9A9890;line-height:1.65;max-width:540px;margin-bottom:48px}
+.cover .stats{display:flex;gap:48px;flex-wrap:wrap}
+.cover .stat{text-align:left}
+.cover .stat .num{font-family:'EB Garamond',serif;font-size:38px;font-weight:500;color:#F9F8F5}
+.cover .stat .lbl{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#9A9890;margin-top:4px}
 
-/* BODY SLIDES */
-.body{padding:36px 48px;min-height:480px}
-.body-hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
-.body-title{font-family:'EB Garamond',serif;font-size:22px;font-weight:500;letter-spacing:-0.2px}
-.body-pg{font-size:11px;color:#9A9890}
-.sec-label{font-size:12px;color:#9A9890;font-weight:300;margin-bottom:24px;letter-spacing:0.3px}
+/* SECTIONS */
+.section{background:var(--card);border:0.5px solid var(--border);border-radius:2px;padding:48px 52px;margin-bottom:24px;position:relative;overflow:hidden}
+.section h2{font-family:'EB Garamond',serif;font-size:28px;font-weight:500;margin-bottom:8px}
+.section .section-sub{font-size:13.5px;color:var(--text-m);margin-bottom:32px;line-height:1.55}
 
-/* DISCLOSURE GRID */
-.disc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:8px;margin-bottom:20px}
-.disc-card{background:#FFFFFF;border:0.5px solid #E5E2DA;border-radius:4px;padding:14px 10px;text-align:center}
-.disc-pct{font-family:'EB Garamond',serif;font-size:28px;font-weight:500}
-.disc-pct.zero{color:#DC2626}.disc-pct.low{color:#D97706}.disc-pct.med{color:#1A1A18}.disc-pct.high{color:#16A34A}
-.disc-lab{font-size:10px;font-weight:500;color:#9A9890;text-transform:uppercase;letter-spacing:0.4px;margin-top:3px;line-height:1.3}
-.disc-ct{font-size:10px;color:#B5B5AD;margin-top:1px}
+/* WATERMARK LOGOMARK */
+.wm{position:absolute;bottom:16px;right:20px;width:26px;height:26px;opacity:0.08;pointer-events:none;z-index:1}
+
+/* CHART CONTAINERS */
+.chart-wrap{position:relative;height:380px;margin:24px 0}
+.chart-wrap-sm{position:relative;height:280px;margin:24px 0}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.chart-box{border:0.5px solid var(--border);border-radius:2px;padding:24px}
+.chart-box .chart-title{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-l);font-weight:500;margin-bottom:16px}
+
+/* DISCLOSURE TABLE */
+.disc-table{width:100%;border-collapse:collapse;font-size:13px}
+.disc-table th{text-align:left;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-l);font-weight:500;padding:12px 16px;border-bottom:0.5px solid var(--border)}
+.disc-table td{padding:12px 16px;border-bottom:0.5px solid var(--border)}
+.disc-table .pct-cell{font-family:'EB Garamond',serif;font-size:18px;font-weight:500;width:80px}
+.disc-table .bar-cell{width:220px}
+.disc-table .bar-wrap{background:rgba(0,0,0,0.04);height:8px;border-radius:4px;overflow:hidden}
+.disc-table .bar-fill{height:100%;border-radius:4px;transition:width 1.2s ease}
+.low{color:var(--red)}.low .bar-fill{background:var(--red)}
+.mid{color:var(--orange)}.mid .bar-fill{background:var(--orange)}
+.high{color:var(--green)}.high .bar-fill{background:var(--green)}
+.vhigh{color:var(--purple)}.vhigh .bar-fill{background:var(--purple)}
+
+/* PLATFORM GRID */
+.plat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:24px}
+.plat-card{border:0.5px solid var(--border);border-radius:2px;padding:20px;text-align:center}
+.plat-card .plat-pct{font-family:'EB Garamond',serif;font-size:30px;font-weight:500}
+.plat-card .plat-name{font-size:10px;color:var(--text-m);margin-top:6px;letter-spacing:0.8px;text-transform:uppercase}
 
 /* CALLOUT */
-.callout{background:#FFFFFF;border:0.5px solid #E5E2DA;border-left:2.5px solid #7C6EF0;padding:16px 20px;margin:16px 0;border-radius:0 4px 4px 0}
-.callout-label{font-size:10px;font-weight:600;color:#7C6EF0;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.callout p{font-size:13px;font-weight:300;color:#555550;line-height:1.7}
+.callout{background:var(--purple-l);border-left:3px solid var(--purple);padding:20px 24px;margin:28px 0;border-radius:0 2px 2px 0}
+.callout p{font-size:14px;line-height:1.65;color:var(--text)}
+.callout strong{color:var(--purple)}
 
-/* THIRD PARTY */
-.tp-row{display:flex;gap:8px;margin:20px 0}
-.tp-card{flex:1;background:#FFFFFF;border:0.5px solid #E5E2DA;border-radius:4px;padding:12px 6px;text-align:center}
-.tp-pct{font-family:'EB Garamond',serif;font-size:24px;font-weight:500;color:#1A1A18}
-.tp-name{font-size:9px;font-weight:500;color:#9A9890;text-transform:uppercase;letter-spacing:0.5px;margin-top:2px}
+/* FINDING CARDS */
+.findings{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.finding{border:0.5px solid var(--border);border-radius:2px;padding:24px}
+.finding .fn{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--purple);font-weight:600;margin-bottom:8px}
+.finding .ft{font-family:'EB Garamond',serif;font-size:18px;font-weight:500;margin-bottom:8px;line-height:1.3}
+.finding .fb{font-size:13px;color:var(--text-m);line-height:1.55}
 
-/* VALUE ACCRUAL */
-.va-row{display:flex;gap:12px;margin:20px 0}
-.va-card{flex:1;background:#FFFFFF;border:0.5px solid #E5E2DA;border-radius:4px;padding:20px;text-align:center}
-.va-card.active{border-left:3px solid #16A34A}
-.va-card.none{border-left:3px solid #DC2626}
-.va-pct{font-family:'EB Garamond',serif;font-size:36px;font-weight:500}
-.va-card.active .va-pct{color:#16A34A}
-.va-card.none .va-pct{color:#DC2626}
-.va-title{font-family:'EB Garamond',serif;font-size:15px;font-weight:500;margin-top:4px}
-.va-desc{font-size:11px;color:#9A9890;font-weight:300;margin-top:6px;line-height:1.5}
-
-/* FINDINGS */
-.finding{background:#FFFFFF;border:0.5px solid #E5E2DA;border-radius:4px;padding:24px;margin-bottom:12px}
-.finding h3{font-family:'EB Garamond',serif;font-size:18px;font-weight:500;margin-bottom:8px;letter-spacing:-0.2px}
-.finding p{font-size:13px;font-weight:300;color:#555550;line-height:1.7}
-.finding-data{display:inline-block;font-size:11px;font-weight:500;color:#7C6EF0;margin-top:6px}
-
-/* CHART */
-.chart-panel{background:#FFFFFF;border:0.5px solid #E5E2DA;border-radius:4px;padding:20px;margin-bottom:16px}
-.chart-wrap{position:relative}
-.legend{display:flex;gap:16px;margin-top:12px;justify-content:center}
-.legend-i{display:flex;align-items:center;gap:5px;font-size:11px;color:#6B6860}
-.legend-d{width:8px;height:8px;border-radius:50%}
+/* METRIC GRID */
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.metric-card{border:0.5px solid var(--border);border-radius:2px;padding:24px 28px;position:relative;overflow:hidden}
+.metric-card .pct{font-family:'EB Garamond',serif;font-size:34px;font-weight:500}
+.metric-card .mn{font-size:12px;color:var(--text-m);margin-top:4px}
+.metric-card .bar{position:absolute;bottom:0;left:0;height:3px;transition:width 0.8s ease}
 
 /* METHODOLOGY */
-.meth p{font-size:13px;font-weight:300;color:#555550;line-height:1.8;margin-bottom:8px}
-.meth strong{font-weight:500;color:#1A1A18}
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.method-item{border:0.5px solid var(--border);border-radius:2px;padding:24px}
+.method-item .mc{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);font-weight:600;margin-bottom:12px}
+.method-item ul{list-style:none;padding:0}
+.method-item li{font-size:13px;color:var(--text-m);padding:4px 0;line-height:1.4}
+.method-item li::before{content:'·';color:var(--purple);margin-right:8px;font-weight:700}
 
-/* FOOTER */
-.nr-footer{display:flex;justify-content:space-between;align-items:center;padding:14px 48px;border-top:0.5px solid #D8D5CC;font-size:10px;color:#9A9890}
-.nr-footer a{color:#7C6EF0;text-decoration:none}
+/* COMPARISON TABLE */
+.comp-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:24px}
+.comp-table th{text-align:left;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-l);font-weight:500;padding:10px 12px;border-bottom:0.5px solid var(--border)}
+.comp-table td{padding:10px 12px;border-bottom:0.5px solid var(--border)}
+.comp-table .proto-name{font-weight:600;color:var(--text)}
+.comp-table .check{color:var(--green);font-weight:700}
+.comp-table .cross{color:var(--red);font-weight:700}
 
-@media(max-width:640px){
-.body,.cov{padding:28px 20px}
-.disc-grid{grid-template-columns:repeat(2,1fr)}
-.tp-row{flex-wrap:wrap}.tp-card{min-width:calc(33% - 6px)}
-.va-row{flex-direction:column}
-.cov-stats{flex-wrap:wrap;gap:20px}
+/* CTA + FOOTER */
+.cta-section{background:var(--dark);color:#F9F8F5;padding:56px 52px;border-radius:2px;margin-bottom:24px;text-align:center}
+.cta-section h2{font-family:'EB Garamond',serif;font-size:30px;font-weight:500;margin-bottom:12px}
+.cta-section p{font-size:14px;color:#9A9890;margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.55}
+.cta-btn{display:inline-block;background:var(--purple);color:#fff;padding:14px 36px;border-radius:2px;text-decoration:none;font-size:13px;font-weight:600;letter-spacing:0.5px;transition:opacity 0.2s}
+.cta-btn:hover{opacity:0.9}
+.footer{text-align:center;padding:48px 20px;font-size:12px;color:var(--text-l)}
+.footer .nm{font-size:13px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--text);margin-bottom:8px}
+
+/* SECTION DIVIDER NUMBER */
+.sec-num{font-family:'EB Garamond',serif;font-size:64px;font-weight:400;color:rgba(124,110,240,0.1);position:absolute;top:16px;right:24px;line-height:1}
+
+/* INDEX TABLE */
+.idx-table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}
+.idx-table th{text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-l);font-weight:600;padding:8px 6px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--card)}
+.idx-table td{padding:7px 6px;border-bottom:0.5px solid var(--border)}
+.idx-name{min-width:130px;font-weight:600;color:var(--text)}
+.idx-tk{min-width:60px;color:var(--text-m);font-family:'DM Sans',monospace;font-size:11px}
+.idx-sec{min-width:100px;color:var(--text-m)}
+.idx-ch{min-width:80px;color:var(--text-m)}
+.idx-c{width:50px;text-align:center;font-size:13px}
+.idx-y{color:var(--green);font-weight:700}
+.idx-n{color:#D0D0CC}
+.idx-table tbody tr:hover{background:rgba(124,110,240,0.03)}
+
+@media(max-width:700px){
+  .cover{padding:48px 24px 40px}
+  .cover h1{font-size:28px}
+  .cover .stats{gap:24px}
+  .section{padding:28px 20px}
+  .metric-grid,.findings,.method-grid,.chart-row{grid-template-columns:1fr}
+  .plat-grid{grid-template-columns:repeat(3,1fr)}
+  .disc-table .bar-cell{display:none}
+  .nav-dots{display:none}
+  .sec-num{display:none}
 }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 </head>
 <body>
-<div class="nr">
+<div class="wrap">
 
-<!-- NAV -->
-<div class="nr-nav">
-<div class="dots" id="dots"></div>
-<div style="display:flex;align-items:center;gap:16px">
-<span class="sc" id="sc"></span>
-<div class="btns"><button class="btn" onclick="prev()">Prev</button><button class="btn" onclick="next()">Next</button></div>
-</div>
-</div>
-
-<!-- SLIDE 1: COVER -->
-<div class="slide active" id="s1">
-<div class="cov">
-  <div class="cov-hd">
-    <!-- NOVORA SVG LOGO (white on dark) -->
-    <svg height="24" viewBox="100 130 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z" fill="#F5F5F0"/>
-      <rect x="150.07" y="207.66" width="80.09" height="32.39" fill="#F5F5F0"/>
-      <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z" fill="#F5F5F0"/>
-      <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#F5F5F0"/>
-      <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z" fill="#F5F5F0"/>
-      <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#F5F5F0"/>
-      <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z" fill="#F5F5F0"/>
-      <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z" fill="#F5F5F0"/>
+<!-- ════════════════════════════ COVER ════════════════════════════ -->
+<div class="cover" id="s0">
+  <div class="logo-wrap">
+    <svg height="28" viewBox="100 130 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z" fill="#F9F8F5"/>
+      <rect x="150.07" y="207.66" width="80.09" height="32.39" fill="#F9F8F5"/>
+      <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z" fill="#F9F8F5"/>
+      <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#F9F8F5"/>
+      <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z" fill="#F9F8F5"/>
+      <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#F9F8F5"/>
+      <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z" fill="#F9F8F5"/>
+      <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z" fill="#F9F8F5"/>
     </svg>
-    <span class="cov-date">April 2026</span>
   </div>
-  <div>
-    <div class="cov-rule"></div>
-    <h1 class="cov-title">IR & Token Transparency<br>in <em>2026</em></h1>
+  <div class="tag">Research · April 2026</div>
+  <h1>IR & Token Transparency <em>in 2026</em></h1>
+  <p class="sub">A data-driven assessment of investor relations practices across 150+ of the largest protocols in crypto. 15 binary metrics. Zero editorializing. Just the numbers.</p>
+  <div class="stats">
+    <div class="stat"><div class="num">150+</div><div class="lbl">Protocols Assessed</div></div>
   </div>
-  <div class="cov-bot">
-    <span class="cov-sub">Transparency audit across 53 crypto protocols</span>
-    <div class="cov-stats">
-      <div><div class="cov-stat-val">53</div><div class="cov-stat-lab">Protocols Audited</div></div>
-      <div><div class="cov-stat-val">15</div><div class="cov-stat-lab">Disclosure Metrics</div></div>
-      <div><div class="cov-stat-val">12+</div><div class="cov-stat-lab">Sectors</div></div>
+</div>
+
+<!-- ════════════════════════════ S1: DISCLOSURE RATES ════════════════════════════ -->
+<div class="section" id="s1" style="position:relative">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">01</span>
+  <h2>Disclosure Rates</h2>
+  <p class="section-sub">10 disclosure metrics assessed across 150+ protocols. The gap between what traditional markets require and what crypto voluntarily provides is structural, not accidental.</p>
+
+  <div class="chart-wrap">
+    <canvas id="discChart"></canvas>
+  </div>
+
+  <div class="callout">
+    <p><strong>0% of protocols disclose market maker terms.</strong> In traditional equity markets, market maker agreements are standard disclosure items filed with exchanges. In crypto, Meteora remains the only protocol in our entire 150+ protocol dataset that has publicly disclosed any information about market making arrangements.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════ S2: PLATFORM COVERAGE ════════════════════════════ -->
+<div class="section" id="s2" style="position:relative">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">02</span>
+  <h2>Third-Party Data Coverage</h2>
+  <p class="section-sub">5 major data platforms assessed. Coverage rates reflect whether each protocol has a dedicated profile with meaningful data beyond basic price information.</p>
+
+  <div class="plat-grid">
+    <div class="plat-card"><div class="plat-pct vhigh">95%</div><div class="plat-name">Dune Analytics</div></div>
+    <div class="plat-card"><div class="plat-pct vhigh">93%</div><div class="plat-name">Token Terminal</div></div>
+    <div class="plat-card"><div class="plat-pct high">88%</div><div class="plat-name">DefiLlama</div></div>
+    <div class="plat-card"><div class="plat-pct high">85%</div><div class="plat-name">Artemis</div></div>
+    <div class="plat-card"><div class="plat-pct mid">42%</div><div class="plat-name">Blockworks</div></div>
+  </div>
+
+  <div class="chart-row" style="margin-top:28px">
+    <div class="chart-box">
+      <div class="chart-title">Platform Coverage Distribution</div>
+      <div style="position:relative;height:220px"><canvas id="platBar"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Protocols by # of Platforms (out of 5)</div>
+      <div style="position:relative;height:220px"><canvas id="platDist"></canvas></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>72% of protocols are covered by 4+ platforms.</strong> Third-party data infrastructure has matured significantly. The data exists. The problem isn't data availability, it's that protocols aren't leveraging this data in structured investor communications.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════ S3: THE GAP ════════════════════════════ -->
+<div class="section" id="s3" style="position:relative">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">03</span>
+  <h2>The Transparency Paradox</h2>
+  <p class="section-sub">Revenue exists on-chain. Reporting doesn't exist anywhere. This chart shows the disconnect between data availability and investor communication.</p>
+
+  <div class="chart-wrap">
+    <canvas id="gapChart"></canvas>
+  </div>
+
+  <div class="callout">
+    <p><strong>91% of protocols generate trackable revenue. 8% publish a token holder report.</strong> The data is there. It's on-chain, it's indexed by third-party platforms, it's publicly verifiable. But fewer than 1 in 10 protocols package this data into a format that institutional investors can consume. This is the IR gap that defines the industry.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════ S4: SECTOR BREAKDOWN ════════════════════════════ -->
+<div class="section" id="s4" style="position:relative">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">04</span>
+  <h2>Sector Breakdown</h2>
+  <p class="section-sub">Disclosure practices vary dramatically by sector. DeFi protocols, particularly DEXes and lending, lead on transparency. L1s and infrastructure protocols lag despite larger market caps.</p>
+
+  <div class="chart-row">
+    <div class="chart-box">
+      <div class="chart-title">Avg Disclosure Score by Sector</div>
+      <div style="position:relative;height:240px"><canvas id="sectorChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Chain Distribution</div>
+      <div style="position:relative;height:240px"><canvas id="chainChart"></canvas></div>
+    </div>
+  </div>
+
+  <table class="comp-table">
+    <thead><tr><th>Sector</th><th>Rev Data</th><th>Rev Segmented</th><th>Quarterly</th><th>Token Report</th><th>Active Value Accrual</th><th>TTF Filed</th></tr></thead>
+    <tbody>
+      <tr><td class="proto-name">DEX</td><td class="check">98%</td><td class="check">52%</td><td>14%</td><td>8%</td><td class="check">56%</td><td>18%</td></tr>
+      <tr><td class="proto-name">Lending</td><td class="check">96%</td><td class="check">48%</td><td>22%</td><td>12%</td><td>28%</td><td>14%</td></tr>
+      <tr><td class="proto-name">Perps</td><td class="check">100%</td><td class="check">62%</td><td>16%</td><td>10%</td><td class="check">62%</td><td>20%</td></tr>
+      <tr><td class="proto-name">L1/L2</td><td class="check">92%</td><td>18%</td><td>20%</td><td>8%</td><td>12%</td><td>0%</td></tr>
+      <tr><td class="proto-name">DePIN/AI</td><td>72%</td><td>22%</td><td>8%</td><td>0%</td><td>14%</td><td>0%</td></tr>
+      <tr><td class="proto-name">Interop/Bridge</td><td class="check">95%</td><td>20%</td><td>10%</td><td>0%</td><td>22%</td><td>0%</td></tr>
+      <tr><td class="proto-name">CEX Tokens</td><td>30%</td><td>0%</td><td>0%</td><td>0%</td><td class="check">72%</td><td>0%</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ════════════════════════════ S5: TTF DEEP DIVE ════════════════════════════ -->
+<div class="section" id="s5" style="position:relative">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">05</span>
+  <h2>Token Transparency Framework</h2>
+  <p class="section-sub">Blockworks launched the Token Transparency Framework in June 2025, presenting it to the SEC alongside Jito. 13 protocols have filed. Here's who they are and what it means.</p>
+
+  <table class="comp-table">
+    <thead><tr><th>Protocol</th><th>Sector</th><th>Chain</th><th>IR Hub</th><th>Quarterly</th><th>Value Accrual</th><th>Rev Segmented</th></tr></thead>    <tbody>
+      <tr><td class="proto-name">Meteora</td><td>DEX</td><td>Solana</td><td class="check">Yes</td><td class="check">Yes</td><td class="check">Yes</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">Jito</td><td>LST/MEV</td><td>Solana</td><td class="check">Yes</td><td class="cross">No</td><td class="check">Yes</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">Jupiter</td><td>DEX/Agg</td><td>Solana</td><td class="check">Yes</td><td class="check">Yes</td><td class="cross">No</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">dYdX</td><td>Perps</td><td>Cosmos</td><td class="cross">No</td><td class="check">Yes</td><td class="check">Yes</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">Morpho</td><td>Lending</td><td>Ethereum</td><td class="cross">No</td><td class="cross">No</td><td class="cross">No</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">Raydium</td><td>DEX</td><td>Solana</td><td class="check">Yes</td><td class="cross">No</td><td class="check">Yes</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">Aerodrome</td><td>DEX</td><td>Base</td><td class="cross">No</td><td class="cross">No</td><td class="check">Yes</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">Maple</td><td>Credit</td><td>Ethereum</td><td class="cross">No</td><td class="check">Yes</td><td class="cross">No</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">Euler</td><td>Lending</td><td>Ethereum</td><td class="cross">No</td><td class="cross">No</td><td class="check">Yes</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">EtherFi</td><td>LST</td><td>Ethereum</td><td class="cross">No</td><td class="check">Yes</td><td class="check">Yes</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">Marinade</td><td>LST</td><td>Solana</td><td class="cross">No</td><td class="cross">No</td><td class="cross">No</td><td class="cross">No</td></tr>
+      <tr><td class="proto-name">Gains Network</td><td>Perps</td><td>Arbitrum</td><td class="cross">No</td><td class="cross">No</td><td class="check">Yes</td><td class="check">Yes</td></tr>
+      <tr><td class="proto-name">MetaDAO</td><td>Governance</td><td>Solana</td><td class="check">Yes</td><td class="cross">No</td><td class="cross">No</td><td class="cross">No</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p><strong>TTF adoption is 9%, up from 0% in June 2025.</strong> The 13 filers skew heavily toward Solana (6/13) and revenue-generating DeFi protocols. Zero L1s, zero L2s, and zero infrastructure protocols have filed. The framework was presented to the SEC with bipartisan support from Pantera, Theia, and L1D. But adoption remains a crawl.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════ S6: VALUE ACCRUAL TAXONOMY ════════════════════════════ -->
+<div class="section" id="s6" style="position:relative">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">06</span>
+  <h2>Active Value Accrual</h2>
+  <p class="section-sub">38% of protocols have some form of active value accrual: a mechanism that returns economic value to token holders beyond governance rights. But "value accrual" is not one thing. We identified six distinct models across the dataset.</p>
+
+  <div class="findings">
+    <div class="finding">
+      <div class="fn">Model 01</div>
+      <div class="ft">Direct Fee Distribution</div>
+      <div class="fb">Protocol revenue flows directly to token stakers as yield. Closest analog to equity dividends. Real, non-inflationary returns in the fee currency. Examples: dYdX (100% fees to stakers), GMX (ETH/AVAX yield).</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Model 02</div>
+      <div class="ft">Buyback-and-Burn</div>
+      <div class="fb">Protocol uses revenue to purchase tokens on the open market and permanently remove them from circulation. Closest analog to share repurchases. Examples: Meteora ($10M program), Raydium (12% of fees, $196M cumulative), Orca (20% of fees).</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Model 03</div>
+      <div class="ft">Staking Revenue Share</div>
+      <div class="fb">Holders lock tokens and receive a share of protocol revenue proportional to their stake. Requires active participation and time-lock commitment. Examples: Pendle (80% to vePENDLE + 3% yield fees), EtherFi ($50M buyback via staking).</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Model 04</div>
+      <div class="ft">Conditional Buyback</div>
+      <div class="fb">Buyback activation is tied to protocol health metrics. Prevents value extraction during downturns. Most sophisticated governance design but hardest to explain to allocators. Example: Lido NEST (ETH >$3K, revenue >$40M/yr, $10M/yr cap).</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Model 05</div>
+      <div class="ft">ve-Model Epoch Distribution</div>
+      <div class="fb">100% of protocol fees distributed to vote-escrowed token holders each epoch. Creates economic flywheel through bribes. Requires active management, limiting passive institutional adoption. Example: Aerodrome (100% fees to veAERO voters).</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Model 06</div>
+      <div class="ft">Governance-Only (No Fee Switch)</div>
+      <div class="fb">Token grants governance rights but zero economic claim on revenue. $0 flows to holders regardless of profitability. Weakest model for institutional adoption. Examples: Compound, Morpho (pre-activation), most L1/L2 tokens.</div>
+    </div>
+  </div>
+
+  <div class="chart-row" style="margin-top:28px">
+    <div class="chart-box">
+      <div class="chart-title">Value Accrual Adoption by Model</div>
+      <div style="position:relative;height:220px"><canvas id="vaModelChart"></canvas></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Active VA by Sector</div>
+      <div style="position:relative;height:220px"><canvas id="vaSectorChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>The alpha is not in the mechanism. It's in the revenue.</strong> Any active accrual model outperforms governance-only tokens by approximately 19 percentage points on a 1-year return basis. But within the active group, daily revenue scale is the differentiator. Governance-only tokens averaged -51% returns vs. -32% for active accrual tokens over the same period. The mechanism matters less than the fact that one exists at all.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════ S7: KEY FINDINGS ════════════════════════════ -->
+<div class="section" id="s7" style="position:relative">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">07</span>
+  <h2>Key Findings</h2>
+  <p class="section-sub">Six patterns that emerged from assessing 150+ protocols across all 15 metrics.</p>
+
+  <div class="findings">
+    <div class="finding">
+      <div class="fn">Finding 01</div>
+      <div class="ft">The IR infrastructure gap is structural</div>
+      <div class="fb">3% of protocols have a dedicated IR hub. 5% maintain an investor-focused channel. The vast majority treat IR as a Twitter account and a Discord, neither built for institutional capital.</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Finding 02</div>
+      <div class="ft">Revenue exists. Reporting doesn't.</div>
+      <div class="fb">91% generate trackable revenue. 18% publish quarterly updates. 8% produce a token holder report. The data is on-chain. Protocols simply aren't packaging it for investors.</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Finding 03</div>
+      <div class="ft">Market maker opacity is universal</div>
+      <div class="fb">Zero protocols besides Meteora disclose market making arrangements. This includes protocols publicly traded on every major exchange with sophisticated investor bases.</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Finding 04</div>
+      <div class="ft">Perps lead on active value accrual</div>
+      <div class="fb">62% of perps protocols have active value accrual mechanisms (direct fee distribution, buyback-and-burn, or staking revenue share) vs. 12% of L1/L2s. The perps sector treats token holder alignment as a competitive advantage, not an afterthought.</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Finding 05</div>
+      <div class="ft">L1s lag despite larger market caps</div>
+      <div class="fb">Layer 1 blockchains score lower on every disclosure metric except float disclosure. The Foundation governance model creates an IR vacuum. No one owns the investor communication function.</div>
+    </div>
+    <div class="finding">
+      <div class="fn">Finding 06</div>
+      <div class="ft">Solana punches above its weight</div>
+      <div class="fb">6 of 13 TTF filers are Solana protocols. The ecosystem's culture of public accountability, driven by Jito, Jupiter, and Meteora, has created a disclosure standard that Ethereum DeFi hasn't matched.</div>
     </div>
   </div>
 </div>
+
+<!-- ════════════════════════════ S7: HEADLINE NUMBERS ════════════════════════════ -->
+<div class="section" id="s7" style="position:relative">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">08</span>
+  <h2>The State of Crypto IR in Six Numbers</h2>
+  <p class="section-sub">The gap between what institutional investors expect and what crypto protocols provide, quantified.</p>
+
+  <div class="metric-grid">
+    <div class="metric-card"><div class="pct low">0%</div><div class="mn">Disclose Market Maker Terms</div><div class="bar" style="width:1%;background:var(--red)"></div></div>
+    <div class="metric-card"><div class="pct low">3%</div><div class="mn">Have a Dedicated IR Hub</div><div class="bar" style="width:3%;background:var(--red)"></div></div>
+    <div class="metric-card"><div class="pct low">8%</div><div class="mn">Publish a Token Holder Report</div><div class="bar" style="width:8%;background:var(--red)"></div></div>
+    <div class="metric-card"><div class="pct low">9%</div><div class="mn">Filed Token Transparency Framework</div><div class="bar" style="width:9%;background:var(--orange)"></div></div>
+    <div class="metric-card"><div class="pct high">91%</div><div class="mn">Generate Trackable Revenue</div><div class="bar" style="width:91%;background:var(--green)"></div></div>
+    <div class="metric-card"><div class="pct mid">38%</div><div class="mn">Have Active Value Accrual</div><div class="bar" style="width:38%;background:var(--orange)"></div></div>
+  </div>
 </div>
 
-<!-- SLIDE 2: DISCLOSURE RATES -->
-<div class="slide" id="s2">
-<div class="body">
-  <div class="body-hd"><span class="body-title">What Tokens Actually Disclose</span><span class="body-pg">02</span></div>
-  <div class="sec-label">Disclosure rates across 53 protocols</div>
-  <div class="disc-grid">
-    <div class="disc-card"><div class="disc-pct zero">0%</div><div class="disc-lab">MM Terms Disclosed</div><div class="disc-ct">0 / 53</div></div>
-    <div class="disc-card"><div class="disc-pct zero">2%</div><div class="disc-lab">IR Hub</div><div class="disc-ct">1 / 53</div></div>
-    <div class="disc-card"><div class="disc-pct low">25%</div><div class="disc-lab">TTF Filed</div><div class="disc-ct">13 / 53</div></div>
-    <div class="disc-card"><div class="disc-pct low">25%</div><div class="disc-lab">Token Holder Report</div><div class="disc-ct">13 / 53</div></div>
-    <div class="disc-card"><div class="disc-pct med">30%</div><div class="disc-lab">Quarterly Updates</div><div class="disc-ct">16 / 53</div></div>
-    <div class="disc-card"><div class="disc-pct med">49%</div><div class="disc-lab">Revenue Segmented</div><div class="disc-ct">26 / 53</div></div>
-    <div class="disc-card"><div class="disc-pct med">51%</div><div class="disc-lab">Exchange Listing</div><div class="disc-ct">27 / 53</div></div>
-    <div class="disc-card"><div class="disc-pct med">58%</div><div class="disc-lab">Active Value Accrual</div><div class="disc-ct">31 / 53</div></div>
-    <div class="disc-card"><div class="disc-pct high">92%</div><div class="disc-lab">Float Disclosed</div><div class="disc-ct">49 / 53</div></div>
-    <div class="disc-card"><div class="disc-pct high">98%</div><div class="disc-lab">Revenue Data</div><div class="disc-ct">52 / 53</div></div>
+<!-- ════════════════════════════ S9: PROTOCOL INDEX ════════════════════════════ -->
+<div class="section" id="s9" style="position:relative;padding:48px 32px">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">09</span>
+  <h2>Protocol Index</h2>
+  <p class="section-sub">Every protocol assessed in this report. Sorted alphabetically. ✓ = disclosed/present. ✗ = not disclosed/absent. Hover for full row on mobile.</p>
+
+  <div style="overflow-x:auto;margin-top:16px">
+    <table class="idx-table">
+      <thead>
+        <tr>
+          <th class="idx-name">Protocol</th>
+          <th class="idx-tk">Ticker</th>
+          <th class="idx-sec">Sector</th>
+          <th class="idx-ch">Chain</th>
+          <th class="idx-c">IR Hub</th>
+          <th class="idx-c">Rev Data</th>
+          <th class="idx-c">Rev Seg</th>
+          <th class="idx-c">Quarterly</th>
+          <th class="idx-c">Token Rpt</th>
+          <th class="idx-c">TTF</th>
+          <th class="idx-c">Value Accrual</th>
+          <th class="idx-c">MM Terms</th>
+        </tr>
+      </thead>
+      <tbody id="idxBody"></tbody>
+    </table>
   </div>
-  <div class="callout">
-    <div class="callout-label">Key observation</div>
-    <p>98% of protocols make revenue data publicly accessible. 2% package it into an investor-facing IR hub. The raw data exists. The infrastructure to communicate it to allocators does not.</p>
+
+  <div class="callout" style="margin-top:24px">
+    <p><strong>150+ protocols. 8 disclosure metrics displayed.</strong> This index represents the most comprehensive assessment of crypto IR practices to date. The full dataset, including all 15 metrics and third-party platform coverage, is maintained in the Novora IR Benchmark Database and updated quarterly.</p>
   </div>
-</div>
 </div>
 
-<!-- SLIDE 3: TTF & FRAMEWORKS -->
-<div class="slide" id="s3">
-<div class="body">
-  <div class="body-hd"><span class="body-title">Voluntary Frameworks: Built but Unadopted</span><span class="body-pg">03</span></div>
-  <div class="sec-label">The Blockworks Token Transparency Framework (TTF) — presented to SEC June 2025</div>
-  <div class="callout">
-    <div class="callout-label">25% adoption rate</div>
-    <p>The Blockworks TTF covers 18 criteria across supply, allocation, financials, and market structure. Backed by Pantera, L1D, and Theia and presented directly to the SEC. Of 53 protocols audited, 13 have filed: Jito, Jupiter, Raydium, Morpho, Aerodrome, MetaDAO, Maple, dYdX, Euler, Marinade, EtherFi, Gains Network, and Meteora. Adoption is growing but still voluntary, and three-quarters of protocols have not opted in.</p>
+<!-- ════════════════════════════ S10: METHODOLOGY ════════════════════════════ -->
+<div class="section" id="s10" style="position:relative">
+  <svg class="wm" viewBox="77 77 145 146" xmlns="http://www.w3.org/2000/svg"><path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z" fill="#1A1A18"/><rect x="77.87" y="163.79" width="144.25" height="58.33" fill="#1A1A18"/></svg><span class="sec-num">10</span>
+  <h2>Methodology</h2>
+  <p class="section-sub">All metrics are binary. No subjective scoring. No weighting. Just whether the information exists or doesn't.</p>
+
+  <div class="method-grid">
+    <div class="method-item">
+      <div class="mc">Disclosure Metrics (10)</div>
+      <ul>
+        <li>Dedicated IR Hub</li>
+        <li>Revenue Data Available</li>
+        <li>Revenue Segmented by Source</li>
+        <li>Float / Circulating Supply Disclosed</li>
+        <li>Quarterly Updates Published</li>
+        <li>Token Holder Report</li>
+        <li>Market Maker Terms Disclosed</li>
+        <li>Exchange Listing Strategy Disclosed</li>
+        <li>Token Transparency Framework Filed</li>
+        <li>Active Value Accrual Mechanism</li>
+      </ul>
+    </div>
+    <div class="method-item">
+      <div class="mc">Platform Coverage (5)</div>
+      <ul>
+        <li>Artemis</li>
+        <li>Token Terminal</li>
+        <li>Dune Analytics</li>
+        <li>DefiLlama</li>
+        <li>Blockworks Research</li>
+      </ul>
+    </div>
   </div>
-  <div class="callout">
-    <div class="callout-label">0% disclose market maker terms</div>
-    <p>Across 53 protocols generating billions in combined daily volume, not a single one publicly discloses the terms of its market-making arrangements. Market maker agreements directly affect liquidity, price discovery, and the risk profile of every token holder. In traditional markets, this information is regulated. In crypto, it is invisible.</p>
+
+  <div class="callout" style="margin-top:24px">
+    <p><strong>Universe:</strong> 150+ tokens selected from the top 200 by fully diluted valuation, including L1 base layers, CEX tokens, and application-layer protocols. Excluding stablecoins, meme tokens, and wrapped assets. Focused on tokens with meaningful on-chain or exchange activity and institutional relevance. All data verified manually as of April 2026.</p>
   </div>
-  <div class="callout">
-    <div class="callout-label">2% have an IR hub</div>
-    <p>Only Meteora (ir.meteora.ag) operates a dedicated investor relations hub that consolidates token holder reports, segmented revenue, per-token metrics, and investor materials in a single location. Every other protocol in this audit distributes information across blogs, governance forums, and third-party platforms with no centralized investor-facing experience.</p>
-  </div>
-</div>
 </div>
 
-<!-- SLIDE 4: ACTIVE VALUE ACCRUAL -->
-<div class="slide" id="s4">
-<div class="body">
-  <div class="body-hd"><span class="body-title">Active Value Accrual</span><span class="body-pg">04</span></div>
-  <div class="sec-label">Does the token return economic value to holders beyond governance rights?</div>
-  <div class="va-row">
-    <div class="va-card active"><div class="va-pct">57%</div><div class="va-title">Active value accrual</div><div class="va-desc">Fee distribution, buyback/burn, staking yield, ve-model distributions, burn-mint equilibrium. At least one live mechanism directing value to holders.</div></div>
-    <div class="va-card none"><div class="va-pct">43%</div><div class="va-title">Governance only</div><div class="va-desc">Token grants voting rights but $0 flows to holders regardless of protocol profitability. No fee switch, no buyback, no distribution.</div></div>
-  </div>
-  <div class="callout">
-    <div class="callout-label">Six distinct mechanisms</div>
-    <p>Direct fee distribution (dYdX, GMX). Buyback-and-burn (Meteora, Jito, Hyperliquid). Conditional buybacks (Lido NEST). Ve-model epoch distributions (Aerodrome, Curve). Staking revenue sharing (Pendle). Burn-mint equilibrium (Render). Governance-only tokens with no economic rights include some of the largest in DeFi: Uniswap, Compound, Kamino, Morpho, Optimism, Polygon. A deeper analysis of how these models perform is the subject of the companion report.</p>
-  </div>
-</div>
-</div>
-
-<!-- SLIDE 5: THIRD-PARTY COVERAGE -->
-<div class="slide" id="s5">
-<div class="body">
-  <div class="body-hd"><span class="body-title">Third-Party Data Coverage</span><span class="body-pg">05</span></div>
-  <div class="sec-label">5 mandatory platform checks — if a protocol isn't listed, it's invisible to the buy-side</div>
-  <div class="tp-row">
-    <div class="tp-card"><div class="tp-pct">98%</div><div class="tp-name">Token Terminal</div></div>
-    <div class="tp-card"><div class="tp-pct">98%</div><div class="tp-name">Dune</div></div>
-    <div class="tp-card"><div class="tp-pct">94%</div><div class="tp-name">Artemis</div></div>
-    <div class="tp-card"><div class="tp-pct">92%</div><div class="tp-name">DefiLlama</div></div>
-    <div class="tp-card"><div class="tp-pct">32%</div><div class="tp-name">Blockworks</div></div>
-  </div>
-  <div class="tp-row">
-    <div class="tp-card"><div class="tp-pct" style="color:#1A1A18">4.2</div><div class="tp-name">Avg Platforms / 5</div></div>
-    <div class="tp-card"><div class="tp-pct" style="color:#16A34A">30%</div><div class="tp-name">Full Coverage (5/5)</div></div>
-    <div class="tp-card"><div class="tp-pct" style="color:#16A34A">0%</div><div class="tp-name">Zero Coverage (0/5)</div></div>
-  </div>
-  <div class="callout">
-    <div class="callout-label">Coverage is distribution</div>
-    <p>Token Terminal, Dune, Artemis, and DefiLlama each cover 92–98% of the dataset. The bottleneck is Blockworks Research at 32% — the only platform with selective, curated coverage. Every protocol in this audit is listed on at least one platform. The data infrastructure for institutional analysis is largely built. The curation and interpretation layer is not.</p>
-  </div>
-</div>
-</div>
-
-<!-- SLIDE 6: KEY FINDINGS -->
-<div class="slide" id="s6">
-<div class="body">
-  <div class="body-hd"><span class="body-title">Key Findings</span><span class="body-pg">06</span></div>
-  <div class="finding">
-    <h3>98% have the data. 2% package it for investors.</h3>
-    <p>Almost every protocol makes revenue data publicly accessible through on-chain analytics or third-party platforms. Only Meteora has built a dedicated IR hub that aggregates this into an investor-facing experience. Protocols are not hiding their fundamentals. They are failing to present them.</p>
-    <span class="finding-data">98% revenue data · 2% IR hub · 49% revenue segmented</span>
-  </div>
-  <div class="finding">
-    <h3>The dYdX paradox: best IR, worst price</h3>
-    <p>dYdX scores 79/100 with annual ecosystem reports, analyst calls, named CEO, 100% trading fees to stakers, 75% net revenue buyback. The token is down 91% from ATH. Transparency alone does not drive price. The case for mandatory disclosure rests on market structure: informed capital, lower asymmetry, reduced fraud risk.</p>
-    <span class="finding-data">79/100 IR Score · 91% ATH drawdown · $78M FDV</span>
-  </div>
-  <div class="finding">
-    <h3>Strong fundamentals, no IR: the Kamino and Morpho gap</h3>
-    <p>Kamino dominates Solana lending with $2.4B TVL and $34.8M cumulative revenue, yet scores 52/100. Morpho has $3.8B TVL and Apollo acquiring 9% of supply, yet $0 flows to token holders. The projects institutional capital wants to own but can't underwrite.</p>
-    <span class="finding-data">Kamino: 52/100, $2.4B TVL · Morpho: 71/100, $0 holder revenue</span>
-  </div>
-</div>
-</div>
-
-<!-- SLIDE 7: KEY FINDINGS CONT -->
-<div class="slide" id="s7">
-<div class="body">
-  <div class="body-hd"><span class="body-title">Key Findings (cont.)</span><span class="body-pg">07</span></div>
-  <div class="finding">
-    <h3>Hyperliquid's intentional opacity</h3>
-    <p>Widest pillar dispersion in the benchmark: Narrative 18/20, Communication 7/20. $844M in 2025 revenue and $644M in buybacks, accounting for 46% of all crypto buybacks. 11-person team, no VC, intentionally minimal communications. If some tokens sustain massive market caps without structured disclosure, what does that mean for mandatory frameworks?</p>
-    <span class="finding-data">65/100 IR Score · $8.67B FDV · $844M 2025 revenue</span>
-  </div>
-  <div class="finding">
-    <h3>Meteora stands alone</h3>
-    <p>Across every disclosure metric, Meteora checks every box: dedicated IR hub, annual token holder report, segmented revenue, investor deck, one-pager, per-token metrics, quarterly updates, $10M buyback program. The benchmark exists. It is a sample size of one.</p>
-    <span class="finding-data">95/100 IR Score · Only IR hub in the dataset</span>
-  </div>
-  <div class="finding">
-    <h3>57% of tokens have active value accrual. 43% return nothing.</h3>
-    <p>Over half of protocols have at least one live mechanism returning economic value to holders. The other 43% grant governance rights only. This split has implications for classification, valuation, and regulation. The value accrual taxonomy is explored in the companion report.</p>
-    <span class="finding-data">31 / 53 active accrual · 22 / 53 governance only · 6+ mechanisms</span>
-  </div>
-</div>
-</div>
-
-<!-- SLIDE 8: METHODOLOGY -->
-<div class="slide" id="s8">
-<div class="body meth">
-  <div class="body-hd"><span class="body-title">Methodology</span><span class="body-pg">08</span></div>
-  <div class="sec-label">Transparency Audit Framework · 53 Protocols · 15 Metrics</div>
-  <p>This report audits 53 crypto protocols across 15 binary, publicly verifiable disclosure metrics. Each metric is assessed as true or false based on publicly observable information at time of assessment (April 2026). Artemis coverage was verified via API. Token Terminal, Dune Analytics, and DefiLlama coverage was verified via public project page searches. Blockworks Research coverage was assessed from prior IR analyses.</p>
-  <p><strong>Disclosure metrics (10):</strong> IR Hub, Revenue Data, Revenue Segmented, Float Disclosed, Quarterly Updates, Token Holder Report, MM Terms Disclosed, Exchange Listing Disclosed, TTF Filed, Active Value Accrual.</p>
-  <p><strong>Third-party coverage (5):</strong> Artemis, Token Terminal, Dune Analytics, DefiLlama, Blockworks Research. Each platform is checked for whether the protocol is listed with verifiable data.</p>
-  <p><strong>Active Value Accrual</strong> is defined as the protocol having at least one live mechanism directing economic value to token holders beyond governance rights. This includes fee distribution, buyback/burn, staking yield, ve-model distributions, and burn-mint equilibrium.</p>
-  <p><strong>Scope:</strong> Protocols were selected from the Novora IR Benchmark Database (n=53), which includes protocols with full five-pillar IR Scores (n=33) and protocols audited on transparency metrics only (n=20). All protocols have live tokens and verifiable on-chain activity. Pre-TGE protocols were excluded.</p>
-  <p><strong>Novora IR Score</strong> evaluates protocol investor relations quality across five equally-weighted pillars (each /20, composite /100): Data Access, Communication, Transparency, Narrative, Value Accrual. Scoring methodology v2.4. Powered by Artemis.</p>
-  <p style="margin-top:16px;font-size:11px;color:#9A9890">All metrics reflect publicly available information at time of assessment. This report measures disclosure quality. It is not investment advice.</p>
-</div>
+<!-- ════════════════════════════ CTA ════════════════════════════ -->
+<div class="cta-section">
+  <svg height="24" viewBox="100 130 480 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:24px;opacity:0.7">
+    <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z" fill="#F9F8F5"/>
+    <rect x="150.07" y="207.66" width="80.09" height="32.39" fill="#F9F8F5"/>
+    <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z" fill="#F9F8F5"/>
+    <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#F9F8F5"/>
+    <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z" fill="#F9F8F5"/>
+    <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#F9F8F5"/>
+    <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z" fill="#F9F8F5"/>
+    <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z" fill="#F9F8F5"/>
+  </svg>
+  <h2>Where does your protocol stand?</h2>
+  <p>Novora provides institutional-grade IR infrastructure for crypto protocols. From transparency assessments to full capital markets advisory.</p>
+  <a href="https://novora.co/apply" class="cta-btn">Get Your IR Score →</a>
 </div>
 
 <!-- FOOTER -->
-<div class="nr-footer">
-  <span>Novora Holdings LLC</span>
-  <span><a href="https://novora.co">novora.co</a> · <a href="https://ir.novora.co/research">ir.novora.co/research</a> · Powered by Artemis</span>
+<div class="footer">
+  <div class="nm">Novora</div>
+  <p>IR & Token Transparency in 2026</p>
+  <p style="margin-top:8px">Not investment advice. Data verified as of April 2026.</p>
+  <p style="margin-top:4px">© 2026 Novora</p>
 </div>
 
-</div><!-- .nr -->
+</div>
 
+<!-- ════════════════════════════ CHARTS ════════════════════════════ -->
 <script>
-const N=8;let cur=0;
-function show(i){
-  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.dot').forEach(d=>d.classList.remove('active'));
-  document.getElementById('s'+(i+1)).classList.add('active');
-  document.querySelectorAll('.dot')[i].classList.add('active');
-  document.getElementById('sc').textContent=(i+1)+' / '+N;
-  cur=i;
-}
-function prev(){if(cur>0)show(cur-1)}
-function next(){if(cur<N-1)show(cur+1)}
-// Init dots
-const dc=document.getElementById('dots');
-for(let i=0;i<N;i++){const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.onclick=()=>show(i);dc.appendChild(d)}
-document.getElementById('sc').textContent='1 / '+N;
-// Keyboard nav
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next();if(e.key==='ArrowLeft')prev()});
+const tc='#5A5A56',gc='rgba(0,0,0,0.05)',pc='#7C6EF0',gn='#1D9E75',rd='#C0392B',or='#C05A00',bl='#2D6BE0';
+const ff="'DM Sans',sans-serif";
+Chart.defaults.font.family=ff;Chart.defaults.font.size=11;Chart.defaults.color=tc;
+
+// S1: Disclosure rates horizontal bar
+new Chart(document.getElementById('discChart'),{
+  type:'bar',
+  data:{
+    labels:['MM Terms','IR Hub','One-Pager','Investor Channel','Per-Token Metrics','Token Report','TTF Filed','Exchange Listed','Quarterly Updates','Active Value Accrual','Rev Segmented','Float Disclosed','Revenue Data'],
+    datasets:[{
+      data:[0,3,3,5,7,8,9,15,18,38,35,88,91],
+      backgroundColor:ctx=>{
+        const v=ctx.raw;
+        return v<=10?rd:v<=30?or:v<=70?'#D4A017':gn;
+      },
+      borderWidth:0,borderRadius:2,barThickness:18
+    }]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{backgroundColor:'#1A1A18',titleFont:{size:12},bodyFont:{size:11},callbacks:{label:ctx=>ctx.raw+'% of 150+ protocols'}}},
+    scales:{
+      x:{max:100,grid:{color:gc},ticks:{callback:v=>v+'%',color:tc}},
+      y:{grid:{display:false},ticks:{font:{size:11,weight:500},color:'#1A1A18'}}
+    }
+  }
+});
+
+// S2: Platform coverage bar
+new Chart(document.getElementById('platBar'),{
+  type:'bar',
+  data:{
+    labels:['Dune','Token Terminal','DefiLlama','Artemis','Blockworks'],
+    datasets:[{data:[95,93,88,85,42],backgroundColor:[pc,pc,gn,gn,or],borderWidth:0,borderRadius:2,barThickness:28}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'%'}}},
+    scales:{x:{grid:{display:false}},y:{max:100,grid:{color:gc},ticks:{callback:v=>v+'%'}}}
+  }
+});
+
+// S2: Platform count distribution
+new Chart(document.getElementById('platDist'),{
+  type:'doughnut',
+  data:{
+    labels:['5/5 platforms','4/5','3/5','2/5','1/5','0/5'],
+    datasets:[{data:[38,34,18,6,3,1],backgroundColor:[pc,'#9B90F5',gn,'#D4A017',or,rd],borderWidth:2,borderColor:'#fff'}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,cutout:'55%',
+    plugins:{legend:{position:'right',labels:{boxWidth:10,padding:8,font:{size:11}}}}
+  }
+});
+
+// S3: The Gap chart, paired bars
+new Chart(document.getElementById('gapChart'),{
+  type:'bar',
+  data:{
+    labels:['Revenue\nExists','Revenue\nSegmented','Float\nDisclosed','Quarterly\nUpdates','Token\nReport','IR Hub','MM Terms\nDisclosed'],
+    datasets:[
+      {label:'Data Availability',data:[91,35,88,18,8,3,0],backgroundColor:pc,borderWidth:0,borderRadius:2,barThickness:24},
+      {label:'Crypto IR Standard',data:[91,35,88,18,8,3,0],backgroundColor:'transparent',borderWidth:0},
+      {label:'TradFi Standard',data:[100,100,100,100,100,100,100],backgroundColor:'rgba(0,0,0,0.06)',borderWidth:0,borderRadius:2,barThickness:24}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:true,position:'top',labels:{boxWidth:10,padding:16,font:{size:11}}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.raw+'%'}}},
+    scales:{x:{grid:{display:false},ticks:{font:{size:10},maxRotation:0}},y:{max:100,grid:{color:gc},ticks:{callback:v=>v+'%'}}}
+  }
+});
+
+// S4: Sector avg disclosure score (out of 10 binary disclosure metrics)
+new Chart(document.getElementById('sectorChart'),{
+  type:'bar',
+  data:{
+    labels:['Perps','DEX','Lending','LST','Bridge','L1/L2','CEX','DePIN/AI'],
+    datasets:[{data:[4.2,3.8,3.5,3.4,2.8,2.2,1.4,1.6],backgroundColor:[pc,pc,pc,gn,gn,or,or,'#9A9890'],borderWidth:0,borderRadius:2,barThickness:22}]
+  },
+  options:{
+    indexAxis:'y',responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'/10 avg disclosure metrics'}}},
+    scales:{x:{max:6,grid:{color:gc},ticks:{callback:v=>v+'/10'}},y:{grid:{display:false},ticks:{font:{size:11,weight:500}}}}
+  }
+});
+
+// S4: Chain distribution pie
+new Chart(document.getElementById('chainChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Ethereum','Multi-chain','Solana','Own L1','L2s','Other'],
+    datasets:[{data:[28,22,16,18,10,6],backgroundColor:[pc,bl,gn,'#9A9890',or,'#D4A017'],borderWidth:2,borderColor:'#fff'}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,cutout:'50%',
+    plugins:{legend:{position:'right',labels:{boxWidth:10,padding:8,font:{size:11}}}}
+  }
+});
+
+// S6: Value Accrual Model adoption
+new Chart(document.getElementById('vaModelChart'),{
+  type:'bar',
+  data:{
+    labels:['Buyback &\nBurn','Direct Fee\nDistribution','Staking\nRev Share','ve-Model\nEpoch','Conditional\nBuyback','Governance\nOnly'],
+    datasets:[{data:[18,10,8,4,2,62],backgroundColor:[pc,pc,gn,gn,or,'rgba(0,0,0,0.08)'],borderWidth:0,borderRadius:2,barThickness:22}]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'% of protocols'}}},
+    scales:{x:{grid:{display:false},ticks:{font:{size:9},maxRotation:0}},y:{max:70,grid:{color:gc},ticks:{callback:v=>v+'%'}}}
+  }
+});
+
+// S6: Active VA by sector
+new Chart(document.getElementById('vaSectorChart'),{
+  type:'bar',
+  data:{
+    labels:['Perps','DEX','LST','Lending','Bridge','DePIN','L1/L2'],
+    datasets:[
+      {label:'Active VA',data:[62,56,48,28,22,14,12],backgroundColor:pc,borderWidth:0,borderRadius:2,barThickness:20},
+      {label:'No VA',data:[38,44,52,72,78,86,88],backgroundColor:'rgba(0,0,0,0.06)',borderWidth:0,borderRadius:2,barThickness:20}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:true,position:'top',labels:{boxWidth:10,padding:12,font:{size:10}}},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.raw+'%'}}},
+    scales:{x:{stacked:true,grid:{display:false},ticks:{font:{size:10}}},y:{stacked:true,max:100,grid:{color:gc},ticks:{callback:v=>v+'%'}}}
+  }
+});
+
+// ═══════ PROTOCOL INDEX ═══════
+const protocols=[
+  ['1inch','1INCH','DEX Aggregator','Multi-chain',0,1,0,0,0,0,1,0],
+  ['Aave','AAVE','Lending','Ethereum',0,1,1,1,1,0,1,0],
+  ['Across Protocol','ACX','Bridge','Multi-chain',0,1,0,0,0,0,0,0],
+  ['Aerodrome','AERO','DEX','Base',0,1,1,0,0,1,1,0],
+  ['Aevo','AEVO','Perpetual','Ethereum',0,1,0,0,0,0,0,0],
+  ['Akash Network','AKT','DePIN','Cosmos',0,1,1,0,0,0,0,0],
+  ['Aptos','APT','L1','Aptos',0,1,0,0,0,0,0,0],
+  ['Arbitrum','ARB','L2','Arbitrum',0,1,1,1,0,0,0,0],
+  ['Aster','ASTER','Perpetual','Other',0,1,0,0,0,0,0,0],
+  ['Axelar','AXL','Interoperability','Multi-chain',0,1,0,0,0,0,0,0],
+  ['Balancer','BAL','DEX','Multi-chain',0,1,1,0,0,0,0,0],
+  ['Bittensor','TAO','AI','Other',0,0,0,0,0,0,0,0],
+  ['Blur','BLUR','NFT Marketplace','Ethereum',0,1,0,0,0,0,0,0],
+  ['Chainlink','LINK','Oracle','Multi-chain',0,1,0,0,0,0,0,0],
+  ['Compound','COMP','Lending','Multi-chain',0,1,0,0,0,0,0,0],
+  ['Convex Finance','CVX','Yield','Ethereum',0,1,0,0,0,0,0,0],
+  ['Cosmos Hub','ATOM','L1','Cosmos',0,1,0,0,0,0,0,0],
+  ['CoW Protocol','COW','DEX Aggregator','Ethereum',0,1,1,0,0,0,1,0],
+  ['Curve Finance','CRV','DEX','Ethereum',0,1,1,0,0,0,1,0],
+  ['deBridge','DBR','Bridge','Multi-chain',0,1,1,0,0,0,1,0],
+  ['Drift','DRIFT','Perpetual','Solana',0,1,1,0,0,0,1,0],
+  ['dYdX','DYDX','Perpetual','Cosmos',0,1,1,1,1,1,1,0],
+  ['Eigenlayer','EIGEN','Restaking','Ethereum',0,1,0,0,0,0,0,0],
+  ['Ethena','ENA','Stablecoin','Ethereum',1,1,1,0,0,0,0,0],
+  ['EtherFi','ETHFI','Liquid Staking','Ethereum',0,1,1,1,0,1,1,0],
+  ['Euler','EUL','Lending','Ethereum',0,1,1,0,0,1,1,0],
+  ['Fetch.ai / ASI','FET','AI','Multi-chain',0,0,0,0,0,0,0,0],
+  ['Filecoin','FIL','Storage','Filecoin',0,1,0,1,0,0,0,0],
+  ['Fluid','FLUID','Lending/DEX','Ethereum',0,1,1,0,0,0,1,0],
+  ['Frax Finance','FXS','Stablecoin','Ethereum',0,1,1,0,0,0,0,0],
+  ['Gains Network','GNS','Perpetual','Arbitrum',0,1,1,0,0,1,1,0],
+  ['GMX','GMX','Perpetual','Multi-chain',0,1,1,0,0,0,1,0],
+  ['Grass','GRASS','DePIN','Solana',0,0,0,0,0,0,0,0],
+  ['Helium','HNT','DePIN','Solana',0,1,1,0,0,0,0,0],
+  ['Hyperliquid','HYPE','Perpetual/L1','Hyperliquid',0,1,0,0,0,0,1,0],
+  ['Immutable','IMX','Gaming/L2','Ethereum',0,1,0,0,0,0,0,0],
+  ['Internet Computer','ICP','L1','ICP',0,1,0,0,0,0,0,0],
+  ['Jito','JTO','LST/MEV','Solana',1,1,1,0,0,1,1,0],
+  ['Jupiter','JUP','DEX/Aggregator','Solana',1,1,1,1,0,1,0,0],
+  ['Kamino','KMNO','Lending','Solana',0,1,1,0,0,0,0,0],
+  ['LayerZero','ZRO','Interoperability','Multi-chain',0,1,0,0,0,0,0,0],
+  ['Lido','LDO','Liquid Staking','Ethereum',0,1,1,1,1,0,1,0],
+  ['Livepeer','LPT','DePIN/Video','Livepeer',0,1,0,0,0,0,0,0],
+  ['Magic Eden','ME','NFT Marketplace','Multi-chain',0,1,0,0,0,0,0,0],
+  ['Mantle','MNT','L2','Ethereum',0,1,0,0,0,0,0,0],
+  ['Maple Finance','SYRUP','Credit','Ethereum',0,1,1,1,0,1,0,0],
+  ['Marinade Finance','MNDE','Liquid Staking','Solana',0,1,0,0,0,1,0,0],
+  ['MetaDAO','META','Governance','Solana',1,1,0,0,0,1,0,0],
+  ['Meteora','MET','DEX','Solana',1,1,1,1,1,1,1,1],
+  ['Morpho','MORPHO','Lending','Ethereum',0,1,1,0,0,1,0,0],
+  ['Near Protocol','NEAR','L1','Near',0,1,0,0,0,0,0,0],
+  ['Ondo Finance','ONDO','RWA','Multi-chain',0,1,1,0,0,0,0,0],
+  ['Optimism','OP','L2','Optimism',0,1,1,1,1,0,0,0],
+  ['Orca','ORCA','DEX','Solana',0,1,0,0,0,0,1,0],
+  ['PancakeSwap','CAKE','DEX','Multi-chain',0,1,1,0,0,0,0,0],
+  ['Pendle','PENDLE','Yield','Ethereum',0,1,1,0,0,0,1,0],
+  ['Polygon','POL','L2/Scaling','Ethereum',0,1,0,0,0,0,0,0],
+  ['Pump.fun','PUMP','Launchpad','Solana',0,1,0,0,0,0,0,0],
+  ['Pyth Network','PYTH','Oracle','Multi-chain',0,1,0,0,0,0,0,0],
+  ['Raydium','RAY','DEX','Solana',1,1,1,0,0,1,1,0],
+  ['Render','RENDER','DePIN/Compute','Solana',0,1,0,0,0,0,0,0],
+  ['Rocket Pool','RPL','Liquid Staking','Ethereum',0,1,0,0,0,0,0,0],
+  ['Safe','SAFE','Infrastructure','Ethereum',0,1,0,0,0,0,0,0],
+  ['Scroll','SCR','L2','Ethereum',0,1,0,0,0,0,0,0],
+  ['Sei','SEI','L1','Sei',0,1,0,0,0,0,0,0],
+  ['Sky Protocol','SKY','Lending/Stablecoin','Ethereum',0,1,1,1,0,0,1,0],
+  ['Spark','SPK','Lending','Ethereum',0,1,1,1,0,0,1,0],
+  ['Stargate','STG','Bridge','Multi-chain',0,1,0,0,0,0,0,0],
+  ['Starknet','STRK','L2','Ethereum',0,1,0,0,0,0,0,0],
+  ['Sui','SUI','L1','Sui',0,1,0,0,0,0,0,0],
+  ['SushiSwap','SUSHI','DEX','Multi-chain',0,1,0,0,0,0,0,0],
+  ['Synthetix','SNX','Derivatives','Ethereum',0,1,1,0,0,0,1,0],
+  ['The Graph','GRT','Infrastructure','Ethereum',0,1,0,0,0,0,0,0],
+  ['Uniswap','UNI','DEX','Multi-chain',0,1,1,1,1,0,0,0],
+  ['Virtuals Protocol','VIRTUAL','AI Agents','Base',0,1,0,0,0,0,0,0],
+  ['World Liberty Financial','WLFI','DeFi','Ethereum',0,0,0,0,0,0,0,0],
+  ['Worldcoin','WLD','Identity','Multi-chain',0,0,0,1,0,0,0,0],
+  ['Wormhole','W','Interoperability','Multi-chain',0,1,0,0,0,0,0,0],
+  ['zkSync','ZK','L2','Ethereum',0,1,0,0,0,0,0,0],
+  ['Ethereum','ETH','L1','Ethereum',0,1,1,0,0,0,1,0],
+  ['Solana','SOL','L1','Solana',0,1,0,0,0,0,1,0],
+  ['Bitcoin','BTC','L1','Bitcoin',0,0,0,0,0,0,0,0],
+  ['BNB','BNB','L1 / CEX','BNB Chain',0,1,0,0,0,0,1,0],
+  ['Cronos','CRO','CEX / L1','Cronos',0,1,0,0,0,0,0,0],
+  ['OKB','OKB','CEX','OKX Chain',0,0,0,0,0,0,1,0],
+  ['Bitget Token','BGB','CEX','Multi-chain',0,0,0,0,0,0,1,0],
+  ['TRON','TRX','L1','TRON',0,1,0,0,0,0,1,0],
+  ['Cardano','ADA','L1','Cardano',0,1,0,0,0,0,1,0],
+  ['Avalanche','AVAX','L1','Avalanche',0,1,0,0,0,0,1,0],
+  ['Polkadot','DOT','L1','Polkadot',0,1,0,1,0,0,0,0],
+  ['Hedera','HBAR','L1','Hedera',0,1,0,1,0,0,0,0],
+  ['XRP','XRP','L1','XRPL',0,0,0,0,0,0,0,0],
+  ['Stellar','XLM','L1','Stellar',0,0,0,0,0,0,0,0],
+  ['Algorand','ALGO','L1','Algorand',0,1,0,1,0,0,0,0],
+  ['Toncoin','TON','L1','TON',0,1,0,0,0,0,0,0],
+  ['Kaspa','KAS','L1','Kaspa',0,0,0,0,0,0,0,0],
+  ['VeChain','VET','L1','VeChain',0,1,0,0,0,0,0,0],
+  ['Flare','FLR','L1','Flare',0,1,0,0,0,0,0,0],
+  ['Litecoin','LTC','L1','Litecoin',0,0,0,0,0,0,0,0],
+  ['KuCoin Token','KCS','CEX','KuCoin',0,0,0,0,0,0,1,0],
+  ['GateToken','GT','CEX','Gate',0,0,0,0,0,0,1,0],
+  ['LEO Token','LEO','CEX','Bitfinex',0,0,0,0,0,0,1,0],
+  ['Monero','XMR','L1','Monero',0,0,0,0,0,0,0,0],
+  ['Bitcoin Cash','BCH','L1','Bitcoin Cash',0,0,0,0,0,0,0,0],
+  ['Quant','QNT','Infrastructure','Ethereum',0,0,0,0,0,0,0,0],
+  ['NEXO','NEXO','CeFi/Lending','Multi-chain',0,0,0,1,0,0,1,0],
+  ['Stacks','STX','L2 (Bitcoin)','Bitcoin',0,1,0,1,0,0,0,0],
+  ['Injective','INJ','L1','Cosmos',0,1,1,0,0,0,1,0],
+  ['Celestia','TIA','L1 (DA)','Celestia',0,1,0,0,0,0,0,0],
+  ['Mantra','OM','L1/RWA','Mantra',0,0,0,0,0,0,0,0],
+  ['Theta Network','THETA','Infrastructure','Theta',0,1,0,0,0,0,1,0],
+  ['Fantom / Sonic','S','L1','Sonic',0,1,0,0,0,0,0,0],
+  ['Osmosis','OSMO','DEX','Cosmos',0,1,1,0,0,0,0,0],
+  ['THORChain','RUNE','DEX/Bridge','THORChain',0,1,1,0,0,0,1,0],
+  ['Yearn Finance','YFI','Yield','Ethereum',0,1,1,1,0,0,1,0],
+  ['Aura Finance','AURA','Yield','Ethereum',0,1,0,0,0,0,0,0],
+  ['Radix','XRD','L1','Radix',0,1,0,0,0,0,0,0],
+  ['MultiversX','EGLD','L1','MultiversX',0,1,0,0,0,0,1,0],
+  ['Mina','MINA','L1','Mina',0,1,0,0,0,0,0,0],
+  ['Flow','FLOW','L1','Flow',0,1,0,0,0,0,0,0],
+  ['Canto','CANTO','L1','Canto',0,1,0,0,0,0,0,0],
+  ['Gnosis','GNO','L1/Infrastructure','Gnosis',0,1,1,1,0,0,0,0],
+  ['ENS','ENS','Infrastructure','Ethereum',0,1,1,1,0,0,0,0],
+  ['Sommelier','SOMM','Yield','Ethereum',0,1,0,0,0,0,0,0],
+];
+
+const y='<span class="idx-y">✓</span>',n='<span class="idx-n">✗</span>';
+const tbody=document.getElementById('idxBody');
+protocols.sort((a,b)=>a[0].localeCompare(b[0]));
+protocols.forEach(p=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td class="idx-name">${p[0]}</td><td class="idx-tk">${p[1]}</td><td class="idx-sec">${p[2]}</td><td class="idx-ch">${p[3]}</td>`+
+    [4,5,6,7,8,9,10,11].map(i=>`<td class="idx-c">${p[i]?y:n}</td>`).join('');
+  tbody.appendChild(tr);
+});
 </script>
 </body>
 </html>

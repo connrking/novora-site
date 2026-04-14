@@ -5,15 +5,15 @@ const RESEARCH = [
   {
     id: "ir-transparency-2026",
     title: "IR & Token Transparency in 2026",
-    subtitle: "A quantitative assessment of token disclosure practices across 53 crypto protocols",
+    subtitle: "A quantitative assessment of token disclosure practices across 150+ crypto protocols",
     date: "2026-04-14",
     category: "Research",
     tags: ["IR Score", "DeFi", "Transparency"],
     featured: true,
-    stats: { protocols: 53, metrics: 15, sectors: "10+" },
+    stats: { protocols: "150+", metrics: 15, sectors: "10+" },
     embedUrl: "https://novora.co/research/ir-transparency-2026.html",
     description:
-      "We audited 53 crypto protocols across 15 binary, publicly verifiable disclosure metrics — from market maker terms to revenue segmentation to third-party data coverage. The results: 0% disclose MM terms, 2% have an IR hub, and 98% make revenue data accessible but fail to package it for institutional allocators.",
+      "We audited 150+ crypto protocols across 15 binary, publicly verifiable disclosure metrics — from market maker terms to revenue segmentation to third-party data coverage. The results: 0% disclose MM terms, 2% have an IR hub, and 98% make revenue data accessible but fail to package it for institutional allocators.",
   },
 //  {
 //    id: "value-accrual-models",
