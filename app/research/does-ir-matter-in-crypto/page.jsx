@@ -216,7 +216,7 @@ export default function Research() {
           {[
             {n:"Transparency",d:"Financial disclosure, reporting cadence, revenue segmentation"},
             {n:"Accessibility",d:"Investor channels, dedicated IR, gated comms"},
-            {n:"Data Access",d:"Artemis, Token Terminal, Dune, Nansen, Blockworks Research"},
+            {n:"Data Access",d:"Artemis, Token Terminal, Dune, DefiLlama, Blockworks Research"},
             {n:"Governance",d:"Proposal transparency, voting updates, DAO communications"},
             {n:"Positioning",d:"Narrative clarity, competitive context, valuation awareness"},
           ].map((p,i)=>(

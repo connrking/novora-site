@@ -63,7 +63,7 @@ export default function IRScorePage() {
   const pillars = [
     { name: "Transparency & Reporting", desc: "Financial disclosures, token supply schedules, treasury visibility, and proactive unlock communication." },
     { name: "Token Holder Communication", desc: "Structured calls, dedicated IR channels, investor Q&A access, and regular reporting cadence." },
-    { name: "Data Accessibility", desc: "Presence on institutional platforms like Artemis, Token Terminal, Dune, Nansen, and Blockworks Research." },
+    { name: "Data Accessibility", desc: "Presence on institutional platforms like Artemis, Token Terminal, Dune, DefiLlama, and Blockworks Research." },
     { name: "Narrative & Positioning", desc: "Investment thesis clarity, competitive differentiation, and strategic content that makes a PM's job easier." },
     { name: "Value Accrual & Tokenomics", desc: "Fee switches, buybacks, staking yields, dilution management, and clear token utility." },
   ];
