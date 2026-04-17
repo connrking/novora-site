@@ -96,14 +96,14 @@ export default function IRScorePage() {
           <h1 className="ir-hero-h1" style={{
             fontFamily: F.h, fontSize: 52, fontWeight: 300,
             color: C.white, letterSpacing: "-0.02em", margin: "0 0 24px", lineHeight: 1.15,
-          }}>The independent standard<br />for crypto IR.</h1>
+          }}>The independent framework<br />for crypto IR.</h1>
         </FadeIn>
         <FadeIn delay={0.2}>
           <p className="hero-sub" style={{
             fontFamily: F.h, fontSize: 17, color: C.gray200, fontWeight: 400,
             maxWidth: 520, margin: "0 auto 48px", lineHeight: 1.65,
           }}>
-            Five pillars. 100 points. A concrete diagnostic for how well crypto protocols communicate with their investors.
+            Five pillars. 100 points. A structured methodology for evaluating how crypto protocols communicate with their investors.
           </p>
         </FadeIn>
         <FadeIn delay={0.4}>
@@ -146,7 +146,7 @@ export default function IRScorePage() {
               <h2 className="section-h2" style={{
                 fontSize: 32, fontWeight: 300, color: C.white,
                 letterSpacing: "-0.01em", margin: "0 0 20px",
-              }}>30+ protocols scored and counting</h2>
+              }}>150+ protocols assessed and counting</h2>
               <p style={{
                 fontSize: 15, lineHeight: 1.7, color: C.gray200, fontWeight: 400, margin: "0 0 32px",
               }}>
