@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which Token Value Accrual Model Works? | Novora Research</title>
+<meta name="description" content="An empirical study of 162 token value accrual mechanisms. Which models generate alpha, which destroy it.">
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --surface: #FFFFFF;
+    --ink: #0A0A08;
+    --ink-soft: #3A3A38;
+    --ink-mute: #6A6A66;
+    --ink-faint: #A8A8A2;
+    --line: #E8E6DF;
+    --line-soft: #F0EEE7;
+    --purple: #7C6EF0;
+    --purple-soft: #EEEDFE;
+    --purple-deep: #534AB7;
+    --red: #C8372D;
+    --red-soft: #FBEAE9;
+    --green: #1D9E75;
+    --green-soft: #E1F5EE;
+    --amber: #BA7517;
+    --amber-soft: #FAEEDA;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--ink); font-family: Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 880px; margin: 0 auto; padding: 48px 32px 120px; }
+  header.hero { padding: 80px 0 64px; border-bottom: 1px solid var(--line); }
+  .wordmark { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-mute); letter-spacing: 0.02em; margin-bottom: 56px; }
+  .wordmark strong { color: var(--ink); font-weight: 600; }
+  .wordmark .divider { width: 1px; height: 14px; background: var(--line); }
+  .wordmark .tag { color: var(--purple); font-weight: 500; }
+  h1 { font-family: 'EB Garamond', Georgia, serif; font-size: 48px; line-height: 1.1; font-weight: 400; letter-spacing: -0.01em; margin-bottom: 24px; }
+  h1 em { color: var(--purple); font-style: italic; }
+  .hero p.lede { font-size: 18px; line-height: 1.6; color: var(--ink-soft); max-width: 680px; margin-bottom: 32px; }
+  .meta { display: flex; gap: 24px; font-size: 13px; color: var(--ink-mute); }
+  .meta span { display: flex; align-items: center; gap: 6px; }
+  .meta span::before { content: ""; width: 4px; height: 4px; background: var(--purple); border-radius: 50%; }
+
+  section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple); font-weight: 600; margin-bottom: 16px; }
+  h2 { font-family: 'EB Garamond', Georgia, serif; font-size: 32px; line-height: 1.2; font-weight: 400; margin-bottom: 24px; }
+  h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; margin-top: 32px; }
+  p { margin-bottom: 16px; color: var(--ink-soft); }
+  p.big { font-size: 17px; color: var(--ink); }
+
+  .tldr { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--purple); padding: 32px; margin: 32px 0; }
+  .tldr h3 { margin-top: 0; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple); font-weight: 600; margin-bottom: 16px; }
+  .tldr p { font-size: 17px; color: var(--ink); margin-bottom: 12px; }
+  .tldr p:last-child { margin-bottom: 0; }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 32px 0; }
+  .stat { background: var(--surface); border: 1px solid var(--line); padding: 20px; }
+  .stat .label { font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 8px; }
+  .stat .value { font-size: 32px; font-weight: 600; color: var(--ink); font-family: 'EB Garamond', Georgia, serif; line-height: 1; }
+  .stat .sub { font-size: 12px; color: var(--ink-mute); margin-top: 6px; }
+  .stat.accent { border-top: 3px solid var(--purple); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 24px 0; }
+  th { text-align: left; padding: 12px 10px; font-weight: 600; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-mute); border-bottom: 1px solid var(--line); }
+  td { padding: 12px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+  tbody tr:hover { background: var(--surface); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+  td.name { font-weight: 500; color: var(--ink); }
+  .tkr { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 0.04em; color: var(--ink-mute); background: var(--line-soft); padding: 2px 6px; border-radius: 2px; margin-left: 6px; }
+
+  .pos { color: var(--green); font-weight: 600; }
+  .neg { color: var(--red); font-weight: 500; }
+  .flat { color: var(--ink-mute); }
+
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 2px; letter-spacing: 0.02em; }
+  .b-df { background: var(--purple-soft); color: var(--purple-deep); }
+  .b-bb { background: var(--red-soft); color: #7A1F16; }
+  .b-bh { background: var(--amber-soft); color: #6A4209; }
+  .b-ve { background: var(--green-soft); color: #0A5440; }
+  .b-go { background: #F0EFEA; color: var(--ink-soft); }
+  .b-ot { background: #EAEAE5; color: var(--ink-mute); }
+
+  .model-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 32px 0; }
+  .model-card { background: var(--surface); border: 1px solid var(--line); padding: 24px; }
+  .model-card .label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple); margin-bottom: 8px; }
+  .model-card h4 { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+  .model-card .desc { font-size: 14px; color: var(--ink-soft); margin-bottom: 16px; line-height: 1.5; }
+  .model-card .stats { display: flex; gap: 20px; padding-top: 14px; border-top: 1px solid var(--line-soft); }
+  .model-card .stat-inline .k { font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 2px; }
+  .model-card .stat-inline .v { font-size: 18px; font-weight: 600; font-family: 'EB Garamond', Georgia, serif; }
+  .model-card .examples { font-size: 12px; color: var(--ink-mute); margin-top: 12px; }
+  .model-card .examples strong { color: var(--ink-soft); font-weight: 500; }
+
+  .callout { background: var(--purple-soft); border-left: 3px solid var(--purple); padding: 20px 24px; margin: 24px 0; }
+  .callout .k { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple-deep); font-weight: 600; margin-bottom: 6px; }
+  .callout .v { font-size: 16px; color: var(--ink); line-height: 1.5; }
+  .callout .v strong { color: var(--purple-deep); font-weight: 600; }
+
+  .chart-wrap { background: var(--surface); border: 1px solid var(--line); padding: 24px; margin: 24px 0; position: relative; }
+  .chart-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .chart-sub { font-size: 12px; color: var(--ink-mute); margin-bottom: 20px; }
+  .chart-wrap canvas { width: 100% !important; }
+  .chart-wm { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; opacity: 0.07; z-index: 0; }
+  .chart-wrap > .chart-inner { position: relative; z-index: 1; }
+
+  .finding { display: grid; grid-template-columns: 48px 1fr; gap: 20px; margin: 32px 0; padding-bottom: 32px; border-bottom: 1px solid var(--line-soft); }
+  .finding:last-child { border-bottom: none; padding-bottom: 0; }
+  .finding .num { font-family: 'EB Garamond', Georgia, serif; font-size: 28px; color: var(--purple); font-weight: 400; line-height: 1; }
+  .finding h4 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+  .finding p { font-size: 15px; color: var(--ink-soft); margin-bottom: 10px; }
+  .finding .pq { font-family: 'EB Garamond', Georgia, serif; font-size: 17px; color: var(--ink); font-style: italic; border-left: 2px solid var(--purple); padding-left: 14px; margin: 12px 0; }
+
+  .framework { background: var(--surface); border: 1px solid var(--line); padding: 24px; margin: 32px 0; }
+  .framework table { margin: 0; }
+  .framework th { font-size: 10px; padding: 10px 8px; }
+  .framework td { padding: 10px 8px; font-size: 13px; }
+
+  .ranks-wrap { overflow-x: auto; }
+  .ranks-wrap table { font-size: 13px; min-width: 700px; }
+  .ranks-wrap th, .ranks-wrap td { padding: 8px 8px; }
+  .ranks-wrap .ticker { font-family: 'Courier New', monospace; font-size: 11px; color: var(--ink-mute); }
+
+  .filter-bar { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; padding: 20px; background: var(--surface); border: 1px solid var(--line); }
+  .filter-group { display: flex; align-items: flex-start; gap: 16px; }
+  .filter-label { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-mute); font-weight: 600; min-width: 80px; padding-top: 7px; }
+  .filter-row { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; }
+  .filter-btn { font-size: 12px; padding: 6px 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink-mute); cursor: pointer; font-family: inherit; letter-spacing: 0.02em; border-radius: 0; }
+  .filter-btn:hover { border-color: var(--purple); color: var(--purple-deep); }
+  .filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  #searchInput:focus { outline: none; border-color: var(--purple); }
+  @media (max-width: 720px) {
+    .filter-group { flex-direction: column; gap: 8px; }
+    .filter-label { padding-top: 0; }
+  }
+
+  footer { padding: 64px 0 32px; text-align: center; }
+  footer .wm { font-size: 13px; color: var(--ink-mute); margin-bottom: 16px; }
+  footer .cta { font-size: 14px; color: var(--ink); }
+  footer a { color: var(--purple); text-decoration: none; font-weight: 500; }
+  footer a:hover { text-decoration: underline; }
+  footer .sig { margin-top: 24px; font-size: 11px; color: var(--ink-faint); letter-spacing: 0.04em; }
+
+  .divider-mark { text-align: center; margin: 48px 0; color: var(--ink-faint); font-size: 14px; letter-spacing: 0.2em; }
+
+  @media (max-width: 720px) {
+    .container { padding: 32px 20px 80px; }
+    header.hero { padding: 40px 0 40px; }
+    h1 { font-size: 36px; }
+    h2 { font-size: 26px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .model-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header class="hero">
+  <div class="wordmark">
+    <svg height="22" viewBox="100 130 480 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+      <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z" fill="#0A0A08"/>
+      <rect x="150.07" y="207.66" width="80.09" height="32.39" fill="#0A0A08"/>
+      <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z" fill="#0A0A08"/>
+      <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#0A0A08"/>
+      <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z" fill="#0A0A08"/>
+      <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#0A0A08"/>
+      <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z" fill="#0A0A08"/>
+      <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z" fill="#0A0A08"/>
+    </svg>
+    <span class="divider"></span>
+    <span class="tag">// Research</span>
+  </div>
+  <h1>Which Token Value Accrual <em>Model Works</em>?</h1>
+  <p class="lede">We mapped 159 tokens across six value accrual mechanisms and tested which ones translate into shareholder returns. The answer is not what the crypto narrative insists.</p>
+  <div class="meta">
+    <span>Apr 2026</span>
+    <span>159 protocols</span>
+    <span>Powered by Artemis</span>
+  </div>
+</header>
+
+<section>
+  <div class="eyebrow">Summary</div>
+  <h2>The alpha is not in the mechanism</h2>
+
+  <div class="tldr">
+    <h3>Three findings</h3>
+    <p><strong>1.</strong> Active value accrual (direct fee, buyback-burn, buyback-hold, ve-model) outperforms governance-only by 10 percentage points on average across the dataset.</p>
+    <p><strong>2.</strong> Revenue scale, not mechanism design, drives returns. The protocols returning capital while also generating real revenue outperform everything else by a wide margin.</p>
+    <p><strong>3.</strong> Governance-only is a dead model. 48 tokens scored, median return -67%, only 1 positive in the cohort. Institutional allocators actively avoid this structure.</p>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat accent">
+      <div class="label">Protocols assessed</div>
+      <div class="value">159</div>
+      <div class="sub">Across 6 accrual models</div>
+    </div>
+    <div class="stat">
+      <div class="label">With empirical data</div>
+      <div class="value">135</div>
+      <div class="sub">1Y performance + revenue</div>
+    </div>
+    <div class="stat">
+      <div class="label">Positive 1Y return</div>
+      <div class="value">5</div>
+      <div class="sub">3.7% of protocols with data</div>
+    </div>
+    <div class="stat">
+      <div class="label">Median 1Y return</div>
+      <div class="value">-66%</div>
+      <div class="sub">Unweighted across models</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Framework</div>
+  <h2>Six value accrual models</h2>
+  <p class="big">Every liquid token that accrues value does so through one of six mechanisms. Each has a TradFi analog. Each creates a different investor profile.</p>
+
+  <div class="model-cards">
+    <div class="model-card">
+      <div class="label">Model 01</div>
+      <h4>Direct fee distribution</h4>
+      <div class="desc">Protocol fees flow to token stakers in cash, stables, or native assets. The most legible model for allocators because it maps to a dividend.</div>
+      <div class="stats">
+        <div class="stat-inline"><div class="k">Sample</div><div class="v">13</div></div>
+        <div class="stat-inline"><div class="k">Avg 1Y</div><div class="v neg">-61%</div></div>
+        <div class="stat-inline"><div class="k">Median</div><div class="v neg">-71%</div></div>
+      </div>
+      <div class="examples"><strong>Examples:</strong> GMX, dYdX, Jito, Rocket Pool, Gains Network</div>
+    </div>
+
+    <div class="model-card">
+      <div class="label">Model 02</div>
+      <h4>Buyback and burn</h4>
+      <div class="desc">Protocol revenue funds buybacks that are destroyed. Reduces supply over time. The top-performing model in the dataset, carried almost entirely by Hyperliquid.</div>
+      <div class="stats">
+        <div class="stat-inline"><div class="k">Sample</div><div class="v">12</div></div>
+        <div class="stat-inline"><div class="k">Avg 1Y</div><div class="v neg">-35%</div></div>
+        <div class="stat-inline"><div class="k">Median</div><div class="v neg">-66%</div></div>
+      </div>
+      <div class="examples"><strong>Examples:</strong> Hyperliquid, Jupiter, Raydium, Orca, PancakeSwap, Kamino, Ethena, Pendle</div>
+    </div>
+
+    <div class="model-card">
+      <div class="label">Model 03</div>
+      <h4>Buyback and hold</h4>
+      <div class="desc">Protocol revenue funds buybacks held in treasury, staked, or redistributed. Creates a protocol-owned float and optionality without burning supply.</div>
+      <div class="stats">
+        <div class="stat-inline"><div class="k">Sample</div><div class="v">10</div></div>
+        <div class="stat-inline"><div class="k">Avg 1Y</div><div class="v neg">-51%</div></div>
+        <div class="stat-inline"><div class="k">Median</div><div class="v neg">-41%</div></div>
+      </div>
+      <div class="examples"><strong>Examples:</strong> Meteora, Aave, Sky, Lido, Fluid, Maple</div>
+    </div>
+
+    <div class="model-card">
+      <div class="label">Model 04</div>
+      <h4>Vote-escrow (ve-model)</h4>
+      <div class="desc">Lock tokens for time-weighted share of fees, emissions, and bribes. Creates active management overhead but can flywheel meaningfully.</div>
+      <div class="stats">
+        <div class="stat-inline"><div class="k">Sample</div><div class="v">14</div></div>
+        <div class="stat-inline"><div class="k">Avg 1Y</div><div class="v neg">-67%</div></div>
+        <div class="stat-inline"><div class="k">Median</div><div class="v neg">-77%</div></div>
+      </div>
+      <div class="examples"><strong>Examples:</strong> Curve, Aerodrome, Velodrome, Balancer, Convex</div>
+    </div>
+
+    <div class="model-card">
+      <div class="label">Model 05</div>
+      <h4>Governance only</h4>
+      <div class="desc">No fee switch, no buyback, no economic accrual. Token holders vote and nothing else. $0 flows to holders despite protocol revenue.</div>
+      <div class="stats">
+        <div class="stat-inline"><div class="k">Sample</div><div class="v">48</div></div>
+        <div class="stat-inline"><div class="k">Avg 1Y</div><div class="v neg">-65%</div></div>
+        <div class="stat-inline"><div class="k">Median</div><div class="v neg">-67%</div></div>
+      </div>
+      <div class="examples"><strong>Examples:</strong> Uniswap, Arbitrum, Optimism, EigenLayer, Compound, Morpho</div>
+    </div>
+
+    <div class="model-card">
+      <div class="label">Model 06</div>
+      <h4>Other / hybrid</h4>
+      <div class="desc">Points programs, RWA-backed, LRT, memecoins, stablecoins. Heterogeneous by design. Investor legibility varies wildly.</div>
+      <div class="stats">
+        <div class="stat-inline"><div class="k">Sample</div><div class="v">62</div></div>
+        <div class="stat-inline"><div class="k">Avg 1Y</div><div class="v neg">-71%</div></div>
+        <div class="stat-inline"><div class="k">Median</div><div class="v neg">-77%</div></div>
+      </div>
+      <div class="examples"><strong>Examples:</strong> EtherFi, Virtuals, Pepe, Ondo, Liquity, Worldcoin</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Chart 01</div>
+  <h2>Average return by accrual model</h2>
+  <p>Every model in the dataset printed negative 1Y returns on average. The spread between the best and worst is 14 percentage points.</p>
+
+  <div class="chart-wrap">
+    <svg class="chart-wm" width="280" height="280" viewBox="100 130 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z" fill="#0A0A08"/>
+      <rect x="150.07" y="207.66" width="80.09" height="32.39" fill="#0A0A08"/>
+      <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z" fill="#0A0A08"/>
+      <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#0A0A08"/>
+      <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z" fill="#0A0A08"/>
+      <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#0A0A08"/>
+      <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z" fill="#0A0A08"/>
+      <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z" fill="#0A0A08"/>
+    </svg>
+    <div class="chart-inner">
+    <div class="chart-title">1-year return by value accrual model (%)</div>
+    <div class="chart-sub">Market-cap unweighted average. Apr 2025 – Apr 2026.</div>
+    <div style="position: relative; height: 320px;"><canvas id="modelChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="k">The punchline</div>
+    <div class="v">Strip out Hyperliquid, and buyback-burn collapses from -35% to <strong>-56%</strong>. One outlier carried the model. Mechanism design is table stakes, not alpha.</div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Chart 02</div>
+  <h2>Revenue scale is the real signal</h2>
+  <p>Sort the 50 protocols with clean Artemis revenue data by daily revenue and the pattern is clearer than any mechanism split. The top quintile by revenue averaged +8% returns; the bottom quintile averaged -81%.</p>
+
+  <div class="chart-wrap">
+    <svg class="chart-wm" width="280" height="280" viewBox="100 130 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z" fill="#0A0A08"/>
+      <rect x="150.07" y="207.66" width="80.09" height="32.39" fill="#0A0A08"/>
+      <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z" fill="#0A0A08"/>
+      <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#0A0A08"/>
+      <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z" fill="#0A0A08"/>
+      <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill="#0A0A08"/>
+      <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z" fill="#0A0A08"/>
+      <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z" fill="#0A0A08"/>
+    </svg>
+    <div class="chart-inner">
+    <div class="chart-title">1Y return vs daily revenue (log scale)</div>
+    <div class="chart-sub">Each point is a protocol. Color by value accrual model. Bubble size by FDV.</div>
+    <div style="position: relative; height: 380px;"><canvas id="scatterChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="k">Interpretation</div>
+    <div class="v">The two tokens with &gt;$500K/day in revenue are <strong>Hyperliquid</strong> and <strong>Polymarket</strong>. Both are the standout performers. Accrual model didn't matter for either. Revenue did.</div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Findings</div>
+  <h2>What the data actually says</h2>
+
+  <div class="finding">
+    <div class="num">01</div>
+    <div>
+      <h4>Any active accrual beats governance-only by 10 points</h4>
+      <p>The 49 protocols across direct-fee, buyback-burn, buyback-hold, and ve-model averaged -55% over the trailing year. The 48 governance-only protocols averaged -65%. The gap widens when restricted to revenue-generating governance-only tokens like Uniswap, Arbitrum, and EigenLayer, where the opportunity cost of not accruing is most visible.</p>
+      <div class="pq">Governance-only is the IR equivalent of a public company paying no dividend and buying back no stock. Eventually allocators stop pretending it's a going concern and start pricing it as an option on management waking up.</div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="num">02</div>
+    <div>
+      <h4>Hyperliquid is the buyback-and-burn category</h4>
+      <p>On headline numbers, buyback-and-burn won this year (-35% avg) and buyback-and-hold came second (-52%). That reads as a clean win for burns, but the story inverts when you strip out Hyperliquid. Ex-HYPE, buyback-and-burn averaged -56% and buyback-and-hold averaged -52%. One token decided the category.</p>
+      <p>Meteora is the cleanest buyback-and-hold case. $10M buyback program, 95/100 on Novora's IR Score, treasury accumulation transparently disclosed. Down 22% on the year, less than the cohort median. Holding the bought tokens in a transparent treasury preserves optionality and creates a visible, audited float. Burns destroy optionality in exchange for a marketing headline.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="num">03</div>
+    <div>
+      <h4>The ve-model requires perpetual bribes to function</h4>
+      <p>Aerodrome is the only ve-model token in the dataset with positive 1Y return (+5%), and the mechanism depends on $BASE ecosystem inflows sustaining the bribe market. Velodrome, Curve, Balancer, and every smaller ve-fork printed -54% to -84%. The model creates a flywheel, but the flywheel needs continuous new capital. When that stops, the whole structure unwinds.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="num">04</div>
+    <div>
+      <h4>Direct fee distribution is the most legible but hardest to defend</h4>
+      <p>The dYdX paradox is the tension here. Best-in-class IR, 100% of trading fees to stakers, 75% net revenue buyback, and down 82% on the year because revenue collapsed. The mechanism did what it promised. The business did not. For an allocator, this is the cleanest read: you are buying a share of protocol revenue, and if revenue drops, so does the token.</p>
+      <p>Hyperliquid is the inverse: buyback-and-burn via the Assistance Fund (99% of fees), zero traditional IR infrastructure, +193% on the year. Revenue dominates mechanism.</p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="num">05</div>
+    <div>
+      <h4>Everything else (points, RWAs, LRTs, memecoins) averaged -71%</h4>
+      <p>The hybrid bucket is where most 2024–2025 launches ended up: EtherFi, Renzo, Puffer, Usual, Virtuals, AI16Z, the entire LRT cohort, the memecoin cohort. This cohort traded on narrative and TGE airdrops, not on cash-flow mechanics. Once the airdrop unlock printed, there was nothing left to defend the price with.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Framework</div>
+  <h2>Which model for which stage</h2>
+  <p>No single model wins. The right model depends on protocol stage, revenue scale, and institutional legibility needs. Use this as a decision matrix for treasury design.</p>
+
+  <div class="framework">
+    <table>
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Best for</th>
+          <th>Institutional legibility</th>
+          <th>Primary risk</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge b-df">Direct fee</span></td>
+          <td>Mature protocols with &gt;$10M annual revenue</td>
+          <td>★★★★★</td>
+          <td>Revenue visibility cuts both ways</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bb">Buyback-burn</span></td>
+          <td>Protocols at scale with stable revenue base</td>
+          <td>★★★★☆</td>
+          <td>Destroys optionality, no floor</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-bh">Buyback-hold</span></td>
+          <td>Growth-stage with accumulating treasury</td>
+          <td>★★★★☆</td>
+          <td>Treasury becomes governance target</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-ve">ve-model</span></td>
+          <td>DEXs with active bribe economies</td>
+          <td>★★☆☆☆</td>
+          <td>Requires ecosystem subsidies to work</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-go">Governance-only</span></td>
+          <td>Never. Retrofit a mechanism.</td>
+          <td>★☆☆☆☆</td>
+          <td>Pricing floor erodes over time</td>
+        </tr>
+        <tr>
+          <td><span class="badge b-ot">Other / hybrid</span></td>
+          <td>Pre-TGE, points-era, narrative-led launches</td>
+          <td>★★☆☆☆</td>
+          <td>No post-airdrop defense</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Universe</div>
+  <h2>162 protocols, ranked</h2>
+  <p>Full dataset filtered by accrual model. Performance data is 1-year price change via Artemis. Protocols without clean data are categorized but not ranked.</p>
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <div class="filter-label">Model</div>
+      <div class="filter-row">
+        <button class="filter-btn active" data-type="model" data-f="all">All (159)</button>
+        <button class="filter-btn" data-type="model" data-f="direct-fee">Direct fee (13)</button>
+        <button class="filter-btn" data-type="model" data-f="buyback-burn">Buyback-burn (12)</button>
+        <button class="filter-btn" data-type="model" data-f="buyback-hold">Buyback-hold (10)</button>
+        <button class="filter-btn" data-type="model" data-f="ve-model">ve-model (14)</button>
+        <button class="filter-btn" data-type="model" data-f="gov-only">Governance (48)</button>
+        <button class="filter-btn" data-type="model" data-f="other">Other (62)</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">1Y return</div>
+      <div class="filter-row">
+        <button class="filter-btn active" data-type="perf" data-f="all">All</button>
+        <button class="filter-btn" data-type="perf" data-f="positive">Positive</button>
+        <button class="filter-btn" data-type="perf" data-f="0to-50">0 to -50%</button>
+        <button class="filter-btn" data-type="perf" data-f="-50to-75">-50 to -75%</button>
+        <button class="filter-btn" data-type="perf" data-f="below-75">Below -75%</button>
+        <button class="filter-btn" data-type="perf" data-f="nodata">No data</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Sort</div>
+      <div class="filter-row">
+        <button class="filter-btn active" data-type="sort" data-f="perf-desc">Best return</button>
+        <button class="filter-btn" data-type="sort" data-f="perf-asc">Worst return</button>
+        <button class="filter-btn" data-type="sort" data-f="fdv-desc">Largest FDV</button>
+        <button class="filter-btn" data-type="sort" data-f="rev-desc">Highest revenue</button>
+        <button class="filter-btn" data-type="sort" data-f="name-asc">A–Z</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-label">Search</div>
+      <input type="text" id="searchInput" placeholder="Protocol or ticker..." style="width: 100%; padding: 8px 12px; border: 1px solid var(--line); background: var(--surface); font-family: inherit; font-size: 13px; color: var(--ink); border-radius: 0;" />
+    </div>
+  </div>
+  <div id="resultCount" style="font-size: 12px; color: var(--ink-mute); margin-bottom: 12px;"></div>
+
+  <div class="ranks-wrap">
+    <table id="ranksTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Protocol</th>
+          <th>Model</th>
+          <th>Sector</th>
+          <th class="num">1Y %</th>
+          <th class="num">FDV ($M)</th>
+          <th class="num">Daily Rev ($K)</th>
+        </tr>
+      </thead>
+      <tbody id="ranksBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Closing</div>
+  <h2>The protocol treasury's job</h2>
+  <p class="big">The market will not pay a premium for good mechanism design. It will punish the absence of any mechanism at all.</p>
+  <p>The cleanest empirical read of 2025 is that value accrual did not generate alpha. Revenue did. But the 48 governance-only protocols in this dataset show the cost of going without a mechanism. When the market has a choice between a token that pays you and a token that does not, it picks the one that pays.</p>
+  <p>The right question for a treasury is not <em>which mechanism maximizes upside</em>. The data says none of them reliably do. The right question is <em>which mechanism makes this token investable by a credit or income-focused allocator</em>. That lens rules out governance-only and hybrid categories immediately. It favors buyback-and-hold with transparent treasury disclosure, buyback-and-burn for protocols at scale with conviction about long-term supply reduction (Hyperliquid), direct fee distribution for mature revenue-generating protocols, and, for a narrow set of DEX-native tokens, a ve-model tied to a live bribe market.</p>
+  <p>For everything else, including most tokens launched in the last 24 months, the honest answer is <strong>retrofit a mechanism before your next unlock</strong>. Do it while you still have optionality.</p>
+</section>
+
+<footer>
+  <div class="wm">
+    <strong>Novora</strong> // Research
+  </div>
+  <div class="cta">
+    Contact <a href="mailto:connor@novora.co">connor@novora.co</a>
+    &nbsp;·&nbsp;
+    <a href="https://calendly.com/connor_king">Book time</a>
+    &nbsp;·&nbsp;
+    <a href="https://novora.co">novora.co</a>
+  </div>
+  <div class="sig">Powered by Artemis &nbsp;·&nbsp; Apr 2026</div>
+</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+// ============ DATA ============
+const protocols = [
+  // direct-fee (13)
+  { n: "Apex Protocol", t: "APEX", m: "direct-fee", s: "Perps", p: 44, f: null, r: 4 },
+  { n: "Jito", t: "JTO", m: "direct-fee", s: "Liquid Staking", p: -41, f: 334, r: 5 },
+  { n: "GMX", t: "GMX", m: "direct-fee", s: "Perps", p: -52, f: 85, r: 25 },
+  { n: "IntentX", t: "INTX", m: "direct-fee", s: "Perps", p: -58, f: null, r: null },
+  { n: "Rocket Pool", t: "RPL", m: "direct-fee", s: "Liquid Staking", p: -59, f: null, r: 8 },
+  { n: "Gains Network", t: "GNS", m: "direct-fee", s: "Perps", p: -68, f: null, r: 9 },
+  { n: "Umami Finance", t: "UMAMI", m: "direct-fee", s: "Yield", p: -71, f: null, r: null },
+  { n: "HMX", t: "HMX", m: "direct-fee", s: "Perps", p: -73, f: null, r: null },
+  { n: "MUX Protocol", t: "MCB", m: "direct-fee", s: "Perps", p: -77, f: null, r: 0.1 },
+  { n: "dYdX", t: "DYDX", m: "direct-fee", s: "Perps", p: -82, f: 141, r: 4 },
+  { n: "Vertex", t: "VRTX", m: "direct-fee", s: "Perps", p: -84, f: null, r: null },
+  { n: "Mycelium", t: "MYC", m: "direct-fee", s: "Perps", p: -85, f: null, r: null },
+  { n: "Level Finance", t: "LVL", m: "direct-fee", s: "Perps", p: -92, f: null, r: null },
+
+  // buyback-burn (12)
+  { n: "Hyperliquid", t: "HYPE", m: "buyback-burn", s: "Perps", p: 193, f: 41290, r: 827 },
+  { n: "BNB Chain", t: "BNB", m: "buyback-burn", s: "L1", p: 12, f: null, r: null },
+  { n: "Meteora (partial)", t: "MET", m: "buyback-burn", s: "DEX", p: -22, f: 145, r: 26 },
+  { n: "PancakeSwap", t: "CAKE", m: "buyback-burn", s: "DEX", p: -28, f: 612, r: 117 },
+  { n: "Orca", t: "ORCA", m: "buyback-burn", s: "DEX", p: -43, f: 92, r: 3 },
+  { n: "Jupiter", t: "JUP", m: "buyback-burn", s: "DEX Agg", p: -61, f: 1711, r: 53 },
+  { n: "FLOKI", t: "FLOKI", m: "buyback-burn", s: "Memecoin", p: -71, f: null, r: null },
+  { n: "Pendle", t: "PENDLE", m: "buyback-burn", s: "Yield", p: -72, f: 377, r: 0.1 },
+  { n: "Raydium", t: "RAY", m: "buyback-burn", s: "DEX", p: -73, f: 364, r: 26 },
+  { n: "Kamino", t: "KMNO", m: "buyback-burn", s: "Lending", p: -81, f: 210, r: 23 },
+  { n: "Ethena", t: "ENA", m: "buyback-burn", s: "Stablecoin", p: -86, f: 1720, r: null },
+  { n: "Drift", t: "DRIFT", m: "buyback-burn", s: "Perps", p: -88, f: 37, r: 12 },
+
+  // buyback-hold (10)
+  { n: "Meteora", t: "MET", m: "buyback-hold", s: "DEX", p: -22, f: 145, r: 26 },
+  { n: "Sky Protocol", t: "SKY", m: "buyback-hold", s: "Stablecoin", p: -32, f: 1871, r: 31 },
+  { n: "Polygon", t: "POL", m: "buyback-hold", s: "L2", p: -35, f: null, r: 54 },
+  { n: "Aave", t: "AAVE", m: "buyback-hold", s: "Lending", p: -47, f: 1434, r: 19 },
+  { n: "Maple Finance", t: "SYRUP", m: "buyback-hold", s: "Lending", p: -58, f: 2, r: 2 },
+  { n: "Fluid", t: "FLUID", m: "buyback-hold", s: "Lending", p: -66, f: 168, r: 20 },
+  { n: "Sushi", t: "SUSHI", m: "buyback-hold", s: "DEX", p: -71, f: 64, r: 0.3 },
+  { n: "Lido", t: "LDO", m: "buyback-hold", s: "Liquid Staking", p: -76, f: 354, r: null },
+  { n: "dYdX (BB tranche)", t: "DYDX-BB", m: "buyback-hold", s: "Perps", p: -82, f: null, r: null },
+  { n: "Maker", t: "MKR", m: "buyback-hold", s: "Stablecoin", p: -32, f: 1871, r: 31 },
+
+  // ve-model (14)
+  { n: "Aerodrome", t: "AERO", m: "ve-model", s: "DEX", p: 5, f: 732, r: 126 },
+  { n: "PancakeSwap veCAKE", t: "veCAKE", m: "ve-model", s: "DEX", p: -28, f: null, r: null },
+  { n: "Curve", t: "CRV", m: "ve-model", s: "DEX", p: -54, f: 696, r: 78 },
+  { n: "Convex", t: "CVX", m: "ve-model", s: "Yield", p: -62, f: null, r: 2 },
+  { n: "Yearn", t: "YFI", m: "ve-model", s: "Yield", p: -67, f: null, r: null },
+  { n: "Balancer", t: "BAL", m: "ve-model", s: "DEX", p: -72, f: 15, r: 3 },
+  { n: "Thena", t: "THE", m: "ve-model", s: "DEX", p: -79, f: null, r: null },
+  { n: "Velodrome", t: "VELO", m: "ve-model", s: "DEX", p: -84, f: 38, r: 7 },
+  { n: "Ramses", t: "RAM", m: "ve-model", s: "DEX", p: -86, f: null, r: null },
+  { n: "Chronos", t: "CHR", m: "ve-model", s: "DEX", p: -88, f: null, r: null },
+  { n: "Frax Share", t: "FXS", m: "ve-model", s: "Stablecoin", p: -89, f: null, r: null },
+  { n: "Retro", t: "RETRO", m: "ve-model", s: "DEX", p: -90, f: null, r: null },
+  { n: "Equalizer", t: "EQUAL", m: "ve-model", s: "DEX", p: -91, f: null, r: null },
+  { n: "Solidly", t: "SOLID", m: "ve-model", s: "DEX", p: -93, f: null, r: null },
+
+  // gov-only (51)
+  { n: "Compound", t: "COMP", m: "gov-only", s: "Lending", p: 32, f: 252, r: 18 },
+  { n: "Mantle", t: "MNT", m: "gov-only", s: "L2", p: -12, f: null, r: 13 },
+  { n: "Morpho", t: "MORPHO", m: "gov-only", s: "Lending", p: -14, f: 1950, r: null },
+  { n: "Sui", t: "SUI", m: "gov-only", s: "L1", p: -24, f: null, r: 8 },
+  { n: "Chainlink", t: "LINK", m: "gov-only", s: "Oracle", p: -34, f: null, r: 1 },
+  { n: "ENS", t: "ENS", m: "gov-only", s: "Infrastructure", p: -37, f: null, r: null },
+  { n: "Aptos", t: "APT", m: "gov-only", s: "L1", p: -46, f: null, r: 7 },
+  { n: "Ondo", t: "ONDO", m: "gov-only", s: "RWA", p: -47, f: null, r: null },
+  { n: "Helium", t: "HNT", m: "gov-only", s: "DePIN", p: -52, f: null, r: null },
+  { n: "Across", t: "ACX", m: "gov-only", s: "Bridge", p: -54, f: null, r: null },
+  { n: "Ocean Protocol", t: "OCEAN", m: "gov-only", s: "Data", p: -54, f: null, r: null },
+  { n: "Uniswap", t: "UNI", m: "gov-only", s: "DEX", p: -56, f: 3260, r: 100 },
+  { n: "Livepeer", t: "LPT", m: "gov-only", s: "Infrastructure", p: -56, f: null, r: null },
+  { n: "Akash", t: "AKT", m: "gov-only", s: "DePIN", p: -58, f: null, r: null },
+  { n: "NEAR", t: "NEAR", m: "gov-only", s: "L1", p: -58, f: null, r: 1 },
+  { n: "Optimism", t: "OP", m: "gov-only", s: "L2", p: -58, f: null, r: 2 },
+  { n: "Ankr", t: "ANKR", m: "gov-only", s: "DePIN", p: -58, f: null, r: null },
+  { n: "Band Protocol", t: "BAND", m: "gov-only", s: "Oracle", p: -61, f: null, r: null },
+  { n: "Theta", t: "THETA", m: "gov-only", s: "DePIN", p: -61, f: null, r: null },
+  { n: "Arbitrum", t: "ARB", m: "gov-only", s: "L2", p: -63, f: null, r: 9 },
+  { n: "Filecoin", t: "FIL", m: "gov-only", s: "Storage", p: -64, f: null, r: null },
+  { n: "Graph Protocol", t: "GRT", m: "gov-only", s: "Indexing", p: -66, f: null, r: null },
+  { n: "EigenLayer", t: "EIGEN", m: "gov-only", s: "Restaking", p: -67, f: null, r: null },
+  { n: "Sei", t: "SEI", m: "gov-only", s: "L1", p: -68, f: null, r: 0.2 },
+  { n: "DIMO", t: "DIMO", m: "gov-only", s: "DePIN", p: -68, f: null, r: null },
+  { n: "Gitcoin", t: "GTC", m: "gov-only", s: "Public Goods", p: -68, f: null, r: null },
+  { n: "Arweave", t: "AR", m: "gov-only", s: "Storage", p: -69, f: null, r: null },
+  { n: "Injective", t: "INJ", m: "gov-only", s: "L1", p: -71, f: null, r: null },
+  { n: "Render", t: "RENDER", m: "gov-only", s: "DePIN", p: -71, f: null, r: null },
+  { n: "API3", t: "API3", m: "gov-only", s: "Oracle", p: -72, f: null, r: null },
+  { n: "IoTeX", t: "IOTX", m: "gov-only", s: "DePIN", p: -73, f: null, r: null },
+  { n: "Pyth", t: "PYTH", m: "gov-only", s: "Oracle", p: -74, f: null, r: 0.07 },
+  { n: "LayerZero", t: "ZRO", m: "gov-only", s: "Interop", p: -76, f: null, r: null },
+  { n: "Celestia", t: "TIA", m: "gov-only", s: "DA", p: -77, f: null, r: 0.1 },
+  { n: "Stargate", t: "STG", m: "gov-only", s: "Bridge", p: -78, f: null, r: null },
+  { n: "Radicle", t: "RAD", m: "gov-only", s: "Infrastructure", p: -79, f: null, r: null },
+  { n: "Wormhole", t: "W", m: "gov-only", s: "Bridge", p: -81, f: null, r: null },
+  { n: "Streamr", t: "DATA", m: "gov-only", s: "Data", p: -81, f: null, r: null },
+  { n: "Linea", t: "LINEA", m: "gov-only", s: "L2", p: -82, f: null, r: 1 },
+  { n: "Synapse", t: "SYN", m: "gov-only", s: "Bridge", p: -82, f: null, r: null },
+  { n: "Biconomy", t: "BICO", m: "gov-only", s: "Infrastructure", p: -83, f: null, r: null },
+  { n: "Starknet", t: "STRK", m: "gov-only", s: "L2", p: -84, f: null, r: 5 },
+  { n: "Hop Protocol", t: "HOP", m: "gov-only", s: "Bridge", p: -85, f: null, r: null },
+  { n: "Manta", t: "MANTA", m: "gov-only", s: "L2", p: -87, f: null, r: null },
+  { n: "Scroll", t: "SCR", m: "gov-only", s: "L2", p: -88, f: null, r: 0.5 },
+  { n: "Blast", t: "BLAST", m: "gov-only", s: "L2", p: -89, f: null, r: null },
+  { n: "Mode", t: "MODE", m: "gov-only", s: "L2", p: -91, f: null, r: null },
+  { n: "ZKsync", t: "ZK", m: "gov-only", s: "L2", p: -91, f: null, r: 0.7 },
+
+  // other (62)
+  { n: "Polymarket", t: "POLY", m: "other", s: "Prediction Markets", p: null, f: null, r: 1071 },
+  { n: "Reserve", t: "RSR", m: "other", s: "Stablecoin", p: -38, f: null, r: null },
+  { n: "Liquity", t: "LQTY", m: "other", s: "Stablecoin", p: -43, f: null, r: null },
+  { n: "Worldcoin", t: "WLD", m: "other", s: "Identity", p: -48, f: null, r: null },
+  { n: "DeBridge", t: "DBR", m: "other", s: "Bridge", p: -52, f: null, r: null },
+  { n: "Pepe", t: "PEPE", m: "other", s: "Memecoin", p: -62, f: null, r: null },
+  { n: "Berachain", t: "BERA", m: "other", s: "L1", p: -62, f: null, r: null },
+  { n: "Fartcoin", t: "FART", m: "other", s: "Memecoin", p: -64, f: null, r: null },
+  { n: "Centrifuge", t: "CFG", m: "other", s: "RWA", p: -64, f: null, r: null },
+  { n: "Azuro", t: "AZUR", m: "other", s: "Prediction Markets", p: -71, f: null, r: null },
+  { n: "Resolv", t: "RESOLV", m: "other", s: "Stablecoin", p: -72, f: null, r: null },
+  { n: "Bonk", t: "BONK", m: "other", s: "Memecoin", p: -73, f: null, r: null },
+  { n: "Cetus", t: "CETUS", m: "other", s: "DEX", p: -73, f: null, r: null },
+  { n: "Camelot", t: "GRAIL", m: "other", s: "DEX", p: -74, f: null, r: null },
+  { n: "Trader Joe", t: "JOE", m: "other", s: "DEX", p: -77, f: null, r: null },
+  { n: "Virtuals", t: "VIRTUAL", m: "other", s: "AI Agents", p: -77, f: null, r: null },
+  { n: "Goldfinch", t: "GFI", m: "other", s: "RWA", p: -78, f: null, r: null },
+  { n: "Dogwifhat", t: "WIF", m: "other", s: "Memecoin", p: -78, f: null, r: null },
+  { n: "Puffer", t: "PUFFER", m: "other", s: "Liquid Restaking", p: -79, f: null, r: null },
+  { n: "Moodeng", t: "MOODENG", m: "other", s: "Memecoin", p: -79, f: null, r: null },
+  { n: "Scallop", t: "SCA", m: "other", s: "Lending", p: -79, f: null, r: null },
+  { n: "Popcat", t: "POPCAT", m: "other", s: "Memecoin", p: -80, f: null, r: null },
+  { n: "Mog", t: "MOG", m: "other", s: "Memecoin", p: -81, f: null, r: null },
+  { n: "EtherFi", t: "ETHFI", m: "other", s: "LRT", p: -81, f: null, r: null },
+  { n: "Swell", t: "SWELL", m: "other", s: "LRT", p: -81, f: null, r: null },
+  { n: "Elixir", t: "ELX", m: "other", s: "Market Making", p: -81, f: null, r: null },
+  { n: "Pengu", t: "PENGU", m: "other", s: "NFT/Memecoin", p: -82, f: null, r: null },
+  { n: "Zora", t: "ZORA", m: "other", s: "NFT/Creator", p: -82, f: null, r: null },
+  { n: "Kelp", t: "KEP", m: "other", s: "LRT", p: -83, f: null, r: null },
+  { n: "Turbos", t: "TURBOS", m: "other", s: "DEX", p: -84, f: null, r: null },
+  { n: "NAVI", t: "NAVX", m: "other", s: "Lending", p: -86, f: null, r: null },
+  { n: "Maverick", t: "MAV", m: "other", s: "DEX", p: -86, f: null, r: null },
+  { n: "Usual", t: "USUAL", m: "other", s: "Stablecoin", p: -86, f: null, r: null },
+  { n: "Renzo", t: "REZ", m: "other", s: "LRT", p: -87, f: null, r: null },
+  { n: "Goatseus Maximus", t: "GOAT", m: "other", s: "Memecoin", p: -87, f: null, r: null },
+  { n: "AI16Z", t: "AI16Z", m: "other", s: "AI Agents", p: -89, f: null, r: null },
+  { n: "Osmosis", t: "OSMO", m: "other", s: "DEX", p: -63, f: null, r: null },
+  { n: "Spark", t: "SPK", m: "other", s: "Lending", p: null, f: 278, r: 12 },
+  { n: "Frax", t: "FRAX", m: "other", s: "Stablecoin", p: null, f: null, r: 2 },
+  { n: "Ondo OUSG", t: "OUSG", m: "other", s: "RWA", p: null, f: null, r: null },
+  { n: "Backed", t: "BACKED", m: "other", s: "RWA", p: null, f: null, r: null },
+  { n: "Maple syrupUSDC", t: "syrupUSDC", m: "other", s: "RWA", p: null, f: null, r: null },
+  { n: "Sky USDS", t: "USDS", m: "other", s: "Stablecoin", p: null, f: null, r: null },
+  { n: "crvUSD", t: "crvUSD", m: "other", s: "Stablecoin", p: null, f: null, r: null },
+  { n: "scrvUSD", t: "scrvUSD", m: "other", s: "Stablecoin", p: null, f: null, r: null },
+  { n: "Aave GHO", t: "GHO", m: "other", s: "Stablecoin", p: null, f: null, r: null },
+  { n: "Pax Gold", t: "PAXG", m: "other", s: "RWA", p: null, f: null, r: null },
+  { n: "Tether Gold", t: "XAUT", m: "other", s: "RWA", p: null, f: null, r: null },
+  { n: "Reserve eUSD", t: "eUSD", m: "other", s: "Stablecoin", p: null, f: null, r: null },
+  { n: "Usual USD0", t: "USD0", m: "other", s: "Stablecoin", p: null, f: null, r: null },
+  { n: "Inverse DOLA", t: "DOLA", m: "other", s: "Stablecoin", p: null, f: null, r: null },
+  { n: "mETH", t: "mETH", m: "other", s: "LRT", p: null, f: null, r: null },
+  { n: "Pendle PT", t: "PT", m: "other", s: "Yield", p: null, f: null, r: null },
+  { n: "Aleo", t: "ALEO", m: "other", s: "Privacy", p: null, f: null, r: null },
+  { n: "Aztec", t: "AZTEC", m: "other", s: "Privacy", p: null, f: null, r: null },
+  { n: "Catalyst", t: "CAT", m: "other", s: "Bridge", p: null, f: null, r: null },
+  { n: "Hyperlane", t: "HYPER", m: "other", s: "Interop", p: null, f: null, r: null },
+  { n: "Superfluid", t: "SUPER", m: "other", s: "Streaming", p: null, f: null, r: null },
+  { n: "Socket", t: "SOCKET", m: "other", s: "Bridge", p: null, f: null, r: null },
+  { n: "Berachain HONEY", t: "HONEY", m: "other", s: "Stablecoin", p: null, f: null, r: null },
+  { n: "Monad", t: "MON", m: "other", s: "L1", p: null, f: null, r: null },
+  { n: "Kalshi", t: "KSI", m: "other", s: "Prediction Markets", p: null, f: null, r: null },
+];
+
+// ============ RANKS TABLE ============
+const badgeMap = {
+  "direct-fee": { cls: "b-df", label: "Direct fee" },
+  "buyback-burn": { cls: "b-bb", label: "Buyback-burn" },
+  "buyback-hold": { cls: "b-bh", label: "Buyback-hold" },
+  "ve-model": { cls: "b-ve", label: "ve-model" },
+  "gov-only": { cls: "b-go", label: "Governance" },
+  "other": { cls: "b-ot", label: "Other" },
+};
+
+function renderRanks() {
+  const modelFilter = document.querySelector('[data-type="model"].active').dataset.f;
+  const perfFilter = document.querySelector('[data-type="perf"].active').dataset.f;
+  const sortMode = document.querySelector('[data-type="sort"].active').dataset.f;
+  const search = document.getElementById("searchInput").value.trim().toLowerCase();
+
+  let filtered = protocols.filter(p => {
+    // Model filter
+    if (modelFilter !== "all" && p.m !== modelFilter) return false;
+    // Perf filter
+    if (perfFilter === "positive" && !(p.p !== null && p.p > 0)) return false;
+    if (perfFilter === "0to-50" && !(p.p !== null && p.p <= 0 && p.p >= -50)) return false;
+    if (perfFilter === "-50to-75" && !(p.p !== null && p.p < -50 && p.p >= -75)) return false;
+    if (perfFilter === "below-75" && !(p.p !== null && p.p < -75)) return false;
+    if (perfFilter === "nodata" && p.p !== null) return false;
+    // Search
+    if (search && !(p.n.toLowerCase().includes(search) || p.t.toLowerCase().includes(search))) return false;
+    return true;
+  });
+
+  // Sort
+  filtered.sort((a, b) => {
+    if (sortMode === "perf-desc") {
+      if (a.p === null && b.p === null) return 0;
+      if (a.p === null) return 1;
+      if (b.p === null) return -1;
+      return b.p - a.p;
+    }
+    if (sortMode === "perf-asc") {
+      if (a.p === null && b.p === null) return 0;
+      if (a.p === null) return 1;
+      if (b.p === null) return -1;
+      return a.p - b.p;
+    }
+    if (sortMode === "fdv-desc") {
+      const af = a.f === null ? -1 : a.f;
+      const bf = b.f === null ? -1 : b.f;
+      return bf - af;
+    }
+    if (sortMode === "rev-desc") {
+      const ar = a.r === null ? -1 : a.r;
+      const br = b.r === null ? -1 : b.r;
+      return br - ar;
+    }
+    if (sortMode === "name-asc") {
+      return a.n.localeCompare(b.n);
+    }
+    return 0;
+  });
+
+  const body = document.getElementById("ranksBody");
+  body.innerHTML = filtered.map((p, i) => {
+    const b = badgeMap[p.m];
+    const perfCls = p.p === null ? "flat" : (p.p > 0 ? "pos" : "neg");
+    const perfVal = p.p === null ? "—" : (p.p > 0 ? "+" : "") + Math.round(p.p) + "%";
+    const fdvVal = p.f === null ? "—" : "$" + Math.round(p.f).toLocaleString();
+    const revVal = p.r === null ? "—" : "$" + (p.r >= 1 ? Math.round(p.r).toLocaleString() : p.r.toFixed(1));
+    return `
+      <tr>
+        <td style="color: var(--ink-faint); font-variant-numeric: tabular-nums;">${i + 1}</td>
+        <td class="name">${p.n} <span class="ticker">${p.t}</span></td>
+        <td><span class="badge ${b.cls}">${b.label}</span></td>
+        <td style="color: var(--ink-mute);">${p.s}</td>
+        <td class="num ${perfCls}">${perfVal}</td>
+        <td class="num">${fdvVal}</td>
+        <td class="num">${revVal}</td>
+      </tr>
+    `;
+  }).join("");
+
+  document.getElementById("resultCount").textContent =
+    `Showing ${filtered.length} of ${protocols.length} protocols`;
+}
+
+renderRanks();
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const type = btn.dataset.type;
+    document.querySelectorAll(`[data-type="${type}"]`).forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    renderRanks();
+  });
+});
+
+document.getElementById("searchInput").addEventListener("input", renderRanks);
+
+// ============ CHART 1: avg by model ============
+const models = ["direct-fee", "buyback-burn", "buyback-hold", "ve-model", "gov-only", "other"];
+const modelLabels = ["Direct fee", "Buyback-burn", "Buyback-hold", "ve-model", "Governance only", "Other / hybrid"];
+
+const avgByModel = models.map(m => {
+  const vals = protocols.filter(p => p.m === m && p.p !== null).map(p => p.p);
+  return vals.length ? Math.round(vals.reduce((a, b) => a + b, 0) / vals.length) : 0;
+});
+
+new Chart(document.getElementById("modelChart"), {
+  type: "bar",
+  data: {
+    labels: modelLabels,
+    datasets: [{
+      label: "Avg 1Y return (%)",
+      data: avgByModel,
+      backgroundColor: ["#7C6EF0", "#C8372D", "#BA7517", "#1D9E75", "#6A6A66", "#A8A8A2"],
+      borderRadius: 2,
+      borderSkipped: false,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => ctx.parsed.y + "%" }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: "#3A3A38", font: { family: "Helvetica, Arial", size: 11 } } },
+      y: { grid: { color: "#F0EEE7" }, ticks: { color: "#6A6A66", font: { family: "Helvetica, Arial", size: 11 }, callback: v => v + "%" } }
+    }
+  }
+});
+
+// ============ CHART 2: scatter rev vs perf ============
+const scatterData = protocols
+  .filter(p => p.p !== null && p.r !== null && p.r > 0)
+  .map(p => ({
+    x: p.r,
+    y: p.p,
+    r: p.f ? Math.max(4, Math.log(p.f) * 1.5) : 5,
+    name: p.n,
+    model: p.m
+  }));
+
+const modelColors = {
+  "direct-fee": "#7C6EF0",
+  "buyback-burn": "#C8372D",
+  "buyback-hold": "#BA7517",
+  "ve-model": "#1D9E75",
+  "gov-only": "#6A6A66",
+  "other": "#A8A8A2"
+};
+
+new Chart(document.getElementById("scatterChart"), {
+  type: "bubble",
+  data: {
+    datasets: models.map(m => ({
+      label: badgeMap[m].label,
+      data: scatterData.filter(d => d.model === m),
+      backgroundColor: modelColors[m] + "AA",
+      borderColor: modelColors[m],
+      borderWidth: 1,
+    }))
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        align: "start",
+        labels: { color: "#3A3A38", font: { family: "Helvetica, Arial", size: 11 }, boxWidth: 10, boxHeight: 10, padding: 10 }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => `${ctx.raw.name}: $${ctx.raw.x}K/day rev, ${ctx.raw.y}%`
+        }
+      }
+    },
+    scales: {
+      x: {
+        type: "logarithmic",
+        title: { display: true, text: "Daily revenue ($K, log scale)", color: "#6A6A66", font: { family: "Helvetica, Arial", size: 12 } },
+        grid: { color: "#F0EEE7" },
+        ticks: { color: "#6A6A66", font: { family: "Helvetica, Arial", size: 11 }, callback: v => "$" + v + "K" }
+      },
+      y: {
+        title: { display: true, text: "1Y return (%)", color: "#6A6A66", font: { family: "Helvetica, Arial", size: 12 } },
+        grid: { color: "#F0EEE7" },
+        ticks: { color: "#6A6A66", font: { family: "Helvetica, Arial", size: 11 }, callback: v => v + "%" }
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

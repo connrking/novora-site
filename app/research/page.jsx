@@ -15,19 +15,19 @@ const RESEARCH = [
     description:
       "We audited 150+ crypto protocols across 15 binary, publicly verifiable disclosure metrics — from market maker terms to revenue segmentation to third-party data coverage. The results: 0% disclose MM terms, 2% have an IR hub, and 98% make revenue data accessible but fail to package it for institutional allocators.",
   },
-//  {
-//    id: "value-accrual-models",
-//    title: "Which Token Value Accrual Model Works?",
-//    subtitle: "A data-driven analysis of six token value accrual models and their relationship to returns",
-//    date: "2026-04-14",
-//    category: "Research",
-//    tags: ["Tokenomics", "Value Accrual", "DeFi"],
-//    featured: false,
-//    stats: { models: 6, protocols: "60+" },
-//    embedUrl: "https://novora.co/research/value-accrual-models-2026.html",
-//    description:
-//      "We analyzed six distinct token value accrual models across 60+ protocols to determine which approaches actually drive returns. The data challenges common assumptions about buybacks, staking rewards, and direct distribution.",
-//  },
+  {
+    id: "value-accrual-2026",
+    title: "Which Token Value Accrual Model Works?",
+    subtitle: "An empirical study of 159 tokens across six value accrual mechanisms",
+    date: "2026-04-20",
+    category: "Research",
+    tags: ["Tokenomics", "Value Accrual", "DeFi"],
+    featured: false,
+    stats: { protocols: 159, models: 6, positive: 5 },
+    embedUrl: "https://novora.co/research/value-accrual-2026.html",
+    description:
+      "We mapped 159 tokens across six value accrual mechanisms and tested which translate into shareholder returns. Active value accrual beats governance-only by 10 percentage points. Revenue scale, not mechanism design, drives returns. Governance-only remains the weakest model in the dataset.",
+  },
   {
     id: "reintroducing-novora",
     title: "Reintroducing Novora",
@@ -140,6 +140,28 @@ const ReportCover = ({ item }) => {
           </div>
           <div style={{ fontFamily: F, fontSize: 36, fontWeight: 300, color: T.white, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 440 }}>Does IR Matter<br />in Crypto?</div>
           <div style={{ marginTop: 24, fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase" }}>March 2026</div>
+        </div>
+      </div>
+    );
+  }
+  if (item.id === "value-accrual-2026") {
+    return (
+      <div style={{ background: "#0D0D0D", padding: "48px 52px 44px", border: `0.5px solid ${T.border}`, marginBottom: 32, position: "relative", overflow: "hidden" }}>
+        <svg style={{ position: "absolute", top: 0, right: 0, width: "60%", height: "100%", opacity: 0.06 }} viewBox="0 0 400 400" preserveAspectRatio="none">
+          {[193, 12, -35, -51, -52, -65, -71].map((v, i) => {
+            const h = Math.abs(v) * 1.2;
+            const y = v > 0 ? 200 - h : 200;
+            return <rect key={i} x={30 + i * 52} y={y} width="36" height={h} fill="none" stroke="#fff" strokeWidth="0.5" />;
+          })}
+          <line x1="20" y1="200" x2="390" y2="200" stroke="#fff" strokeWidth="0.5" />
+        </svg>
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 9, marginBottom: 32 }}>
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#fff" }} />
+            <span style={{ fontFamily: F, fontSize: 10, fontWeight: 500, letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>Novora Research</span>
+          </div>
+          <div style={{ fontFamily: F, fontSize: 36, fontWeight: 300, color: T.white, lineHeight: 1.15, letterSpacing: "-0.02em", maxWidth: 480 }}>Which Token Value<br />Accrual Model Works?</div>
+          <div style={{ marginTop: 24, fontFamily: F, fontSize: 11, color: "rgba(255,255,255,0.35)", letterSpacing: "0.08em", textTransform: "uppercase" }}>April 2026</div>
         </div>
       </div>
     );
