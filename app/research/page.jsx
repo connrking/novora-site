@@ -39,7 +39,7 @@ const RESEARCH = [
     stats: null,
     embedUrl: "https://x.com/connorking/status/2036450515341480190",
     description:
-      "The gap between protocols and institutional capital is not an investment problem. It is an infrastructure problem. Novora is an independent capital markets advisory firm for crypto, combining advisory, IR infrastructure, and principal investing to serve as the connective tissue between protocols and institutional capital.",
+      "The gap between protocols and institutional capital is not an investment problem. It is an infrastructure problem. Novora is an independent capital markets advisory firm for crypto, combining advisory, IR infrastructure, and principal investing to serve as the connective tissue between protocols and the institutional investor base.",
   },
   {
     id: "does-ir-matter",

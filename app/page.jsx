@@ -31,7 +31,7 @@ export default function HomePage() {
 
         <FadeIn delay={0.6}>
           <p className="hero-sub" style={{ fontFamily: F.h, fontSize: 18, lineHeight: 1.65, color: C.gray200, maxWidth: 520, marginTop: 32, fontWeight: 400 }}>
-            We combine capital markets advisory, investor relations infrastructure, and principal investing to serve as the connective tissue between protocols and institutional capital.
+            We combine capital markets advisory, investor relations infrastructure, and principal investing to serve as the connective tissue between protocols and the institutional investor base.
           </p>
         </FadeIn>
         <FadeIn delay={0.8}>
@@ -52,7 +52,7 @@ export default function HomePage() {
           <div style={{ width: 40, height: 0.5, background: C.gray500, marginBottom: 60 }} />
         </FadeIn>
         <div className="service-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 0 }}>
-          <ServiceCard index={0} num="01" title="Capital Markets Advisory" desc="End-to-end support to design, launch, and sustain efficient token markets. From tokenomics architecture and exchange strategy through roadshow execution, fundraising, and capital introductions to institutional allocators." />
+          <ServiceCard index={0} num="01" title="Capital Markets Advisory" desc="End-to-end support to design, launch, and sustain efficient token markets. From tokenomics architecture and exchange strategy through roadshow preparation, IR infrastructure, and institutional access." />
           <ServiceCard index={1} num="02" title="Investor Relations" desc="Building long-term credibility and tokenholder alignment through transparent, professional communication. The Novora IR Score diagnoses where protocols fall short and what to fix." />
           <ServiceCard index={2} num="03" title="Principal Investing" desc="We invest alongside the teams we advise, ensuring long-term alignment between Novora and our partners." />
         </div>

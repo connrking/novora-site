@@ -129,7 +129,7 @@ export default function AdvisoryPage() {
             fontFamily: F.h, fontSize: 17, color: C.gray200,
             fontWeight: 400, lineHeight: 1.65, maxWidth: 560, marginTop: 24,
           }}>
-            We serve as the connective tissue between protocols and institutional capital, with a buy-side lens no other advisor can offer.
+            We serve as the connective tissue between protocols and the institutional investor base, with a buy-side lens no other advisor can offer.
           </p>
         </FadeIn>
       </section>
@@ -166,14 +166,15 @@ export default function AdvisoryPage() {
       <ServiceSection
         index={2}
         num="III"
-        title="Strategic Network & Market Intelligence"
-        desc="Novora maintains relationships with 170+ institutional funds, trading firms, and allocators through the Novora Network. We leverage this network to provide protocols with market intelligence, sentiment feedback, and strategic guidance on how institutional capital is evaluating their sector, competitors, and positioning."
+        title="Institutional Access"
+        desc="Novora Institutional Access is our program for connecting advisory clients with the institutional investor base. Through a curated network of 170+ funds, trading firms, and allocators, we facilitate relationships, market intelligence, and sustained engagement across events, private meetings, and ongoing dialogue. The program supports credibility-building and long-term positioning, not capital formation."
         capabilities={[
-          "Market intelligence & sentiment",
+          "Curated 1:1 meetings and roundtables",
+          "Flagship and private events programming",
+          "Market intelligence and sentiment",
           "Institutional positioning guidance",
-          "Sector & competitive analysis",
-          "Network-facilitated introductions",
-          "Event programming & investor roundtables",
+          "Sector and competitive analysis",
+          "Year-round engagement across the Novora Network",
         ]}
       />
 

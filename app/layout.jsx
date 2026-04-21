@@ -3,10 +3,10 @@ import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Novora | Independent Capital Markets Advisory for Crypto",
-  description: "Novora is an independent capital markets advisory firm for crypto. We combine capital markets advisory, investor relations infrastructure, and principal investing to serve as the connective tissue between protocols and institutional capital.",
+  description: "Novora is an independent capital markets advisory firm for crypto. We combine capital markets advisory, investor relations infrastructure, and principal investing to serve as the connective tissue between protocols and the institutional investor base.",
   openGraph: {
     title: "Novora | Independent Capital Markets Advisory for Crypto",
-    description: "The connective tissue between protocols and institutional capital.",
+    description: "The connective tissue between protocols and the institutional investor base.",
     url: "https://novora.co",
     siteName: "Novora",
     type: "website",
