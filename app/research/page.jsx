@@ -146,7 +146,7 @@ const QuarterlyReportsTable = ({ reports }) => {
                 <span style={{ fontSize: 13, color: T.textMuted }}>{r.period}</span>
                 <span style={{ fontSize: 13, color: T.textMuted, lineHeight: 1.5, paddingRight: 24, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{r.description}</span>
                 <span style={{ fontSize: 13, color: T.textMuted }}>{publishedDate}</span>
-                
+                <a
                   href={"/research/" + r.slug + ".html"}
                   style={{
                     fontFamily: F,
