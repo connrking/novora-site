@@ -60,43 +60,36 @@ a:hover { border-bottom-color: var(--purple-dark); }
 /* ============ TOP BAR ============ */
 .top-bar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  padding: 32px 0;
-  border-bottom: 0.5px solid var(--border);
-  margin-bottom: 80px;
+  gap: 18px;
+  padding: 56px 0 96px;
 }
 
 .top-bar .lockup {
   display: flex;
   align-items: center;
-  gap: 14px;
   border: none !important;
 }
 
 .top-bar .lockup svg { display: block; }
 
-.top-bar .lockup-text {
+.top-bar .divider {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+}
+
+.top-bar .breadcrumb {
   font-family: var(--sans);
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-primary);
-  letter-spacing: -0.01em;
+  color: var(--purple);
+  letter-spacing: 0.02em;
+  border: none;
 }
 
-.top-bar nav {
-  display: flex;
-  gap: 28px;
-  font-family: var(--sans);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.top-bar nav a { color: var(--text-muted); border: none; }
-.top-bar nav a:hover { color: var(--purple-dark); }
+.top-bar .breadcrumb:hover { color: var(--purple-dark); }
 
 /* ============ HERO / COVER ============ */
 .eyebrow {
@@ -650,21 +643,23 @@ footer a:hover { color: var(--purple-dark); }
 <!-- ============ TOP BAR ============ -->
 <header class="top-bar">
   <a href="https://novora.co" class="lockup">
-    <svg width="32" height="32" viewBox="100 130 480 140" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="#1A1A18">
+    <svg height="22" viewBox="140 150 420 100" xmlns="http://www.w3.org/2000/svg" fill="#1A1A18" preserveAspectRatio="xMidYMid meet" style="width: auto;">
       <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z"/>
       <rect x="150.07" y="207.66" width="80.09" height="32.39"/>
+      <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z"/>
+      <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/>
+      <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z"/>
+      <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/>
+      <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z"/>
+      <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z"/>
     </svg>
-    <span class="lockup-text">Novora</span>
   </a>
-  <nav>
-    <a href="https://novora.co/research">Research</a>
-    <a href="https://novora.co/ir-score">IR Score</a>
-  </nav>
+  <span class="divider"></span>
+  <a href="https://novora.co/research" class="breadcrumb">// Research</a>
 </header>
 
 <!-- ============ HERO ============ -->
 <section class="hero" style="margin-bottom: 56px;">
-  <div class="eyebrow">// Quarterly Token Holder Report</div>
   <h1>MetaDAO <span class="accent">Q1 2026</span></h1>
   <p class="subtitle">
     Quarterly token holder report covering MetaDAO's protocol fundamentals,
@@ -672,6 +667,8 @@ footer a:hover { color: var(--purple-dark); }
     Novora as part of an active advisory engagement with MetaDAO.
   </p>
 </section>
+
+<hr style="border: none; border-top: 0.5px solid var(--border); margin: 0 0 80px;" />
 
 <!-- ============ 01. EXECUTIVE SUMMARY (combined: narrative + key metrics + highlights + team commentary) ============ -->
 <section id="exec">
