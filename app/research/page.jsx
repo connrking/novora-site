@@ -80,6 +80,40 @@ const RESEARCH = [
   },
 ];
 
+// Token Holder Reports — populated as advisory clients ship quarterly reports.
+// To add: append { protocol, ticker, period, description, published, slug }
+const QUARTERLY_REPORTS = [];
+
+const QuarterlyReportsTable = ({ reports }) => {
+  const [hoveredRow, setHoveredRow] = useState(null);
+  return (
+    <div>
+      <div style={{ marginBottom: 28 }}>
+        <h2 style={{ fontFamily: F, fontSize: 24, fontWeight: 400, color: T.white, letterSpacing: "-0.01em", margin: "0 0 8px" }}>Token Holder Reports</h2>
+        <p style={{ fontFamily: F, fontSize: 13, color: T.textMuted, lineHeight: 1.6, margin: 0, maxWidth: 560 }}>
+          Recurring token holder reports covering fundamentals, peer comparison, and strategic developments by quarter.
+        </p>
+      </div>
+      <div style={{ border: "0.5px solid " + T.border, borderRadius: 2, overflow: "hidden" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 0.8fr 3.5fr 1fr 1fr", padding: "16px 24px", borderBottom: "0.5px solid " + T.border, fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: T.textSubtle, alignItems: "center" }}>
+          <span>Protocol</span>
+          <span>Period</span>
+          <span>Description</span>
+          <span>Published</span>
+          <span>Report</span>
+        </div>
+        {reports.length === 0 ? (
+          <div style={{ padding: "80px 32px", textAlign: "center" }}>
+            <p style={{ fontFamily: F, fontSize: 16, fontWeight: 400, color: T.white, letterSpacing: "-0.01em", margin: "0 0 12px" }}>First reports shipping soon</p>
+            <p style={{ fontFamily: F, fontSize: 13, color: T.textMuted, lineHeight: 1.6, maxWidth: 460, margin: "0 auto 28px" }}>Novora produces token holder reports for advisory clients in active engagements. New reports publish at the start of each quarter.</p>
+            <a href="https://ir.novora.co/apply" style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: T.white, textDecoration: "none", padding: "10px 24px", border: "0.5px solid " + T.borderLight, display: "inline-block" }}>GET IN TOUCH</a>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+};
+
 const CATEGORIES = ["All", "Research", "Quarterly Reports"];
 
 const T = {
@@ -388,7 +422,9 @@ export default function NovoraResearch() {
             <FeaturedCard item={featured} onClick={handleSelect} />
           </FadeIn>
         )}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+        {activeCategory === "Quarterly Reports" ? (
+          <FadeIn delay={150}><QuarterlyReportsTable reports={QUARTERLY_REPORTS} /></FadeIn>
+        ) : (<><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
           {(activeCategory === "All"
             ? RESEARCH.filter((r) => !r.featured)
             : RESEARCH.filter((r) => r.category === activeCategory)
@@ -400,7 +436,7 @@ export default function NovoraResearch() {
           <div style={{ textAlign: "center", padding: "80px 0" }}>
             <p style={{ fontFamily: F, fontSize: 13, color: T.textSubtle }}>No research published in this category yet.</p>
           </div>
-        )}
+        )}</>)}
       </div>
 
       <FadeIn>
