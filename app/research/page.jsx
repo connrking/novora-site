@@ -121,7 +121,7 @@ const QuarterlyReportsTable = ({ reports }) => {
           reports.map((r, i) => {
             const publishedDate = new Date(r.published).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
             return (
-              
+              <a
                 key={r.slug}
                 href={`/research/${r.slug}.html`}
                 onMouseEnter={() => setHoveredRow(i)}
