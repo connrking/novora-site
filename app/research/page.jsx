@@ -104,7 +104,7 @@ const QuarterlyReportsTable = ({ reports }) => {
         </p>
       </div>
       <div style={{ border: "0.5px solid " + T.border, borderRadius: 2, overflow: "hidden" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 0.8fr 3.5fr 1fr 1fr", padding: "16px 24px", borderBottom: "0.5px solid " + T.border, fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: T.textSubtle, alignItems: "center" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 0.8fr 3.5fr 1fr 1.2fr", padding: "16px 24px", borderBottom: "0.5px solid " + T.border, fontFamily: F, fontSize: 12, fontWeight: 400, color: T.textMuted, alignItems: "center" }}>
           <span>Protocol</span>
           <span>Period</span>
           <span>Description</span>
@@ -120,7 +120,7 @@ const QuarterlyReportsTable = ({ reports }) => {
         ) : (
           reports.map((r, i) => {
             const d = new Date(r.published);
-            const publishedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+            const publishedDate = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
             return (
               <div
                 key={r.slug}
@@ -147,7 +147,7 @@ const QuarterlyReportsTable = ({ reports }) => {
                 <span style={{ fontSize: 13, color: T.textMuted, lineHeight: 1.5, paddingRight: 24, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{r.description}</span>
                 <span style={{ fontSize: 13, color: T.textMuted }}>{publishedDate}</span>
                 
-                  href={`/research/${r.slug}.html`}
+                  href={"/research/" + r.slug + ".html"}
                   style={{
                     fontFamily: F,
                     fontSize: 12,
@@ -164,7 +164,7 @@ const QuarterlyReportsTable = ({ reports }) => {
                     transition: "all 0.15s ease",
                   }}
                 >
-                  <span>Access Report</span> <span style={{ fontSize: 11, marginLeft: 2 }}>{"\u2192"}</span>
+                  Access Report &rarr;
                 </a>
               </div>
             );
