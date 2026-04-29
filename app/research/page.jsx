@@ -117,7 +117,36 @@ const QuarterlyReportsTable = ({ reports }) => {
             <p style={{ fontFamily: F, fontSize: 13, color: T.textMuted, lineHeight: 1.6, maxWidth: 460, margin: "0 auto 28px" }}>Novora produces token holder reports for advisory clients in active engagements. New reports publish at the start of each quarter.</p>
             <a href="https://ir.novora.co/apply" style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: T.white, textDecoration: "none", padding: "10px 24px", border: "0.5px solid " + T.borderLight, display: "inline-block" }}>GET IN TOUCH</a>
           </div>
-        ) : null}
+        ) : (
+          reports.map((r, i) => {
+            const publishedDate = new Date(r.published).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+            return (
+              
+                key={r.slug}
+                href={`/research/${r.slug}.html`}
+                onMouseEnter={() => setHoveredRow(i)}
+                onMouseLeave={() => setHoveredRow(null)}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1.4fr 0.8fr 3.5fr 1fr 1fr",
+                  padding: "20px 24px",
+                  borderBottom: i < reports.length - 1 ? "0.5px solid " + T.border : "none",
+                  background: hoveredRow === i ? T.surfaceHover : "transparent",
+                  transition: "background 0.15s ease",
+                  textDecoration: "none",
+                  alignItems: "center",
+                  fontFamily: F,
+                }}
+              >
+                <span style={{ fontSize: 15, fontWeight: 500, color: T.white, letterSpacing: "-0.01em" }}>{r.protocol}</span>
+                <span style={{ fontSize: 13, color: T.textMuted }}>{r.period}</span>
+                <span style={{ fontSize: 13, color: T.textMuted, lineHeight: 1.5, paddingRight: 16 }}>{r.description}</span>
+                <span style={{ fontSize: 13, color: T.textMuted }}>{publishedDate}</span>
+                <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: T.white }}>View →</span>
+              </a>
+            );
+          })
+        )}
       </div>
     </div>
   );
