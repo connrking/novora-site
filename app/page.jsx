@@ -120,7 +120,7 @@ export default function HomePage() {
               <p style={{ fontSize: 16, lineHeight: 1.7, color: C.creamSub, fontWeight: 400, margin: "0 0 32px" }}>
                 The independent standard for crypto investor relations. Five pillars, 100 points. Protocols are scored, benchmarked, and given a concrete roadmap to institutional-grade IR.
               </p>
-              <a href="/research" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500, color: C.creamText, padding: "14px 28px", textDecoration: "none", borderRadius: 2, border: "1px solid rgba(0,0,0,0.15)", display: "inline-block" }}>EXPLORE IR SCORES →</a>
+              <a href="https://ir.novora.co" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500, color: C.creamText, padding: "14px 28px", textDecoration: "none", borderRadius: 2, border: "1px solid rgba(0,0,0,0.15)", display: "inline-block" }}>EXPLORE IR SCORES →</a>
             </div>
           </FadeIn>
           <FadeIn delay={0.15}>
