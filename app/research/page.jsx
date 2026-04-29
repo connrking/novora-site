@@ -164,7 +164,7 @@ const QuarterlyReportsTable = ({ reports }) => {
                     transition: "all 0.15s ease",
                   }}
                 >
-                  Access Report <span style={{ fontSize: 11 }}>→</span>
+                  <span>Access Report</span> <span style={{ fontSize: 11, marginLeft: 2 }}>{"\u2192"}</span>
                 </a>
               </div>
             );
