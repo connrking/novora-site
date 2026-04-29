@@ -1,0 +1,1615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MetaDAO Q1 2026 Token Holder Report — Novora</title>
+<meta name="description" content="MetaDAO Q1 2026 quarterly token holder report covering protocol fundamentals, token performance, peer comparison, and Q2 2026 outlook. Prepared by Novora." />
+<meta property="og:title" content="MetaDAO Q1 2026 Token Holder Report" />
+<meta property="og:description" content="Quarterly token holder report covering MetaDAO's Q1 2026 fundamentals, token performance, peer comparison, and Q2 outlook." />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Novora" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/prop-types@15.8.1/prop-types.min.js"></script>
+<script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
+
+<style>
+:root {
+  --bg: #F9F8F5;
+  --panel: #FFFFFF;
+  --border: #D8D5CC;
+  --border-inner: #EDEAE2;
+  --text-primary: #1A1A18;
+  --text-body: #3A3A36;
+  --text-muted: #6B6860;
+  --text-faint: #9A9890;
+  --purple: #7C6EF0;
+  --purple-dark: #4A3FC7;
+  --callout-bg: #F0EEF8;
+  --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text-body);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--purple-dark); text-decoration: none; border-bottom: 1px solid var(--border); }
+a:hover { border-bottom-color: var(--purple-dark); }
+
+.layout {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ============ TOP BAR ============ */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 0;
+  border-bottom: 0.5px solid var(--border);
+  margin-bottom: 80px;
+}
+
+.top-bar .lockup {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: none !important;
+}
+
+.top-bar .lockup svg { display: block; }
+
+.top-bar .lockup-text {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.top-bar nav {
+  display: flex;
+  gap: 28px;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.top-bar nav a { color: var(--text-muted); border: none; }
+.top-bar nav a:hover { color: var(--purple-dark); }
+
+/* ============ HERO / COVER ============ */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.06em;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: 28px;
+}
+
+.hero h1 .accent {
+  font-style: italic;
+  color: var(--purple-dark);
+}
+
+.hero .subtitle {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--text-body);
+  max-width: 680px;
+  margin-bottom: 40px;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-bottom: 64px;
+}
+
+.meta-row .item { display: flex; align-items: center; gap: 10px; }
+.meta-row .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--purple);
+}
+
+/* ============ AT-A-GLANCE STATS GRID ============ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  margin: 0 0 80px 0;
+}
+
+.stat-cell {
+  padding: 28px 24px;
+  border-right: 0.5px solid var(--border);
+}
+.stat-cell:last-child { border-right: none; }
+
+.stat-cell .label {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.stat-cell .value {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.stat-cell .delta {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.stat-cell .delta.neg { color: #A32D2D; }
+.stat-cell .delta.pos { color: #3B6D11; }
+
+/* ============ SECTION HEADERS ============ */
+section { margin-bottom: 88px; }
+
+.section-eyebrow {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+
+p {
+  margin-bottom: 22px;
+  max-width: 720px;
+}
+
+/* ============ CHART CONTAINER ============ */
+.chart-wrap {
+  background: var(--panel);
+  border: 0.5px solid var(--border);
+  padding: 32px 28px 24px;
+  margin: 28px 0 12px;
+}
+
+.chart-wrap .chart-title {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  letter-spacing: -0.005em;
+}
+
+.chart-wrap .chart-sub {
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.caption {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+  text-align: center;
+  max-width: none;
+}
+
+/* ============ DATA TABLE ============ */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-family: var(--sans);
+  font-size: 13px;
+}
+
+.data-table th {
+  font-weight: 500;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border);
+  color: var(--text-faint);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-table th.right, .data-table td.right { text-align: right; }
+
+.data-table td {
+  padding: 14px 16px;
+  border-bottom: 0.5px solid var(--border-inner);
+  color: var(--text-body);
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+
+.data-table .ticker {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.data-table .value {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.data-table .highlight { background: var(--callout-bg); }
+.data-table .highlight td { font-weight: 500; }
+
+/* ============ CALLOUT ============ */
+.callout {
+  background: var(--callout-bg);
+  border-left: 2px solid var(--purple);
+  padding: 24px 28px;
+  margin: 32px 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+.callout .kicker {
+  font-weight: 500;
+  color: var(--purple-dark);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.callout p { max-width: none; margin-bottom: 12px; }
+.callout p:last-child { margin-bottom: 0; }
+
+/* ============ KEY METRICS BLOCK ============ */
+.metric-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 0.5px solid var(--border-inner);
+  font-family: var(--sans);
+  align-items: baseline;
+}
+.metric-row:last-child { border-bottom: none; }
+.metric-row .label { font-size: 14px; color: var(--text-body); }
+.metric-row .value {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.metric-row .note {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+  min-width: 220px;
+}
+
+.metrics-block {
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  padding: 8px 0;
+  margin: 32px 0;
+}
+
+/* ============ KEY METRICS TABLE (with QoQ/YoY) ============ */
+.key-metrics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0 32px;
+  font-family: var(--sans);
+  font-size: 13px;
+}
+.key-metrics-table th {
+  font-weight: 500;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border);
+  color: var(--text-faint);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.key-metrics-table th.right, .key-metrics-table td.right { text-align: right; }
+.key-metrics-table td {
+  padding: 14px 16px;
+  border-bottom: 0.5px solid var(--border-inner);
+  color: var(--text-body);
+}
+.key-metrics-table tr:last-child td { border-bottom: none; }
+.key-metrics-table .metric-name {
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--text-body);
+}
+.key-metrics-table .metric-value {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.key-metrics-table .delta-pos { color: #3B6D11; font-family: var(--sans); font-size: 13px; }
+.key-metrics-table .delta-neg { color: #A32D2D; font-family: var(--sans); font-size: 13px; }
+.key-metrics-table .delta-na { color: var(--text-faint); font-family: var(--sans); font-size: 13px; font-style: italic; }
+
+/* ============ HIGHLIGHTS LIST ============ */
+.highlights {
+  margin: 24px 0 32px;
+}
+.highlights-title {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.highlights ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.highlights li {
+  position: relative;
+  padding: 14px 0 14px 24px;
+  border-bottom: 0.5px solid var(--border-inner);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-body);
+  font-weight: 300;
+}
+.highlights li strong {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 15px;
+  letter-spacing: -0.005em;
+}
+.highlights li:last-child { border-bottom: none; }
+.highlights li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--purple);
+}
+
+/* ============ TEAM COMMENTARY ============ */
+.team-commentary {
+  background: var(--panel);
+  border: 0.5px solid var(--border);
+  border-left: 2px solid var(--purple);
+  padding: 32px 36px;
+  margin: 32px 0;
+}
+.team-commentary-title {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.team-commentary blockquote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  margin: 0 0 24px 0;
+  padding: 0;
+  letter-spacing: -0.01em;
+}
+.team-commentary blockquote::before {
+  content: open-quote;
+  color: var(--purple);
+}
+.team-commentary blockquote::after {
+  content: close-quote;
+  color: var(--purple);
+}
+.team-commentary p {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--text-body);
+  margin-bottom: 16px;
+  max-width: none;
+}
+.team-commentary p:last-of-type { margin-bottom: 24px; }
+.team-commentary .signature {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--text-muted);
+  border-top: 0.5px solid var(--border-inner);
+  padding-top: 16px;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+.team-commentary .signature .name {
+  font-weight: 500;
+  color: var(--text-primary);
+  font-style: normal;
+}
+.team-commentary .placeholder-note {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text-faint);
+  margin-top: 12px;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ============ TOC ============ */
+.toc {
+  background: var(--panel);
+  border: 0.5px solid var(--border);
+  padding: 32px 32px;
+  margin: 0 0 88px;
+}
+
+.toc-title {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.toc-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.toc-list li {
+  border-bottom: 0.5px solid var(--border-inner);
+}
+.toc-list li:last-child,
+.toc-list li:nth-last-child(2) {
+  border-bottom: none;
+}
+.toc-list li:nth-child(odd) {
+  border-right: 0.5px solid var(--border-inner);
+  padding-right: 24px;
+}
+.toc-list li:nth-child(even) { padding-left: 24px; }
+
+.toc-list a {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--text-primary);
+  border: none;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 14px 0;
+}
+.toc-list a:hover { color: var(--purple-dark); }
+
+.toc-list .num {
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.05em;
+  min-width: 22px;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  margin-top: 120px;
+  padding: 48px 0;
+  border-top: 0.5px solid var(--border);
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--text-faint);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+footer a { color: var(--text-muted); border: none; }
+footer a:hover { color: var(--purple-dark); }
+
+/* ============ DOWNLOAD CTA ============ */
+.download-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: var(--text-primary);
+  color: var(--bg) !important;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: none !important;
+  margin-top: 8px;
+  transition: background 0.15s ease;
+}
+.download-cta:hover { background: var(--purple-dark); border: none !important; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 720px) {
+  .hero h1 { font-size: 44px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 20px; }
+  .stat-cell .value { font-size: 28px; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .stat-cell { border-bottom: 0.5px solid var(--border); }
+  .stat-cell:nth-child(odd) { border-right: 0.5px solid var(--border); }
+  .stat-cell:nth-child(even) { border-right: none; }
+  .stat-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .top-bar nav { display: none; }
+  .layout { padding: 0 20px; }
+  .metric-row { grid-template-columns: 1fr auto; }
+  .metric-row .note { grid-column: 1 / -1; text-align: left; min-width: 0; }
+  .toc-list { grid-template-columns: 1fr; }
+  .toc-list li:nth-child(odd) { border-right: none; padding-right: 0; }
+  .toc-list li:nth-child(even) { padding-left: 0; }
+  .toc-list li { border-bottom: 0.5px solid var(--border-inner); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+<!-- ============ TOP BAR ============ -->
+<header class="top-bar">
+  <a href="https://novora.co" class="lockup">
+    <svg width="32" height="32" viewBox="100 130 480 140" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" fill="#1A1A18">
+      <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z"/>
+      <rect x="150.07" y="207.66" width="80.09" height="32.39"/>
+    </svg>
+    <span class="lockup-text">Novora</span>
+  </a>
+  <nav>
+    <a href="https://novora.co/research">Research</a>
+    <a href="https://novora.co/ir-score">IR Score</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" style="margin-bottom: 56px;">
+  <div class="eyebrow">// Quarterly Token Holder Report</div>
+  <h1>MetaDAO <span class="accent">Q1 2026</span></h1>
+  <p class="subtitle">
+    Quarterly token holder report covering MetaDAO's protocol fundamentals,
+    token performance, peer comparison, and Q2 2026 outlook. Prepared by
+    Novora as part of an active advisory engagement with MetaDAO.
+  </p>
+</section>
+
+<!-- ============ 01. EXECUTIVE SUMMARY (combined: narrative + key metrics + highlights + team commentary) ============ -->
+<section id="exec">
+  <div class="section-eyebrow">// 01 · Executive Summary</div>
+  <h2>Building through the cycle</h2>
+
+  <p>Q1 2026 followed the strongest quarter in MetaDAO's history. Q4 2025 generated $2.52M in protocol revenue (per the team's published financial statements), launched 6 ICOs raising approximately $25.6M in subscription capital, and closed with a $10M META OTC raise via Proposal #34 that took the treasury from $1.96M to $12.24M USDC. Umbra's October ICO drew $154.9M in commitments against a $3M hard cap (the most in-demand ICO ever conducted on the platform), and META reached an all-time high above $10. Q1 was the quarter the team used to build out the platform's next leg of growth: Futardio shipped as a permissionless complement to the curated launchpad, the Omnibus liquidity migration completed, and the Colosseum STAMP integration was finalized. Solana ecosystem sentiment cooled in parallel, which compressed token prices across the sector and slowed the new-launch cadence, but the platform itself ended Q1 structurally stronger than it began.</p>
+
+  <p>MetaDAO is a futarchy-based fundraising and governance platform on Solana. The platform's core product set entered Q1 with three live components: the curated ICO launchpad that originated the platform's recent growth, the futarchy governance system that binds every launched protocol's treasury and major decisions to onchain decision markets, and a dual-venue secondary market structure that captures trading fees on META and ICO-issued ownership tokens via the protocol-owned Futarchy AMM and a Meteora LP position the protocol holds at 99.74%. During Q1 the platform shipped a fourth component: Futardio, a permissionless launchpad that opens issuance to teams without MetaDAO's curation overhead. The platform now spans curated launches, permissionless launches, decision-market governance for live protocols, and onchain dispute resolution.</p>
+
+  <p>Q1 protocol revenue came in between $556K (Artemis-reported, captures Futarchy AMM activity) and approximately $700K (Novora estimate including the Meteora LP venue, scaled from Q4's published 54/46 venue split adjusted for the Omnibus migration). Either figure is a material step-down from the $2.52M Q4 print, reflecting the cyclical environment after the Q4 ICO surge. Broader Solana assets compressed in Q1 and new-launch cadence slowed; the platform's underlying revenue mechanics and product roadmap did not change. January carried the bulk of the quarter's Futarchy AMM revenue ($368K), with activity stepping down across February ($121K) and March ($67K) on Artemis-reported figures. TVL closed the quarter at $10.4M, down 35% from the Jan 27 reading of $16.0M as ICO-flow capital rotated out and post-launch trading thinned. The token closed at $2.77, down 61.6% from a $7.21 quarter-open and 73.6% from the $10.47 quarter-high posted on January 4 during the Ranger ICO window.</p>
+
+  <p>The defining event of the quarter was the Ranger Finance liquidation. On March 12, the MetaDAO community passed a decision-market proposal to liquidate Ranger Finance after RNGR holders alleged material pre-fundraise misrepresentations, returning $5,047,250 USDC to tokenholders two months after the project's January launch. This was the first time onchain governance has dissolved a recently-funded crypto project and returned investor capital based on a market vote, and it is the strongest validation to date of the futarchy thesis: that decision markets can enforce tokenholder protection in cases where traditional governance and legal mechanisms cannot. The Ranger event is structurally positive for MetaDAO's long-run positioning.</p>
+
+  <!-- ============ KEY METRICS (Q1 2026) ============ -->
+  <h3 style="margin-top: 56px; margin-bottom: 8px; font-style: normal; font-size: 22px;">Key Metrics</h3>
+
+  <table class="key-metrics-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th class="right">Q1 2026</th>
+        <th class="right">QoQ</th>
+        <th class="right">YoY</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="metric-name">Total platform fees / revenue</td>
+        <td class="right metric-value">$556K&ndash;$700K</td>
+        <td class="right delta-neg">&minus;72% to &minus;78%</td>
+        <td class="right delta-na">n/a</td>
+      </tr>
+      <tr>
+        <td class="metric-name">Treasury (USDC, Q4-end close)</td>
+        <td class="right metric-value">$12.24M</td>
+        <td class="right delta-pos">+525%</td>
+        <td class="right delta-na">n/a</td>
+      </tr>
+      <tr>
+        <td class="metric-name">TVL (Q-end)</td>
+        <td class="right metric-value">$10.4M</td>
+        <td class="right delta-na">n/a</td>
+        <td class="right delta-na">n/a</td>
+      </tr>
+      <tr>
+        <td class="metric-name">META price (Q-end)</td>
+        <td class="right metric-value">$2.77</td>
+        <td class="right delta-neg">&minus;61.3%</td>
+        <td class="right delta-na">n/a</td>
+      </tr>
+      <tr>
+        <td class="metric-name">Market cap (Q-end)</td>
+        <td class="right metric-value">$53.0M</td>
+        <td class="right delta-neg">&minus;61.3%</td>
+        <td class="right delta-na">n/a</td>
+      </tr>
+      <tr>
+        <td class="metric-name">FDV (Q-end)</td>
+        <td class="right metric-value">$62.8M</td>
+        <td class="right delta-neg">&minus;61.3%</td>
+        <td class="right delta-na">n/a</td>
+      </tr>
+      <tr>
+        <td class="metric-name">MCap / annualized revenue</td>
+        <td class="right metric-value">19x&ndash;24x</td>
+        <td class="right delta-na">re-rated</td>
+        <td class="right delta-na">n/a</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-family: var(--sans); font-style: italic; font-size: 12px; color: var(--text-muted); margin-top: -16px; max-width: none;">QoQ vs Q4 2025. Q4 fees baseline = $2.52M (per MetaDAO's published Q4 financial statements). Q1 fees lower bound is Artemis-reported (Futarchy AMM venue); upper bound is a Novora estimate that adjusts for the Meteora LP venue using Q4's published 54/46 split, scaled for Omnibus migration impact. To be confirmed against MetaDAO's Q1 financial statements when published. Treasury QoQ reflects the $10M Proposal #34 OTC raise executed in October 2025. YoY n/a &mdash; Artemis MetaDAO coverage began August 2025.</p>
+
+  <!-- ============ HIGHLIGHTS ============ -->
+  <div class="highlights">
+    <div class="highlights-title">Highlights</div>
+    <ul>
+      <li><strong>Ranger Finance liquidation executed</strong> &mdash; first onchain governance dissolution of a recently-funded crypto project; $5,047,250 USDC returned to RNGR holders pro rata on March 12</li>
+      <li><strong>Futardio launched</strong> &mdash; permissionless variant of the curated launchpad shipped on March 4, opening issuance throughput beyond the curation gate</li>
+      <li><strong>Hurupay ICO closed</strong> &mdash; fiat-on/off-ramp project (Founders Inc-backed) raised on the curated launchpad on February 3</li>
+      <li><strong>Omnibus liquidity migration completed</strong> &mdash; ~90% of META liquidity moved from Meteora DAMM v1 to the Futarchy AMM, ~60K META burned in the process</li>
+      <li><strong>Colosseum STAMP integration announced</strong> &mdash; institutional-pipeline routing for MetaDAO ICOs from the Solana accelerator's portfolio (alumni: Jito, Kamino, Drift, Exponent, Hylo)</li>
+      <li><strong>P2P.me incident managed</strong> &mdash; first major launch issue resolved through ICO extension and refund window; Multicoin, Coinbase Ventures, Alliance DAO remained committed</li>
+      <li><strong>Treasury position strengthened heading into Q1</strong> &mdash; $10M META OTC raise (Proposal #34, October 2025) closed Q4 with $12.24M USDC on balance sheet, structural runway of 6+ years at Q4 opex run-rate</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- ============ TABLE OF CONTENTS ============ -->
+<div class="toc">
+  <div class="toc-title">// Contents</div>
+  <ul class="toc-list">
+    <li><a href="#exec"><span class="num">01</span>Executive Summary</a></li>
+    <li><a href="#context"><span class="num">02</span>MetaDAO &amp; Network Context</a></li>
+    <li><a href="#quarter-context"><span class="num">03</span>Quarter in Context</a></li>
+    <li><a href="#key-metrics"><span class="num">04</span>Q1 2026 Detailed Metrics</a></li>
+    <li><a href="#revenue"><span class="num">05</span>Revenue &amp; Fees</a></li>
+    <li><a href="#activity"><span class="num">06</span>User Activity &amp; Engagement</a></li>
+    <li><a href="#token"><span class="num">07</span>Token Performance &amp; Tokenomics</a></li>
+    <li><a href="#peer"><span class="num">08</span>Peer Comparative Analysis</a></li>
+    <li><a href="#strategic"><span class="num">09</span>Strategic Developments</a></li>
+    <li><a href="#outlook"><span class="num">10</span>Closing Summary &amp; Q2 Outlook</a></li>
+  </ul>
+</div>
+
+<!-- ============ 02. METADAO & NETWORK CONTEXT ============ -->
+<section id="context">
+  <div class="section-eyebrow">// 02 · MetaDAO &amp; Network Context</div>
+  <h2>Why this protocol exists</h2>
+
+  <p>MetaDAO was founded in 2023 by the pseudonymous engineer Proph3t, joined shortly after by co-founder Kollan House (then known as Nallok). The thesis was direct: traditional token-weighted DAO voting fails because it is cheap to vote and expensive to research, which produces both apathy and whale capture. Robin Hanson's 2001 paper proposing futarchy ("vote on values, bet on beliefs") suggested replacing votes with prediction markets, where participants are required to put capital behind their forecasts and the market price determines proposal outcomes. MetaDAO is the production implementation of that idea, deployed on Solana and now governing live protocol treasuries, token issuance, and dispute resolution for projects launched on its platform.</p>
+
+  <p>The platform began as governance infrastructure for existing DAOs. It pivoted in mid-2025 toward an integrated launchpad model after the team observed that existing DAOs rarely chose to migrate to futarchy voluntarily. The current product binds new projects to futarchy governance from inception, locking treasury proceeds in onchain DAO LLC structures (chartered in the Marshall Islands), gating all material spending and supply-increasing proposals through three-day decision markets, and tying founder token unlocks to multi-year price milestones rather than calendar vesting. Notable projects already governed through MetaDAO include Umbra, Avici, Loyal, Solomon, Omnipair, Ranger, Hurupay, ZKLSOL, and Paystream. The platform has also been used by larger ecosystem protocols (Drift, Jito, Sanctum) for specific governance proposals.</p>
+
+  <p>As of quarter-end MetaDAO operates with a small core team (two named co-founders plus a small group of full-time contributors) and is incorporated as MetaDAO LLC. Equity-side investors include Paradigm, Variant, Equilibrium Ventures, and Fidenza Capital. The platform's go-to-market has shifted from "governance-as-a-service for existing DAOs" to a vertically integrated capital formation stack: curation, custody, governance, and dispute resolution for new tokens, with META as the equity-like ownership token of the platform itself.</p>
+
+  <h3>Product lines</h3>
+
+  <p><strong>Curated ICO Launchpad.</strong> The flagship product. Teams apply, MetaDAO reviews, and accepted projects raise via a fixed-window subscription model where total demand sets the final allocation pro rata. Proceeds flow into a DAO LLC treasury, not the team's wallet. Spending requires either a budget allowance pre-approved by tokenholders or a passing decision market. Projects launched here in 2025 returned an average ATH ROI of approximately 8.6x; Umbra peaked at 8x and Avici at 21x. The platform has run nine ICOs to date with average raise size around $3M.</p>
+
+  <p><strong>Futardio (Permissionless Launchpad).</strong> Launched the first week of March 2026. Teams can list directly without MetaDAO curation, with the same futarchy governance binding applied automatically. The product addresses a clear constraint on the curated model: throughput. Curation produces quality but caps the platform at roughly one launch every two to three weeks. Futardio runs in parallel and trades curation-driven quality for permissionless throughput. The early launch slate skews experimental and includes projects across agri-DePIN, AI agents, prediction-market gaming, and onchain music. Current revenue contribution is small but will be a key Q2 metric to track.</p>
+
+  <p><strong>Futarchy Governance for Live Protocols.</strong> Every project launched on MetaDAO is bound to futarchy governance for treasury spending, supply changes, and major strategic decisions. Existing protocols can also adopt the model selectively for specific high-stakes proposals. During Q1 this product handled the Ranger Finance liquidation (described in detail in the Strategic Developments section) and the P2P.me ICO extension and refund process, in addition to routine budget and parameter votes for live projects.</p>
+
+  <p><strong>Futarchy AMM.</strong> MetaDAO operates an in-house automated market maker that hosts conditional markets (PASS/FAIL token pairs for live proposals) and serves as the primary secondary venue for META and ICO-issued ownership tokens. The AMM was migrated from a third-party DAMM venue in late Q4 2025 via the Omnibus Proposal, which moved approximately 90% of META liquidity into the protocol-owned AMM. The Futarchy AMM is the larger of MetaDAO's two fee-generating venues; the second venue is a Meteora DAMM v2 META-USDC pool in which MetaDAO holds 99.74% of LP tokens. Because MetaDAO is the dominant or sole LP at both venues, near-100% of platform fees flow back to the protocol treasury without third-party-LP leakage.</p>
+</section>
+
+<!-- ============ 03. QUARTER IN CONTEXT ============ -->
+<section id="quarter-context">
+  <div class="section-eyebrow">// 03 · Quarter in Context</div>
+  <h2>How the quarter unfolded</h2>
+
+  <div id="chart-timeline"></div>
+  <p class="caption">META price with major Q1 2026 catalysts. Source: Artemis, Novora</p>
+
+  <p>Three storylines define Q1 2026. The first is the natural cooldown that followed the Q4 2025 launchpad cycle. Umbra's $3M ICO in October — which drew $154.9M in committed demand and was ~50x oversubscribed against the hard cap — alongside several smaller successful launches through the rest of Q4, drew significant capital and attention to MetaDAO's curated product. Broader Solana sentiment cooled in January and post-launch ICO demand thinned, which is the normal cadence pattern for a launchpad cycle of this size. The Ranger ICO carried clear momentum into early January; Hurupay closed the second curated raise in early February; the team then used the rest of the quarter to ship Futardio, complete the Omnibus migration, and finalize the Colosseum STAMP integration.</p>
+
+  <p>The second storyline is the maturation of the platform's dispute-resolution capability. The Ranger Finance liquidation is the headline event, but it built on the Avici ICO post-launch governance disputes (resolved positively in Q4 2025), and it set the precedent that informed how the P2P.me Polymarket situation was managed. By the end of Q1, MetaDAO had executed two full dispute-resolution cycles and a third in progress. The futarchy mechanism produced outcomes aligned with tokenholder economic interest in each one, which is the strongest possible validation of the platform's core thesis at this stage of its development.</p>
+
+  <p>The third storyline is the META token's performance. The token closed Q1 at $2.77, down 61.6% from a $7.21 quarter-open and 73.6% from the January 4 high of $10.47. Market cap closed at $53.0M against approximately $239M at the high (mcap and FDV are effectively equal for META given the founder pool is gated to milestone unlocks not yet hit). Two factors are bundled into that move. The first is the unwind of the October 2025 launchpad rally, which carried the token from approximately $1 in early October to $10+ by year-end on the back of Umbra's success and a sequence of positive catalysts. The second is broader Solana sector compression visible across most ecosystem assets in Q1. On the most important comparison for an investor &mdash; valuation against revenue generation &mdash; MetaDAO closed Q1 at 19x to 24x mcap-to-annualized-revenue depending on which Q1 fee figure is used (Artemis-only Futarchy AMM revenue produces the high end; the Novora estimate that adds back the Meteora LP venue produces the low end). Either reading places MetaDAO above Jupiter (15.5x) and Raydium (12.4x) but well below Pump.fun's 2.2x. The peer chart in Section 8 makes the comparison explicit and the surrounding text addresses the data caveats directly.</p>
+</section>
+
+<!-- ============ 04. DETAILED METRICS ============ -->
+<section id="key-metrics">
+  <div class="section-eyebrow">// 04 &middot; Q1 2026 Detailed Metrics</div>
+  <h2>Full metrics breakdown</h2>
+
+  <p>The table below summarizes the core fundamental metrics for MetaDAO across Q1 2026. Q1 fee and revenue figures are presented as a range: the lower bound is the Artemis-reported Futarchy AMM venue revenue; the upper bound is a Novora estimate that incorporates Meteora LP venue revenue using the 54/46 venue split published in MetaDAO's Q4 2025 financial statements, scaled for the impact of the Omnibus liquidity migration. Treasury and operating-expense figures are pulled from MetaDAO's Q4 2025 financial statements (December 31, 2025 close); Q1 movements will be confirmed against the team's Q1 statements when published. All figures in USD unless noted.</p>
+
+  <div class="metrics-block">
+    <div class="metric-row"><span class="label">Total platform fees / revenue (range)</span><span class="value">$556K&ndash;$700K</span><span class="note">vs $2.52M Q4 actual</span></div>
+    <div class="metric-row"><span class="label">Futarchy AMM revenue (Artemis)</span><span class="value">$556,078</span><span class="note">Q1 actual</span></div>
+    <div class="metric-row"><span class="label">Meteora LP revenue (estimate)</span><span class="value">~$0&ndash;$140K</span><span class="note">to be confirmed by team</span></div>
+    <div class="metric-row"><span class="label">January Futarchy AMM fees</span><span class="value">$368,249</span><span class="note">66% of Q1 Futarchy AMM total</span></div>
+    <div class="metric-row"><span class="label">March Futarchy AMM fees (trough)</span><span class="value">$66,588</span><span class="note">&minus;82% vs January</span></div>
+    <div class="metric-row"><span class="label">TVL (Q-end, Mar 31)</span><span class="value">$10.42M</span><span class="note">&minus;35.0% vs Jan 27 reading</span></div>
+    <div class="metric-row"><span class="label">USDC treasury (Q4 close, Dec 31)</span><span class="value">$12.24M</span><span class="note">+525% vs Dec 31, 2024</span></div>
+    <div class="metric-row"><span class="label">Q4 2025 gross margin</span><span class="value">87.85%</span><span class="note">cost of revenue $306K Q4</span></div>
+    <div class="metric-row"><span class="label">Q4 2025 operating expenses</span><span class="value">$477K</span><span class="note">R&amp;D 30%, S&amp;M 13%, G&amp;A 21% of revenue</span></div>
+    <div class="metric-row"><span class="label">Treasury runway (at Q4 opex run-rate)</span><span class="value">~6.4 years</span><span class="note">at zero new revenue</span></div>
+    <div class="metric-row"><span class="label">META price (Q-end)</span><span class="value">$2.77</span><span class="note">&minus;61.6% vs Q-open</span></div>
+    <div class="metric-row"><span class="label">Market cap (Q-end)</span><span class="value">$53.0M</span><span class="note">&minus;73.6% vs Q-high</span></div>
+    <div class="metric-row"><span class="label">Market cap / annualized revenue</span><span class="value">19x&ndash;24x</span><span class="note">depends on Q1 fee figure used</span></div>
+  </div>
+  <p style="font-family: var(--sans); font-style: italic; font-size: 12px; color: var(--text-muted); text-align: center;">Sources: MetaDAO Q4 2025 published financial statements (treasury, opex, gross margin, Q4 baseline); Artemis (Q1 Futarchy AMM revenue, price); CoinGecko/CMC (mcap). Annualized revenue = Q1 fees &times; 4. Latest as of April 26, 2026.</p>
+</section>
+
+<!-- ============ 05. REVENUE & FEES ============ -->
+<section id="revenue">
+  <div class="section-eyebrow">// 05 · Revenue &amp; Fees</div>
+  <h2>Total platform fees</h2>
+
+  <p>MetaDAO's protocol revenue is generated across two trading venues that the protocol either owns or is the dominant LP in. The first is the Futarchy AMM, MetaDAO's in-house automated market maker that hosts META, conditional PASS/FAIL tokens for live proposals, and ICO-issued ownership tokens. The second is a Meteora DAMM v2 META-USDC pool in which MetaDAO holds 99.74% of LP tokens (per the team's Q4 2025 financial statements). Per MetaDAO's published Q4 figures, the venue split was 54.2% Futarchy AMM / 45.8% Meteora LP, with each contributing both USDC-denominated fees on buy transactions and token-denominated fees on sell transactions. The Omnibus Proposal in late Q4 2025 migrated approximately 90% of META liquidity from Meteora DAMM v1 to the Futarchy AMM, which we expect shifted the Q1 venue split materially toward the Futarchy AMM. The exact Q1 split will be confirmed when MetaDAO publishes Q1 2026 financial statements; the daily, weekly, and monthly fee charts below reflect Artemis-reported Futarchy AMM activity only.</p>
+
+  <div id="chart-fees"></div>
+  <p class="caption">Daily Futarchy AMM fees, Q1 2026. Source: Artemis. Does not include Meteora LP venue revenue.</p>
+
+  <p>The chart shows the quarter's structure clearly. January is bimodal: the first peak runs from January 4 to 10 and corresponds to the Ranger ICO subscription window, with January 10 (Ranger close) printing the quarter's single-day Futarchy AMM fee high of $25,235. The second peak in mid-to-late January covers post-launch RNGR secondary trading on the Futarchy AMM. February opens with a residual peak around the Hurupay ICO close on February 3 ($17,097), then steps down sharply by February 7 as both Ranger and Hurupay post-launch trading rolled off and no new ICOs were live. By mid-February daily Futarchy AMM fees were running below $3,000 per day, a level that held through March.</p>
+
+  <div id="chart-weekly"></div>
+  <p class="caption">Weekly average daily Futarchy AMM fees, Q1 2026. Source: Artemis</p>
+
+  <p>The weekly view smooths the daily noise and confirms the step-down structure. Weeks anchored around active ICOs (early January, early February) print Futarchy AMM averages of $13,000 to $14,000 per day. Weeks without active ICOs (mid-February onward) print $1,500 to $2,500 per day. The roughly 6x ratio between active and idle weeks is a useful internal benchmark for the platform: every additional curated or permissionless launch adds materially to weekly fee generation, while gaps in the launch calendar produce immediate fee compression. Total Q1 platform revenue is between the Artemis-reported $556K Futarchy AMM figure and a Novora estimate of approximately $700K that adjusts for the Meteora LP venue.</p>
+
+  <h3>Protocol revenue and gross margin</h3>
+
+  <p>MetaDAO captures protocol revenue with no leakage to third-party LPs because it is the LP at both venues (the Futarchy AMM is fully protocol-owned; the Meteora pool is 99.74% protocol-owned). On a gross basis this produces a near-100% effective capture rate on platform fees &mdash; structurally different from Jupiter (where a portion of swap fees flows to third-party LPs) and from Raydium (which accrues a smaller share of total fees to the protocol treasury). At the net margin line, MetaDAO's Q4 2025 financial statements reported $306K of cost of revenue (contract labor and royalties allocated to revenue generation) against $2.52M of gross revenue, producing an 87.85% gross margin. The model is high-take-rate by design, with the gross-to-net spread reflecting the operating cost of running the curation, governance, and dispute-resolution stack rather than fee-side leakage.</p>
+
+  <div id="chart-cumulative"></div>
+  <p class="caption">Cumulative Futarchy AMM fees and revenue, Q1 2026. Source: Artemis. Excludes Meteora LP venue.</p>
+
+  <p>The cumulative chart makes the front-loaded nature of the quarter explicit. The Futarchy AMM was already through approximately $250,000 of cumulative Q1 fees by January 17 (day 17 of the quarter, or 19% of the period elapsed) and approximately $400,000 by February 1. The remaining 59 days of the quarter contributed only $156,000 in Futarchy AMM fees. Read forward, this means an average run-rate revenue analysis based on the back half of Q1 understates the platform's earning potential during ICO windows and overstates its earning potential during quiet weeks. The right way to value MetaDAO's revenue stream is on a launch-event basis rather than a smoothed run-rate, with each curated ICO contributing roughly $100,000 to $200,000 in cumulative fees over the surrounding 4 to 6 weeks.</p>
+
+  <h3>Monthly decomposition</h3>
+
+  <p>January was the quarter's anchor on the Futarchy AMM venue, contributing $368,249 (66% of Q1 Futarchy AMM total). The Ranger ICO window plus residual Umbra and Avici secondary trading carried activity. Mid-month softness gave way to a second pulse late in the month as RNGR holders began positioning for what would later become the liquidation event. February ran $121,241, dominated by the Hurupay launch in the first week, then softening dramatically. The first week of February alone (February 1 to 7) generated $68,607, more than the entire month of March. March generated $66,588 on the Futarchy AMM (the lowest month in the quarter and likely the lowest single month for the platform since Q3 2025), with two distinct sub-periods: the first half tracked the Ranger liquidation proposal (March 3 to 12), which produced a temporary uptick in trading activity around RNGR holder positioning, and the second half saw fees collapse as the Ranger event resolved and no new launches stepped in.</p>
+
+  <div id="chart-monthly"></div>
+  <p class="caption">Monthly Futarchy AMM fees and revenue, Q1 2026. Source: Artemis. Excludes Meteora LP venue.</p>
+
+  <h3>Take rate dynamics</h3>
+
+  <p>MetaDAO's effective take rate is structurally near-100% by design, but the precise mechanism is worth being explicit about. The protocol does not distribute trading fees to third-party LPs because it is the dominant or sole LP at both fee-generating venues: the Futarchy AMM is protocol-owned, and the Meteora pool is held at 99.74% by MetaDAO per the team's Q4 2025 statements. Fees collected at either venue accrue to the platform treasury rather than to outside LPs. This produces both a strength and a constraint. The strength is that every dollar of platform trading activity maps cleanly to protocol-accruing revenue (subject only to operating cost of revenue, which ran at 12.15% in Q4), with no third-party-LP leakage to forecast as the platform scales. The constraint is that the platform cannot subsidize liquidity provision to grow volume the way Jupiter or Raydium can. MetaDAO competes on capital formation utility (protocols choose to launch here for the futarchy binding) rather than on liquidity depth, and the take rate is a reflection of that positioning.</p>
+</section>
+
+<!-- ============ 06. USER ACTIVITY ============ -->
+<section id="activity">
+  <div class="section-eyebrow">// 06 · User Activity &amp; Engagement</div>
+  <h2>TVL composition and movement</h2>
+
+  <p>Artemis does not currently expose daily transaction or daily active address counts for MetaDAO. We have flagged this as a coverage gap to the Artemis team. In its absence, the most direct activity proxy available is TVL, which captures the dollar value of capital actively locked in MetaDAO's Futarchy AMM, conditional PASS/FAIL markets, and ICO escrow contracts. Where qualitative engagement reads are useful, we cross-reference X (Twitter) commentary and Messari's event log.</p>
+
+  <p>TVL closed Q1 at $10.4M, down approximately 35% from the January 27 reading of $16.0M, which was the first reliable Artemis observation in the quarter. The TVL series is partially missing for the first 26 days of January (a gap we have flagged with Artemis), so the precise quarter-open figure is not directly observable; based on the recovery trajectory in late January and the launch volumes around Ranger, our estimate for an effective Q1 high is approximately $20M to $22M during the second week of the quarter.</p>
+
+  <div id="chart-tvl"></div>
+  <p class="caption">MetaDAO TVL, Q1 2026 (series begins January 27). Source: Artemis</p>
+
+  <p>The TVL decline tracks the same compression visible in fees, but with two notable inflections. The first is a sharp ~$2.5M drop on March 6 that corresponds to the Ranger Finance liquidation flow (the proposal posted March 3 and traded over the following week, with $5.04M USDC ultimately removed from the Ranger treasury and liquidity pool on March 12). The second is a ~$1.5M drop on March 27 to 30 that corresponds to the P2P.me Polymarket incident and the subsequent ICO extension and refund flow. Both moves are mechanical rather than sentiment-driven: capital was procedurally returned to participants under the futarchy resolution mechanism. In a traditional venue these would be classified as redemptions; on MetaDAO they are dispute-resolution outflows, and the platform's design treats them as a feature rather than a bug. The right framing is that TVL declines tied to dispute resolution validate the protocol's tokenholder protection thesis, and that TVL declines tied to launch-cycle ebb reflect normal launchpad seasonality.</p>
+</section>
+
+<!-- ============ 07. TOKEN PERFORMANCE ============ -->
+<section id="token">
+  <div class="section-eyebrow">// 07 · Token Performance &amp; Tokenomics</div>
+  <h2>Token price</h2>
+
+  <p>META opened Q1 at $7.21 on January 1 and closed at $2.77 on March 31, a 61.6% decline. The quarter's high of $10.47 printed on January 4, three days into the quarter and during the first peak of the Ranger ICO subscription window. The quarter's low of $2.77 was the close itself. From the high, the token compressed 73.6%.</p>
+
+  <div id="chart-price"></div>
+  <p class="caption">META price, Q1 2026 (USD). Source: Artemis</p>
+
+  <p>Three distinct phases describe the chart. From January 1 to January 5, META ran from $7.21 to its $10.47 high as Ranger ICO demand and post-Umbra carry trade momentum extended the late-2025 rally. From January 5 to February 5 the token gave back roughly half of that momentum in a series of step-downs that tracked daily fee compression and the recognition that the post-Umbra ICO calendar would not match Q4 cadence. February 5 marked the cycle low of $3.17 (intra-day) as Hurupay's post-launch trading wound down and no new ICOs were live. From February 6 through March 25, META ground sideways in a $3.30 to $4.30 range. The final week of the quarter saw a second leg lower into the close, driven by the Ranger liquidation completing on March 12 (which removed approximately $550,000 of META from circulation via burn but produced no offsetting new launches) and the P2P.me Polymarket incident on March 28 to 31, which weighed on near-term sentiment as the platform worked through its response.</p>
+
+  <h3>FDV</h3>
+
+  <p>FDV is a clean function of token price for META given the no-vesting-cliff structure of the platform's existing token distribution and the absence of large near-term unlocks during Q1. FDV closed Q1 at $62.79M against a $237.55M Q1 high on January 4. The full Q1 FDV chart mirrors the price chart in shape, scaled by the constant supply.</p>
+
+  <div id="chart-fdv"></div>
+  <p class="caption">META fully diluted valuation, Q1 2026. Source: Artemis</p>
+
+  <h3>Supply mechanics</h3>
+
+  <p>MetaDAO's token supply is governed by the same futarchy mechanism that governs the rest of the protocol. New META tokens can only be minted through governance proposals, each of which requires a 200,000 META stake (2% of initial supply) to open and runs through a three-day decision market. If the conditional PASS market trades at least 3% above the FAIL market on a time-weighted basis, the proposal executes automatically through an onchain timelock. The framework is materially more restrictive than the standard governance-token model where a snapshot vote can authorize unlimited issuance subject to quorum.</p>
+
+  <p>During Q1 2026 the supply mechanic produced a single material event. On March 12, the execution of the Ranger Finance liquidation included a proposal-mandated burn of approximately 60,000 META (roughly $180,000 at quarter-end pricing) sourced from the Futarchy AMM's liquidity provisioning. This burn was not designed as a buyback program; it was a structural consequence of the Ranger liquidation flow under the platform's liquidity-migration architecture. Going forward, the team has signaled that future curated launches will incorporate similar liquidity-migration burns as part of the Omnibus framework introduced in late 2025.</p>
+
+  <p>Founder unlocks remain bound by the original distribution schedule. Per the platform's 2025 governance configuration, founders Proph3t and Nallok receive 2% of token supply for every $1B of incremental MetaDAO market cap, capped at 10% of supply at $5B FDV, with no time-based release component. Given current FDV of $62.79M, no founder tokens have unlocked. The structure is unusual: it shifts the entire founder-compensation question into the price domain, which means founder economics are tightly aligned with retail tokenholder economics in a way that traditional time-vesting does not produce.</p>
+
+  <h3>Staking &amp; governance</h3>
+
+  <p>MetaDAO does not currently operate a yield-generating staking program for META. Holders retain governance rights through participation in conditional markets directly: any META holder can stake the required minimum to open a proposal and trade conditional PASS or FAIL tokens to express a view. The economic incentive is the trading payoff itself rather than an ongoing staking yield. This is a deliberate design choice consistent with the futarchy framework: "staking yield" in this model would be an emission against tokenholders rather than a productive return, and the platform earns its keep through trading-fee accrual rather than emission-funded yield.</p>
+</section>
+
+<!-- ============ 08. PEER COMPARATIVE ============ -->
+<section id="peer">
+  <div class="section-eyebrow">// 08 · Peer Comparative Analysis</div>
+  <h2>Where META sits in the peer set</h2>
+
+  <p>MetaDAO occupies a unique category. There is no other protocol on Solana with a directly equivalent business model: futarchy-based capital formation with dispute resolution. For peer comp purposes, the most defensible framing is to benchmark against Solana's capital-formation infrastructure peers: Jupiter (DEX aggregator, the largest Solana fee generator), Pump.fun (memecoin launchpad, the closest model match on the issuance-volume axis), and Raydium (AMM with LaunchLab issuance and active fee-driven token economics). The comparison is imperfect by construction; MetaDAO operates at materially smaller scale than each of these and serves a different builder-quality tier. The point of the comp is to establish where META sits on the relative-value curve, not to claim equivalence.</p>
+
+  <h3>Daily fees</h3>
+
+  <p>On the absolute fee scale MetaDAO is the smallest of the four protocols, reflecting both its earlier stage and its narrower fee surface. The chart uses a log scale to make the comparison readable; on a linear scale MetaDAO would be invisible alongside Jupiter's $1.4M daily fee snapshot. The right interpretation is not that MetaDAO is failing to compete on fees (it is not built to compete with Jupiter on fees) but that the platform has a multi-order-of-magnitude growth runway if launchpad cadence accelerates.</p>
+
+  <div id="chart-peer-fees"></div>
+  <p class="caption">Daily fee generation: MetaDAO vs Solana peers (log scale). Source: Artemis (April 26, 2026 snapshot)</p>
+
+  <h3>Total value locked</h3>
+
+  <p>TVL paints a similar picture. MetaDAO's $11.7M sits two orders of magnitude below Jupiter's $2.2B and one order below the rest of the peer group. TVL is a particularly noisy metric for MetaDAO because the platform's capital is procedurally cycled through ICO escrow and conditional markets rather than parked indefinitely; absolute TVL is therefore less informative for MetaDAO than fee-velocity-per-dollar-of-TVL would be. We will introduce that ratio as a tracked metric in the Q2 report.</p>
+
+  <div id="chart-peer-tvl"></div>
+  <p class="caption">Total value locked: MetaDAO vs Solana peers (log scale). Source: Artemis (April 26, 2026 snapshot)</p>
+
+  <h3>Valuation: market cap / annualized revenue</h3>
+
+  <p>This is the most important comparison in the report and the cleanest read of relative value across the peer set. We use circulating-supply market cap rather than FDV because mcap reflects what an investor can actually buy at the current price; FDV bakes in supply that is locked behind multi-year vesting or, in MetaDAO's case, behind milestone-based founder unlocks that have not been hit. For MetaDAO mcap and FDV are effectively equal at $53M (founder pool gated to $1B+ market cap milestones). For peers with active vesting (Jupiter) and active buyback programs (Pump.fun, Jupiter), mcap is the materially more honest denominator.</p>
+
+  <p>On market cap per dollar of annualized revenue, MetaDAO trades at 19x to 24x depending on which Q1 fee figure is used &mdash; either reading places MetaDAO above Jupiter (15.5x) and Raydium (12.4x) and well above Pump.fun (2.2x). The lower bound (19x) uses a Novora estimate that adjusts the Q1 Artemis-reported Futarchy AMM revenue ($556K) upward for the Meteora LP venue using MetaDAO's Q4 2025 published 54/46 split, scaled down for the Omnibus migration. The upper bound (24x) uses the Artemis-reported Q1 figure unchanged. Peer multiples use Q1 2026 actual fees annualized (Q1 &times; 4) on a like-for-like basis. Mcap data captured from CoinGecko and CoinMarketCap on April 26-28, 2026. The Q1 figure for MetaDAO will be confirmed when the team publishes Q1 2026 financial statements.</p>
+
+  <div id="chart-peer-mcap-rev"></div>
+  <p class="caption">Market cap / annualized revenue (lower is cheaper): MetaDAO vs Solana peers. MetaDAO range reflects Q1 fee estimate uncertainty pending team financial statements. Source: Artemis (revenue), CoinGecko/CMC (mcap)</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Protocol</th>
+        <th class="right">Market Cap</th>
+        <th class="right">Q1 Revenue</th>
+        <th class="right">Annualized</th>
+        <th class="right">MCap / Rev</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight">
+        <td><span class="ticker">MetaDAO</span></td>
+        <td class="right value">$53.0M</td>
+        <td class="right">$556K&ndash;$700K</td>
+        <td class="right">$2.22M&ndash;$2.80M</td>
+        <td class="right value">19x&ndash;24x</td>
+      </tr>
+      <tr>
+        <td><span class="ticker">Jupiter</span></td>
+        <td class="right value">$700M</td>
+        <td class="right">$11.26M</td>
+        <td class="right">$45.03M</td>
+        <td class="right value">15.5x</td>
+      </tr>
+      <tr>
+        <td><span class="ticker">Raydium</span></td>
+        <td class="right value">$200M</td>
+        <td class="right">$4.03M</td>
+        <td class="right">$16.14M</td>
+        <td class="right value">12.4x</td>
+      </tr>
+      <tr>
+        <td><span class="ticker">Pump.fun</span></td>
+        <td class="right value">$1.04B</td>
+        <td class="right">$118.5M</td>
+        <td class="right">$474.2M</td>
+        <td class="right value">2.2x</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>The 2.2x Pump.fun multiple is real and worth addressing directly. Pump.fun runs roughly 200x MetaDAO's daily fee generation by capturing memecoin throughput, which is the highest-volume issuance category in crypto. The 2x multiple combines two effects: memecoin-issuance economics are mature and the market has priced them as low-quality and unlikely to compound; and Pump.fun has executed the largest token buyback in crypto relative to supply ($360M+ purchased, ~35% of circulating PUMP retired) which has compressed mcap relative to fees. MetaDAO's 19x to 24x range is the market's view that institutional-quality futarchy issuance is earlier, lower-volume, but higher-compounding. The premium to Pump.fun is the market paying for differentiated quality. The premium to Jupiter and Raydium reflects MetaDAO's far smaller absolute revenue base and the implicit growth optionality the market is pricing in. The premium also reflects the strength of the underlying balance sheet: MetaDAO closed Q4 with $12.24M USDC against $477K of quarterly opex, which is a fundamentally different cash position than the operating-cost-pressured profile of most early-stage launchpads.</p>
+
+  <div class="callout">
+    <div class="kicker">Reading the chart together</div>
+    <p>MetaDAO is priced as a credible scale-up candidate, not as a mature cash-flow asset. The gap to Jupiter's 15.5x compresses as MetaDAO's revenue base grows &mdash; the denominator is the lever, not the numerator. Whichever end of the 19x to 24x range proves accurate, the premium versus Jupiter and Raydium has to be earned over time through demonstrated launch cadence and Futardio scale-up. The Q2 catalysts described in the next section have direct bearing on which direction the multiple moves.</p>
+  </div>
+</section>
+
+<!-- ============ 09. STRATEGIC DEVELOPMENTS ============ -->
+<section id="strategic">
+  <div class="section-eyebrow">// 09 · Strategic Developments &amp; Ecosystem</div>
+  <h2>The events that defined the quarter</h2>
+
+  <h3>Ranger Finance ICO and liquidation</h3>
+
+  <p>Ranger Finance ran its $6M ICO on MetaDAO from January 6 to 10, 2026. The project pitched itself as a perpetuals aggregator for Solana with a Smart Order Router across Drift, Hyperliquid, and other venues. The token launched with a high-float distribution and the standard MetaDAO performance-vesting structure: 7.6M RNGR (30% of total supply) unlockable in five tranches at 2x, 4x, 8x, 16x, and 32x ICO price, with 18-month minimum cliff and 3-month TWAP per tranche.</p>
+
+  <p>On March 3, 2026, a group of RNGR holders posted a decision-market proposal alleging that the Ranger team had materially misrepresented its 2025 revenue and trading volume to ICO participants. The proposal called for liquidating the project: pulling all RNGR/USDC liquidity from the Futarchy AMM, distributing the resulting USDC pro rata to non-locked RNGR holders, and returning all intellectual property (Ranger's domain, Discord, Twitter accounts, and brand assets) to the Glint House PTE. LTD legal entity. The proposal traded for nine days. On March 12, the PASS market closed above the FAIL market by the required threshold, and the resolution executed automatically: $5,047,250 USDC was removed from the Ranger treasury and liquidity pool and distributed to tokenholders based on a March 13 wallet snapshot.</p>
+
+  <p>This event is the single most important strategic development of the quarter. It is the first time onchain governance has dissolved a recently-funded crypto project and forcibly returned investor capital based on a market vote. The implications are structural: futarchy moved from "interesting governance experiment" to "enforceable tokenholder protection" in a single executed event. Critics argue the precedent imposes a de-facto due-diligence obligation on MetaDAO itself and could chill future issuance. The team's public position is that the dispute resolution mechanism is the product feature it is meant to be: investors get their money back when teams misrepresent material facts, and the platform takes the reputational hit on the launch in exchange for proving the safety net works. We agree with the team's framing. The Ranger event is positive for MetaDAO's long-run positioning even if it pressured short-run sentiment around META.</p>
+
+  <h3>Hurupay ICO</h3>
+
+  <p>On February 3, 2026, Hurupay launched its ICO on MetaDAO. The project is a fiat-on/off-ramp and virtual banking infrastructure project bridging USD and Euro accounts to crypto via Visa cards and stablecoin rails, backed by Founders Inc and angel investors with Microsoft and Bankless ties. The Hurupay launch was the second curated ICO of the quarter and the only material new launch event between Ranger's January close and the launch of Futardio in early March. The launch generated approximately $17,000 in single-day fees and held the platform's revenue base through the first week of February.</p>
+
+  <p>Hurupay is also a Novora pre-TGE engagement currently under review (the engagement was scoped through Philip Mburu in Q1). For the purposes of this report we cover only the public Q1 events; an extended engagement deliverable will cover the Hurupay launch in greater depth as a separate report.</p>
+
+  <h3>Futardio launch</h3>
+
+  <p>On March 4, 2026, MetaDAO launched Futardio, a permissionless variant of the curated launchpad. Futardio applies the same futarchy governance binding, treasury locking, and DAO LLC structuring as the curated product but removes the manual review and curation gate. Teams can list directly. The product addresses what is arguably the binding constraint on MetaDAO's revenue: throughput. Curation produces quality but caps the platform at roughly one to two launches per month at peak cadence. Futardio runs in parallel and trades curation-driven quality for permissionless throughput, with the futarchy mechanism filtering at the governance layer rather than at the listing layer.</p>
+
+  <p>The early Futardio listing slate as of late March includes projects across agri-DePIN, AI agent infrastructure, prediction-market gaming, onchain music, and consumer hardware-wallet alternatives. The slate skews early-stage and experimental. Q1 fee contribution is small (the product launched with three weeks left in the quarter and Futardio launches did not see meaningful subscription volume before quarter-end), but it is the highest-leverage product on the platform's Q2 roadmap. If Futardio adds two to three additional launches per month at modest sizes, it could match or exceed the curated launchpad's fee contribution within two quarters.</p>
+
+  <h3>P2P.me Polymarket incident</h3>
+
+  <p>From March 28 to 31, 2026, P2P.me's ongoing $6M MetaDAO ICO came under scrutiny after news surfaced that the P2P.me team had placed wagers on its own fundraising milestone via Polymarket using a wallet identified as the P2P Team Wallet. The team disclosed less than $15,000 in profits from the wagers and characterized the activity as a "guerrilla marketing stunt gone too far." MetaDAO extended the P2P.me ICO and offered refunds to participants who wished to exit. Major P2P.me backers (Multicoin Capital, Coinbase Ventures, Alliance DAO) remained committed to the project.</p>
+
+  <p>The episode raises a real platform-policy question. P2P.me's actions did not breach the futarchy contract per se (the team did not misrepresent business fundamentals to subscribers in the way Ranger was alleged to have), but they did represent a category of insider trading on the ICO subscription process itself. Critics argue that allowing the raise to continue sets a bad precedent and effectively imposes a due-diligence and conduct-policing obligation on MetaDAO. Supporters argue that the futarchy mechanism is correctly identifying the issue, applying friction (the ICO extension and refund window), and letting the market decide whether the raise still has support. We expect MetaDAO will codify additional team-conduct rules into its curation criteria during Q2 in response to this event.</p>
+
+  <h3>Omnibus Proposal liquidity migration</h3>
+
+  <p>Although the Omnibus Proposal originated in late Q4 2025, its execution flowed through Q1. The proposal migrated approximately 90% of META liquidity from Meteora DAMM v1 to the Futarchy AMM and burned approximately 60,000 META in the process. The migration is the structural reason Q1 fee generation is concentrated on the Futarchy AMM venue rather than on the Meteora pool, and it tightens the platform's control over secondary trading economics for newly-launched ICO tokens. We expect this will show up positively in Q2 fee data as Futardio launches generate post-launch trading volume routed primarily through the Futarchy AMM. The flip side is that Q1 is the first full quarter where the Futarchy AMM venue dominates the fee mix; the team's published Q1 financial statements will be the canonical source for the actual venue split.</p>
+
+  <h3>$10M META OTC raise (Proposal #34)</h3>
+
+  <p>In October 2025, MetaDAO closed Proposal #34, a $10M USDC OTC raise via the issuance of new META tokens to outside capital. Per the team's Q4 2025 cash flow statement, the raise contributed $10,000,007 of financing-activity inflows and was the single largest financing event in MetaDAO's history. The transaction took the USDC treasury from $1.96M (Dec 31, 2024) to $12.24M (Dec 31, 2025), a 525% year-over-year increase. The raise materially derisks the platform's operating runway: at the Q4 quarterly opex run-rate of $477K (or $1.91M annualized), the post-raise treasury covers approximately 6.4 years of operations at zero new revenue and approximately 7 years if Q4 cost-of-revenue remains at 12% of revenue. With Q4 gross profit alone covering quarterly opex 3.6x, MetaDAO is structurally cash-generative and the raise pre-funds the Futardio scale-up phase without forcing the team into near-term token issuance pressure. Although the raise predates the Q1 reporting period, its balance sheet impact defines MetaDAO's Q1 starting position and is structurally relevant to any forward-looking valuation framework.</p>
+
+  <h3>Colosseum STAMP integration</h3>
+
+  <p>Colosseum, the upstream Solana hackathon, accelerator, and venture fund whose alumni include Jito, Kamino, Drift, Exponent, and Hylo, introduced the STAMP investment contract in December 2025. STAMP is designed to align early Colosseum-portfolio investors with the MetaDAO ICO model, providing onchain investor protections via decision markets and conferring tokenholder ownership over project treasuries and IP. STAMP positions Colosseum's deal flow as a structural pipeline of high-quality MetaDAO launch candidates. The first STAMP-routed launches are not yet on the calendar but are an explicit part of MetaDAO's Q2 to Q3 cadence-acceleration plan.</p>
+</section>
+
+<!-- ============ 10. CLOSING SUMMARY & OUTLOOK ============ -->
+<section id="outlook">
+  <div class="section-eyebrow">// 10 · Closing Summary &amp; Q2 2026 Outlook</div>
+  <h2>Strong foundation, fee growth as the lever</h2>
+
+  <p>MetaDAO enters Q2 2026 with the platform's structural thesis materially stronger than it entered Q1, even with a softer financial run-rate during a sector-wide cooldown. The Ranger liquidation proved the futarchy mechanism's most ambitious claim: that decision markets can resolve disputes between protocols and their tokenholders in a way that returns capital and cannot be litigated away. The Futardio launch opens a permissionless growth lane that should re-accelerate launch cadence. The Omnibus Proposal migration captures a higher share of secondary trading economics for the platform. None of these are reflected in the Q1 P&amp;L, but all of them inform the Q2 outlook.</p>
+
+  <h3>Network position</h3>
+
+  <p>The Ranger event is the most consequential change to MetaDAO's competitive position in any quarter to date. Before March 12, MetaDAO's pitch to founders was that futarchy provides better governance than token-weighted voting; the value proposition to tokenholders was largely theoretical. After March 12, the value proposition to tokenholders is concrete and demonstrable: in a contested case, the platform returned $5.04M to investors based on a market vote, two months after the project's launch. This is structurally unique infrastructure. No other Solana launchpad (and no Ethereum or Base equivalent we are aware of) has produced an analogous executed precedent. The implication for MetaDAO's network effects is that high-quality founders who care about long-run reputation now have a stronger reason to choose MetaDAO over alternatives, and high-quality investors have a stronger reason to participate in MetaDAO ICOs over alternatives.</p>
+
+  <h3>Institutional distribution</h3>
+
+  <p>MetaDAO's institutional positioning depends on three vectors entering Q2. The first is the Colosseum STAMP pipeline maturing into actual launches; we expect at least one and likely two STAMP-routed launches before the end of Q2. The second is the platform's ability to handle scale-up: the Futardio product needs to demonstrate that it can sustain throughput without producing a wave of low-quality launches that damage the curated brand. The third is institutional tokenholder access. As of quarter-end META is available primarily on Solana DEXs; expanded centralized exchange listings would broaden the institutional buyer base and tighten the mcap/revenue multiple toward the peer median.</p>
+
+  <h3>Revenue &amp; token dynamics</h3>
+
+  <p>Three observations frame the Q2 revenue forecast. First, the Q1 monthly trajectory on the Futarchy AMM venue ($368K &rarr; $121K &rarr; $67K) implies a March exit-rate of approximately $2,200 per day or $800K annualized; this is a structurally low base on a single venue and the realistic scenario is that any meaningful launch activity in Q2 produces a step-up. Second, each curated ICO contributed approximately $100K to $200K in cumulative platform fees during Q4 2025 to Q1 2026 cycles. Three Q2 launches at this contribution rate would produce $300K to $600K in launch-attributable fees and would close the variance gap between Q1's January and March monthly readings. Third, the mcap/revenue multiple at 19x to 24x is mid-cluster: a meaningful Q2 fee acceleration compresses the multiple toward Jupiter's 15.5x and Raydium's 12.4x rather than re-rating to a higher multiple, so the path to value here is fee growth rather than multiple expansion. The denominator is the lever. The $12.24M Q4-end treasury removes the financing-pressure overhang that would otherwise complicate this picture and gives the team room to invest into Q2 product cadence without trade-offs against runway.</p>
+
+  <h3>Q2 2026 catalysts to monitor</h3>
+
+  <p>The most important Q2 catalysts to monitor: launch cadence in Futardio and whether monthly aggregate fees can return to the $200K+ range, conversion of the Colosseum STAMP pipeline into the first one or two launches with this routing, the platform's policy response to the P2P.me incident and any codified conduct rules introduced for ICO teams, additional curated launches under the existing flagship product (Hurupay graduation, new project announcements), and centralized exchange listings for META that broaden the holder base. Any one of these catalysts could materially re-rate META; in combination, they would mark the platform's transition into its next growth phase. The conditions for that transition are forming.</p>
+</section>
+
+
+<!-- ============ DISCLOSURES ============ -->
+<section id="disclosures">
+  <div class="section-eyebrow">// Disclosures</div>
+  <h2 style="font-size: 32px;">About this report</h2>
+
+  <h3 style="font-size: 18px; margin-top: 32px;">Engagement</h3>
+  <p>This research report is prepared by Novora as part of an active advisory engagement with MetaDAO. The engagement does not condition the firm's editorial control over the final report. Novora retains full authority over data accuracy, framing, and conclusions. All published quarterly reports are reviewed internally to prevent bias.</p>
+
+  <h3 style="font-size: 18px;">Conflicts of interest</h3>
+  <p>Novora and its principals may hold positions in tokens or assets discussed herein, including META. Researchers are required to disclose financial conflicts of interest on a periodic basis. Readers are advised to conduct their own independent research and consult with a qualified financial advisor before making any investment decision.</p>
+
+  <h3 style="font-size: 18px;">Data and methodology</h3>
+  <p>Quantitative data sourced from MetaDAO's published Q4 2025 financial statements (treasury, operating expenses, gross margin, Q4 baseline revenue and venue split) and Artemis (Q1 2026 Futarchy AMM revenue, daily/weekly/monthly fees, price, TVL), supplemented by CoinGecko and CoinMarketCap (market cap and circulating supply for peer comparison). Coverage period is January 1 to March 31, 2026; balance sheet figures use the Dec 31, 2025 close. Q1 2026 protocol revenue is presented as a range &mdash; the lower bound is the Artemis-reported Futarchy AMM venue figure; the upper bound is a Novora estimate that incorporates the Meteora LP venue using Q4's published 54/46 split adjusted for the Omnibus migration. Where MetaDAO publishes audited or non-GAAP financial statements, those statements are treated as the canonical revenue source and Artemis-derived figures are used only for venue-level decomposition where the team has not yet published. The Q1 fee range will collapse to a point estimate when MetaDAO's Q1 2026 financial statements are released. Annualized figures multiply Q1 totals by 4.</p>
+
+  <h3 style="font-size: 18px;">Not investment advice</h3>
+  <p>This document is provided for informational purposes only and does not constitute investment advice, an offer to sell, or a solicitation of an offer to buy any security or other financial instrument. Past performance is not indicative of future results. Crypto assets carry significant risk, including total loss of capital.</p>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div>© 2026 Novora Holdings LLC · Capital Markets Advisory · <a href="mailto:contact@novora.co">contact@novora.co</a></div>
+  <div>Data powered by <a href="https://artemis.xyz" target="_blank" rel="noopener">Artemis</a></div>
+</footer>
+
+</div>
+
+<!-- ============ DATA + CHART RENDERING ============ -->
+<script id="report-data" type="application/json">
+{"fees":[{"date":"2025-12-29","value":4061},{"date":"2025-12-30","value":7656},{"date":"2025-12-31","value":3634},{"date":"2026-01-01","value":4873},{"date":"2026-01-02","value":7062},{"date":"2026-01-03","value":5623},{"date":"2026-01-04","value":8654},{"date":"2026-01-05","value":9651},{"date":"2026-01-06","value":12953},{"date":"2026-01-07","value":8299},{"date":"2026-01-08","value":8448},{"date":"2026-01-09","value":19290},{"date":"2026-01-10","value":25235},{"date":"2026-01-11","value":10319},{"date":"2026-01-12","value":19451},{"date":"2026-01-13","value":13165},{"date":"2026-01-14","value":11804},{"date":"2026-01-15","value":12316},{"date":"2026-01-16","value":17347},{"date":"2026-01-17","value":11470},{"date":"2026-01-18","value":10707},{"date":"2026-01-19","value":12510},{"date":"2026-01-20","value":14629},{"date":"2026-01-21","value":10168},{"date":"2026-01-22","value":7994},{"date":"2026-01-23","value":13123},{"date":"2026-01-24","value":10267},{"date":"2026-01-25","value":13428},{"date":"2026-01-26","value":13062},{"date":"2026-01-27","value":9335},{"date":"2026-01-28","value":9665},{"date":"2026-01-29","value":8120},{"date":"2026-01-30","value":13196},{"date":"2026-01-31","value":16085},{"date":"2026-02-01","value":8943},{"date":"2026-02-02","value":17097},{"date":"2026-02-03","value":7941},{"date":"2026-02-04","value":6963},{"date":"2026-02-05","value":14529},{"date":"2026-02-06","value":8937},{"date":"2026-02-07","value":4197},{"date":"2026-02-08","value":2056},{"date":"2026-02-09","value":1920},{"date":"2026-02-10","value":3534},{"date":"2026-02-11","value":1796},{"date":"2026-02-12","value":4079},{"date":"2026-02-13","value":3795},{"date":"2026-02-14","value":3598},{"date":"2026-02-15","value":2746},{"date":"2026-02-16","value":1884},{"date":"2026-02-17","value":1707},{"date":"2026-02-18","value":1926},{"date":"2026-02-19","value":1352},{"date":"2026-02-20","value":1128},{"date":"2026-02-21","value":1191},{"date":"2026-02-22","value":1624},{"date":"2026-02-23","value":3067},{"date":"2026-02-24","value":3778},{"date":"2026-02-25","value":2842},{"date":"2026-02-26","value":2457},{"date":"2026-02-27","value":3876},{"date":"2026-02-28","value":2278},{"date":"2026-03-01","value":1384},{"date":"2026-03-02","value":4626},{"date":"2026-03-03","value":3791},{"date":"2026-03-04","value":6916},{"date":"2026-03-05","value":6024},{"date":"2026-03-06","value":2681},{"date":"2026-03-07","value":1242},{"date":"2026-03-08","value":2781},{"date":"2026-03-09","value":2767},{"date":"2026-03-10","value":2993},{"date":"2026-03-11","value":1804},{"date":"2026-03-12","value":2476},{"date":"2026-03-13","value":1995},{"date":"2026-03-14","value":499},{"date":"2026-03-15","value":900},{"date":"2026-03-16","value":1285},{"date":"2026-03-17","value":2772},{"date":"2026-03-18","value":1940},{"date":"2026-03-19","value":1747},{"date":"2026-03-20","value":1277},{"date":"2026-03-21","value":445},{"date":"2026-03-22","value":795},{"date":"2026-03-23","value":1222},{"date":"2026-03-24","value":2121},{"date":"2026-03-25","value":2800},{"date":"2026-03-26","value":1184},{"date":"2026-03-27","value":1843},{"date":"2026-03-28","value":665},{"date":"2026-03-29","value":720},{"date":"2026-03-30","value":676},{"date":"2026-03-31","value":2217}],"revenue":[{"date":"2025-12-29","value":4061},{"date":"2025-12-30","value":7656},{"date":"2025-12-31","value":3634},{"date":"2026-01-01","value":4873},{"date":"2026-01-02","value":7062},{"date":"2026-01-03","value":5623},{"date":"2026-01-04","value":8654},{"date":"2026-01-05","value":9651},{"date":"2026-01-06","value":12953},{"date":"2026-01-07","value":8299},{"date":"2026-01-08","value":8448},{"date":"2026-01-09","value":19290},{"date":"2026-01-10","value":25235},{"date":"2026-01-11","value":10319},{"date":"2026-01-12","value":19451},{"date":"2026-01-13","value":13165},{"date":"2026-01-14","value":11804},{"date":"2026-01-15","value":12316},{"date":"2026-01-16","value":17347},{"date":"2026-01-17","value":11470},{"date":"2026-01-18","value":10707},{"date":"2026-01-19","value":12510},{"date":"2026-01-20","value":14629},{"date":"2026-01-21","value":10168},{"date":"2026-01-22","value":7994},{"date":"2026-01-23","value":13123},{"date":"2026-01-24","value":10267},{"date":"2026-01-25","value":13428},{"date":"2026-01-26","value":13062},{"date":"2026-01-27","value":9335},{"date":"2026-01-28","value":9665},{"date":"2026-01-29","value":8120},{"date":"2026-01-30","value":13196},{"date":"2026-01-31","value":16085},{"date":"2026-02-01","value":8943},{"date":"2026-02-02","value":17097},{"date":"2026-02-03","value":7941},{"date":"2026-02-04","value":6963},{"date":"2026-02-05","value":14529},{"date":"2026-02-06","value":8937},{"date":"2026-02-07","value":4197},{"date":"2026-02-08","value":2056},{"date":"2026-02-09","value":1920},{"date":"2026-02-10","value":3534},{"date":"2026-02-11","value":1796},{"date":"2026-02-12","value":4079},{"date":"2026-02-13","value":3795},{"date":"2026-02-14","value":3598},{"date":"2026-02-15","value":2746},{"date":"2026-02-16","value":1884},{"date":"2026-02-17","value":1707},{"date":"2026-02-18","value":1926},{"date":"2026-02-19","value":1352},{"date":"2026-02-20","value":1128},{"date":"2026-02-21","value":1191},{"date":"2026-02-22","value":1624},{"date":"2026-02-23","value":3067},{"date":"2026-02-24","value":3778},{"date":"2026-02-25","value":2842},{"date":"2026-02-26","value":2457},{"date":"2026-02-27","value":3876},{"date":"2026-02-28","value":2278},{"date":"2026-03-01","value":1384},{"date":"2026-03-02","value":4626},{"date":"2026-03-03","value":3791},{"date":"2026-03-04","value":6916},{"date":"2026-03-05","value":6024},{"date":"2026-03-06","value":2681},{"date":"2026-03-07","value":1242},{"date":"2026-03-08","value":2781},{"date":"2026-03-09","value":2767},{"date":"2026-03-10","value":2993},{"date":"2026-03-11","value":1804},{"date":"2026-03-12","value":2476},{"date":"2026-03-13","value":1995},{"date":"2026-03-14","value":499},{"date":"2026-03-15","value":900},{"date":"2026-03-16","value":1285},{"date":"2026-03-17","value":2772},{"date":"2026-03-18","value":1940},{"date":"2026-03-19","value":1747},{"date":"2026-03-20","value":1277},{"date":"2026-03-21","value":445},{"date":"2026-03-22","value":795},{"date":"2026-03-23","value":1222},{"date":"2026-03-24","value":2121},{"date":"2026-03-25","value":2800},{"date":"2026-03-26","value":1184},{"date":"2026-03-27","value":1843},{"date":"2026-03-28","value":665},{"date":"2026-03-29","value":720},{"date":"2026-03-30","value":676},{"date":"2026-03-31","value":2217}],"cumulative":[{"date":"2025-12-29","value":4061},{"date":"2025-12-30","value":11717},{"date":"2025-12-31","value":15351},{"date":"2026-01-01","value":20224},{"date":"2026-01-02","value":27286},{"date":"2026-01-03","value":32909},{"date":"2026-01-04","value":41563},{"date":"2026-01-05","value":51214},{"date":"2026-01-06","value":64167},{"date":"2026-01-07","value":72466},{"date":"2026-01-08","value":80914},{"date":"2026-01-09","value":100204},{"date":"2026-01-10","value":125439},{"date":"2026-01-11","value":135758},{"date":"2026-01-12","value":155209},{"date":"2026-01-13","value":168374},{"date":"2026-01-14","value":180178},{"date":"2026-01-15","value":192494},{"date":"2026-01-16","value":209841},{"date":"2026-01-17","value":221311},{"date":"2026-01-18","value":232018},{"date":"2026-01-19","value":244528},{"date":"2026-01-20","value":259157},{"date":"2026-01-21","value":269325},{"date":"2026-01-22","value":277319},{"date":"2026-01-23","value":290442},{"date":"2026-01-24","value":300709},{"date":"2026-01-25","value":314137},{"date":"2026-01-26","value":327199},{"date":"2026-01-27","value":336534},{"date":"2026-01-28","value":346199},{"date":"2026-01-29","value":354319},{"date":"2026-01-30","value":367515},{"date":"2026-01-31","value":383600},{"date":"2026-02-01","value":392543},{"date":"2026-02-02","value":409640},{"date":"2026-02-03","value":417581},{"date":"2026-02-04","value":424544},{"date":"2026-02-05","value":439073},{"date":"2026-02-06","value":448010},{"date":"2026-02-07","value":452207},{"date":"2026-02-08","value":454263},{"date":"2026-02-09","value":456183},{"date":"2026-02-10","value":459717},{"date":"2026-02-11","value":461513},{"date":"2026-02-12","value":465592},{"date":"2026-02-13","value":469387},{"date":"2026-02-14","value":472985},{"date":"2026-02-15","value":475731},{"date":"2026-02-16","value":477615},{"date":"2026-02-17","value":479322},{"date":"2026-02-18","value":481248},{"date":"2026-02-19","value":482600},{"date":"2026-02-20","value":483728},{"date":"2026-02-21","value":484919},{"date":"2026-02-22","value":486543},{"date":"2026-02-23","value":489610},{"date":"2026-02-24","value":493388},{"date":"2026-02-25","value":496230},{"date":"2026-02-26","value":498687},{"date":"2026-02-27","value":502563},{"date":"2026-02-28","value":504841},{"date":"2026-03-01","value":506225},{"date":"2026-03-02","value":510851},{"date":"2026-03-03","value":514642},{"date":"2026-03-04","value":521558},{"date":"2026-03-05","value":527582},{"date":"2026-03-06","value":530263},{"date":"2026-03-07","value":531505},{"date":"2026-03-08","value":534286},{"date":"2026-03-09","value":537053},{"date":"2026-03-10","value":540046},{"date":"2026-03-11","value":541850},{"date":"2026-03-12","value":544326},{"date":"2026-03-13","value":546321},{"date":"2026-03-14","value":546820},{"date":"2026-03-15","value":547720},{"date":"2026-03-16","value":549005},{"date":"2026-03-17","value":551777},{"date":"2026-03-18","value":553717},{"date":"2026-03-19","value":555464},{"date":"2026-03-20","value":556741},{"date":"2026-03-21","value":557186},{"date":"2026-03-22","value":557981},{"date":"2026-03-23","value":559203},{"date":"2026-03-24","value":561324},{"date":"2026-03-25","value":564124},{"date":"2026-03-26","value":565308},{"date":"2026-03-27","value":567151},{"date":"2026-03-28","value":567816},{"date":"2026-03-29","value":568536},{"date":"2026-03-30","value":569212},{"date":"2026-03-31","value":571429}],"monthly":[{"month":"2025-12","value":15351.0},{"month":"2026-01","value":368249.0},{"month":"2026-02","value":121241.0},{"month":"2026-03","value":66588.0}],"weekly_avg":[{"week":"2026-W01","value":5937.571428571428},{"week":"2026-W02","value":13456.42857142857},{"week":"2026-W03","value":13751.42857142857},{"week":"2026-W04","value":11731.285714285714},{"week":"2026-W05","value":11200.857142857143},{"week":"2026-W06","value":8817.142857142857},{"week":"2026-W07","value":3066.8571428571427},{"week":"2026-W08","value":1544.5714285714287},{"week":"2026-W09","value":2811.714285714286},{"week":"2026-W10","value":4008.714285714286},{"week":"2026-W11","value":1919.142857142857},{"week":"2026-W12","value":1465.857142857143},{"week":"2026-W13","value":1507.857142857143},{"week":"2026-W14","value":1446.5}],"tvl":[{"date":"2026-01-27","value":16037303},{"date":"2026-01-28","value":15796775},{"date":"2026-01-29","value":15839376},{"date":"2026-01-30","value":15376756},{"date":"2026-01-31","value":14789283},{"date":"2026-02-01","value":14240159},{"date":"2026-02-02","value":13780836},{"date":"2026-02-03","value":14158820},{"date":"2026-02-04","value":13989632},{"date":"2026-02-05","value":13585781},{"date":"2026-02-06","value":12333625},{"date":"2026-02-07","value":13227903},{"date":"2026-02-08","value":13206951},{"date":"2026-02-09","value":13385376},{"date":"2026-02-10","value":13307110},{"date":"2026-02-11","value":13166199},{"date":"2026-02-12","value":13127866},{"date":"2026-02-13","value":12409143},{"date":"2026-02-14","value":12658151},{"date":"2026-02-15","value":13374028},{"date":"2026-02-16","value":13144760},{"date":"2026-02-17","value":13037998},{"date":"2026-02-18","value":13004899},{"date":"2026-02-19","value":12902822},{"date":"2026-02-20","value":13718682},{"date":"2026-02-21","value":13735848},{"date":"2026-02-22","value":13675285},{"date":"2026-02-23","value":13477597},{"date":"2026-02-24","value":13210753},{"date":"2026-02-25","value":13069838},{"date":"2026-02-26","value":13512715},{"date":"2026-02-27","value":13359046},{"date":"2026-02-28","value":13168675},{"date":"2026-03-01","value":12936107},{"date":"2026-03-02","value":12989618},{"date":"2026-03-03","value":13465413},{"date":"2026-03-04","value":13824070},{"date":"2026-03-05","value":13626355},{"date":"2026-03-06","value":10971745},{"date":"2026-03-07","value":10812158},{"date":"2026-03-08","value":11028566},{"date":"2026-03-09","value":10755775},{"date":"2026-03-10","value":10772749},{"date":"2026-03-11","value":10905825},{"date":"2026-03-12","value":10858915},{"date":"2026-03-13","value":10964015},{"date":"2026-03-14","value":11034841},{"date":"2026-03-15","value":11029474},{"date":"2026-03-16","value":11149077},{"date":"2026-03-17","value":11325938},{"date":"2026-03-18","value":11449922},{"date":"2026-03-19","value":11122375},{"date":"2026-03-20","value":10891973},{"date":"2026-03-21","value":11025179},{"date":"2026-03-22","value":10981882},{"date":"2026-03-23","value":10897247},{"date":"2026-03-24","value":10765060},{"date":"2026-03-25","value":10681709},{"date":"2026-03-26","value":10615920},{"date":"2026-03-27","value":10005110},{"date":"2026-03-28","value":10494974},{"date":"2026-03-29","value":10397313},{"date":"2026-03-30","value":9987581},{"date":"2026-03-31","value":10416972}],"price":[{"date":"2025-12-01","value":6.6396},{"date":"2025-12-02","value":6.1422},{"date":"2025-12-03","value":6.7338},{"date":"2025-12-04","value":6.0915},{"date":"2025-12-05","value":5.9905},{"date":"2025-12-06","value":6.1604},{"date":"2025-12-07","value":5.741},{"date":"2025-12-08","value":5.4187},{"date":"2025-12-09","value":6.4581},{"date":"2025-12-10","value":6.4485},{"date":"2025-12-11","value":6.9839},{"date":"2025-12-12","value":6.5134},{"date":"2025-12-13","value":6.9531},{"date":"2025-12-14","value":6.3576},{"date":"2025-12-15","value":6.5759},{"date":"2025-12-16","value":7.2719},{"date":"2025-12-17","value":6.5414},{"date":"2025-12-18","value":5.7976},{"date":"2025-12-19","value":6.3981},{"date":"2025-12-20","value":6.5059},{"date":"2025-12-21","value":6.3678},{"date":"2025-12-22","value":6.274},{"date":"2025-12-23","value":6.3417},{"date":"2025-12-24","value":6.017},{"date":"2025-12-25","value":6.0722},{"date":"2025-12-26","value":6.0257},{"date":"2025-12-27","value":6.3974},{"date":"2025-12-28","value":6.5622},{"date":"2025-12-29","value":6.5134},{"date":"2025-12-30","value":6.5086},{"date":"2025-12-31","value":7.1507},{"date":"2026-01-01","value":7.2091},{"date":"2026-01-02","value":8.2616},{"date":"2026-01-03","value":9.6125},{"date":"2026-01-04","value":10.4718},{"date":"2026-01-05","value":9.37},{"date":"2026-01-06","value":8.1611},{"date":"2026-01-07","value":7.1887},{"date":"2026-01-08","value":7.5475},{"date":"2026-01-09","value":7.1845},{"date":"2026-01-10","value":7.1675},{"date":"2026-01-11","value":6.5943},{"date":"2026-01-12","value":6.1441},{"date":"2026-01-13","value":5.9917},{"date":"2026-01-14","value":6.1892},{"date":"2026-01-15","value":5.6175},{"date":"2026-01-16","value":5.6991},{"date":"2026-01-17","value":6.3948},{"date":"2026-01-18","value":6.0892},{"date":"2026-01-19","value":6.0719},{"date":"2026-01-20","value":5.91},{"date":"2026-01-21","value":5.8334},{"date":"2026-01-22","value":6.3121},{"date":"2026-01-23","value":6.5313},{"date":"2026-01-24","value":6.2907},{"date":"2026-01-25","value":5.9296},{"date":"2026-01-26","value":5.9807},{"date":"2026-01-27","value":6.1718},{"date":"2026-01-28","value":5.868},{"date":"2026-01-29","value":5.3857},{"date":"2026-01-30","value":5.4887},{"date":"2026-01-31","value":4.8353},{"date":"2026-02-01","value":4.1382},{"date":"2026-02-02","value":4.4255},{"date":"2026-02-03","value":4.3413},{"date":"2026-02-04","value":4.358},{"date":"2026-02-05","value":3.1747},{"date":"2026-02-06","value":4.3114},{"date":"2026-02-07","value":3.8915},{"date":"2026-02-08","value":3.892},{"date":"2026-02-09","value":3.7943},{"date":"2026-02-10","value":3.7381},{"date":"2026-02-11","value":3.7372},{"date":"2026-02-12","value":3.3916},{"date":"2026-02-13","value":3.5716},{"date":"2026-02-14","value":3.6716},{"date":"2026-02-15","value":3.5635},{"date":"2026-02-16","value":3.7144},{"date":"2026-02-17","value":3.8409},{"date":"2026-02-18","value":3.7417},{"date":"2026-02-19","value":3.7693},{"date":"2026-02-20","value":3.753},{"date":"2026-02-21","value":3.8132},{"date":"2026-02-22","value":3.7319},{"date":"2026-02-23","value":3.6051},{"date":"2026-02-24","value":3.5491},{"date":"2026-02-25","value":3.7846},{"date":"2026-02-26","value":3.7702},{"date":"2026-02-27","value":3.364},{"date":"2026-02-28","value":3.5173},{"date":"2026-03-01","value":3.4908},{"date":"2026-03-02","value":3.767},{"date":"2026-03-03","value":3.9063},{"date":"2026-03-04","value":4.1117},{"date":"2026-03-05","value":4.2612},{"date":"2026-03-06","value":4.0821},{"date":"2026-03-07","value":3.7524},{"date":"2026-03-08","value":3.3788},{"date":"2026-03-09","value":3.3176},{"date":"2026-03-10","value":3.3258},{"date":"2026-03-11","value":3.3394},{"date":"2026-03-12","value":3.3865},{"date":"2026-03-13","value":3.4395},{"date":"2026-03-14","value":3.3939},{"date":"2026-03-15","value":3.459},{"date":"2026-03-16","value":3.5044},{"date":"2026-03-17","value":3.5898},{"date":"2026-03-18","value":3.4373},{"date":"2026-03-19","value":3.3613},{"date":"2026-03-20","value":3.4407},{"date":"2026-03-21","value":3.4336},{"date":"2026-03-22","value":3.3086},{"date":"2026-03-23","value":3.2967},{"date":"2026-03-24","value":3.3331},{"date":"2026-03-25","value":3.2669},{"date":"2026-03-26","value":3.1334},{"date":"2026-03-27","value":3.0009},{"date":"2026-03-28","value":2.9922},{"date":"2026-03-29","value":2.993},{"date":"2026-03-30","value":2.955},{"date":"2026-03-31","value":2.768}],"fdv":[{"date":"2025-12-29","value":147755155},{"date":"2025-12-30","value":147646085},{"date":"2025-12-31","value":162212449},{"date":"2026-01-01","value":163536299},{"date":"2026-01-02","value":187412415},{"date":"2026-01-03","value":218056674},{"date":"2026-01-04","value":237550273},{"date":"2026-01-05","value":212554920},{"date":"2026-01-06","value":185132997},{"date":"2026-01-07","value":163072370},{"date":"2026-01-08","value":171213738},{"date":"2026-01-09","value":162979044},{"date":"2026-01-10","value":162591635},{"date":"2026-01-11","value":149590794},{"date":"2026-01-12","value":139376007},{"date":"2026-01-13","value":135920578},{"date":"2026-01-14","value":140399103},{"date":"2026-01-15","value":127432306},{"date":"2026-01-16","value":129282361},{"date":"2026-01-17","value":145065062},{"date":"2026-01-18","value":138130669},{"date":"2026-01-19","value":137740247},{"date":"2026-01-20","value":134066892},{"date":"2026-01-21","value":132329289},{"date":"2026-01-22","value":143188154},{"date":"2026-01-23","value":148161667},{"date":"2026-01-24","value":142701702},{"date":"2026-01-25","value":134512248},{"date":"2026-01-26","value":135669434},{"date":"2026-01-27","value":140004351},{"date":"2026-01-28","value":133114160},{"date":"2026-01-29","value":122173850},{"date":"2026-01-30","value":124509576},{"date":"2026-01-31","value":109687766},{"date":"2026-02-01","value":93873673},{"date":"2026-02-02","value":100391022},{"date":"2026-02-03","value":98480496},{"date":"2026-02-04","value":98858984},{"date":"2026-02-05","value":72016704},{"date":"2026-02-06","value":97802474},{"date":"2026-02-07","value":88277750},{"date":"2026-02-08","value":88289754},{"date":"2026-02-09","value":86072447},{"date":"2026-02-10","value":84797618},{"date":"2026-02-11","value":84778069},{"date":"2026-02-12","value":76937401},{"date":"2026-02-13","value":81021424},{"date":"2026-02-14","value":83289991},{"date":"2026-02-15","value":80836873},{"date":"2026-02-16","value":84261292},{"date":"2026-02-17","value":87128839},{"date":"2026-02-18","value":84879278},{"date":"2026-02-19","value":85505583},{"date":"2026-02-20","value":85134677},{"date":"2026-02-21","value":86500489},{"date":"2026-02-22","value":84656282},{"date":"2026-02-23","value":81780872},{"date":"2026-02-24","value":80510774},{"date":"2026-02-25","value":85851805},{"date":"2026-02-26","value":85525598},{"date":"2026-02-27","value":76310310},{"date":"2026-02-28","value":79789434},{"date":"2026-03-01","value":79186865},{"date":"2026-03-02","value":85452889},{"date":"2026-03-03","value":88613604},{"date":"2026-03-04","value":93273753},{"date":"2026-03-05","value":96663611},{"date":"2026-03-06","value":92600659},{"date":"2026-03-07","value":85122935},{"date":"2026-03-08","value":76647385},{"date":"2026-03-09","value":75259684},{"date":"2026-03-10","value":75444476},{"date":"2026-03-11","value":75752166},{"date":"2026-03-12","value":76822424},{"date":"2026-03-13","value":78022988},{"date":"2026-03-14","value":76989907},{"date":"2026-03-15","value":78467388},{"date":"2026-03-16","value":79497042},{"date":"2026-03-17","value":81433947},{"date":"2026-03-18","value":77973135},{"date":"2026-03-19","value":76249751},{"date":"2026-03-20","value":78051328},{"date":"2026-03-21","value":77890836},{"date":"2026-03-22","value":75054866},{"date":"2026-03-23","value":74783799},{"date":"2026-03-24","value":75609772},{"date":"2026-03-25","value":74109158},{"date":"2026-03-26","value":71081134},{"date":"2026-03-27","value":68074149},{"date":"2026-03-28","value":67876943},{"date":"2026-03-29","value":67896375},{"date":"2026-03-30","value":67034392},{"date":"2026-03-31","value":62792236}],"catalysts":[{"date":"2026-01-06","label":"Ranger ICO opens","price":8.1611},{"date":"2026-01-10","label":"Ranger ICO closes","price":7.1675},{"date":"2026-02-03","label":"Hurupay ICO launches","price":4.3413},{"date":"2026-03-03","label":"Ranger liquidation proposal posted","price":3.9063},{"date":"2026-03-04","label":"Futardio (permissionless) launched","price":4.1117},{"date":"2026-03-12","label":"Ranger liquidation passes ($5.04M returned)","price":3.3865},{"date":"2026-03-30","label":"P2P.me Polymarket controversy","price":2.955}],"peer_comp":[{"name":"MetaDAO","mcap":53000000,"fdv":52855346,"fees":2114,"tvl":11734669},{"name":"Jupiter","mcap":700000000,"fdv":1886640000,"fees":1355712,"tvl":2223398942},{"name":"Pump.fun","mcap":1040000000,"fdv":1781810000,"fees":380349,"tvl":462769011},{"name":"Raydium","mcap":200000000,"fdv":415358670,"fees":178340,"tvl":1298223220}],"peer_fees":[{"name":"MetaDAO","value":2114},{"name":"Jupiter","value":1355712},{"name":"Pump.fun","value":380349},{"name":"Raydium","value":178340}],"peer_tvl":[{"name":"MetaDAO","value":11734669},{"name":"Jupiter","value":2223398942},{"name":"Pump.fun","value":462769011},{"name":"Raydium","value":1298223220}],"peer_q1_rev":[{"name":"MetaDAO","value":556078},{"name":"Jupiter","value":11256659},{"name":"Pump.fun","value":118542111},{"name":"Raydium","value":4034239}],"peer_ann_rev":[{"name":"MetaDAO","value":2224312},{"name":"Jupiter","value":45026636},{"name":"Pump.fun","value":474168444},{"name":"Raydium","value":16136956}],"peer_mcap_rev":[{"name":"MetaDAO (Artemis)","value":23.83},{"name":"MetaDAO (Novora est.)","value":18.93},{"name":"Jupiter","value":15.55},{"name":"Pump.fun","value":2.19},{"name":"Raydium","value":12.39}],"totals":{"q1_revenue_low":556078,"q1_revenue_high":700000,"annualized_revenue_low":2224312,"annualized_revenue_high":2800000,"mcap_rev_multiple_low":18.93,"mcap_rev_multiple_high":23.83}}
+</script>
+
+<script>
+(function() {
+  const data = JSON.parse(document.getElementById('report-data').textContent);
+
+  const e = React.createElement;
+  const {
+    LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+    ResponsiveContainer, ReferenceLine, Cell, Area, AreaChart, ComposedChart,
+  } = Recharts;
+
+  const PURPLE = '#7C6EF0';
+  const PURPLE_DARK = '#4A3FC7';
+  const TEXT_PRIMARY = '#1A1A18';
+  const TEXT_BODY = '#3A3A36';
+  const TEXT_FAINT = '#9A9890';
+  const BORDER_INNER = '#EDEAE2';
+  const GRAY_BAR = '#D8D5CC';
+
+  const TICK_STYLE = {
+    fontSize: 11,
+    fontFamily: "'DM Sans', sans-serif",
+    fill: TEXT_FAINT,
+  };
+  const AXIS_STYLE = { stroke: BORDER_INNER };
+
+  function formatUSD(v, opts) {
+    opts = opts || {};
+    if (v == null) return '—';
+    if (v >= 1e9) return '$' + (v/1e9).toFixed(opts.dec == null ? 1 : opts.dec) + 'B';
+    if (v >= 1e6) return '$' + (v/1e6).toFixed(opts.dec == null ? 1 : opts.dec) + 'M';
+    if (v >= 1e3) return '$' + (v/1e3).toFixed(0) + 'K';
+    return '$' + Math.round(v);
+  }
+  function formatDate(d) {
+    if (!d) return '';
+    const parts = d.split('-');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return months[parseInt(parts[1])-1] + ' ' + parseInt(parts[2]);
+  }
+  function formatMonth(m) {
+    if (!m) return '';
+    const parts = m.split('-');
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return months[parseInt(parts[1])-1] + ' ' + parts[0].slice(2);
+  }
+
+  function ChartCard({ title, subtitle, height, children }) {
+    return e('div', { className: 'chart-wrap' },
+      e('div', { className: 'chart-title' }, title),
+      subtitle ? e('div', { className: 'chart-sub' }, subtitle) : null,
+      e('div', { style: { width: '100%', height: height || 320 } },
+        e(ResponsiveContainer, null, children)
+      )
+    );
+  }
+
+  const tooltipStyle = {
+    background: '#FFFFFF',
+    border: '0.5px solid ' + BORDER_INNER,
+    borderRadius: 0,
+    fontFamily: 'DM Sans, sans-serif',
+    fontSize: 12,
+    padding: '8px 12px',
+  };
+
+  // ============ TIMELINE w/ CATALYSTS (in Exec Summary) ============
+  function TimelineChart() {
+    const events = data.catalysts.filter(c => c.price != null);
+    // Short labels for the legend (full sentences would wrap awkwardly)
+    const SHORT_LABELS = {
+      'Ranger ICO opens': 'Ranger ICO opens',
+      'Ranger ICO closes': 'Ranger ICO closes',
+      'Hurupay ICO launches': 'Hurupay ICO',
+      'Ranger liquidation proposal posted': 'Ranger liquidation proposed',
+      'Futardio (permissionless) launched': 'Futardio launches',
+      'Ranger liquidation passes ($5.04M returned)': 'Ranger liquidation executes',
+      'P2P.me Polymarket controversy': 'P2P.me Polymarket incident',
+    };
+    return e('div', null,
+      e(ChartCard, {
+        title: 'META price with major Q1 2026 catalysts',
+        subtitle: 'Source: Artemis, Novora',
+        height: 320,
+      },
+        e(LineChart, { data: data.price, margin: { top: 24, right: 24, left: 8, bottom: 0 } },
+          e(CartesianGrid, { stroke: BORDER_INNER, vertical: false }),
+          e(XAxis, {
+            dataKey: 'date', tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+            tickFormatter: formatDate, interval: 'preserveStartEnd', minTickGap: 60,
+          }),
+          e(YAxis, {
+            tick: TICK_STYLE, axisLine: false, tickLine: false,
+            tickFormatter: (v) => '$' + v.toFixed(2), width: 60,
+          }),
+          e(Tooltip, {
+            contentStyle: tooltipStyle,
+            labelFormatter: formatDate,
+            formatter: (v) => ['$' + v.toFixed(2), 'META'],
+          }),
+          ...events.map((c, i) =>
+            e(ReferenceLine, {
+              key: i,
+              x: c.date,
+              stroke: PURPLE,
+              strokeWidth: 0.5,
+              strokeDasharray: '2 3',
+              label: {
+                value: String(i + 1),
+                position: 'top',
+                fontSize: 11,
+                fontWeight: 600,
+                fill: '#FFFFFF',
+                fontFamily: 'DM Sans, sans-serif',
+                offset: 4,
+                // Render a circle background for the number
+                content: (props) => {
+                  const { viewBox } = props;
+                  if (!viewBox) return null;
+                  const cx = viewBox.x;
+                  const cy = viewBox.y - 8;
+                  return e('g', { key: i },
+                    e('circle', { cx, cy, r: 9, fill: PURPLE_DARK }),
+                    e('text', {
+                      x: cx, y: cy + 4, textAnchor: 'middle',
+                      fill: '#FFFFFF', fontSize: 10, fontWeight: 600,
+                      fontFamily: 'DM Sans, sans-serif',
+                    }, String(i + 1))
+                  );
+                },
+              },
+            })
+          ),
+          e(Line, {
+            type: 'monotone', dataKey: 'value', stroke: PURPLE_DARK, strokeWidth: 1.5,
+            dot: false, activeDot: { r: 4 },
+          })
+        )
+      ),
+      // Legend grid below chart
+      e('div', {
+        style: {
+          marginTop: 16,
+          marginBottom: 12,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: '8px 24px',
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: 12,
+          color: TEXT_BODY,
+        },
+      },
+        ...events.map((c, i) =>
+          e('div', {
+            key: i,
+            style: { display: 'flex', alignItems: 'baseline', gap: 10, lineHeight: 1.5 },
+          },
+            e('span', {
+              style: {
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minWidth: 18, height: 18, borderRadius: 9,
+                background: PURPLE_DARK, color: '#FFFFFF',
+                fontSize: 10, fontWeight: 600, flexShrink: 0,
+              },
+            }, String(i + 1)),
+            e('span', null,
+              e('span', { style: { color: TEXT_FAINT, marginRight: 6 } }, formatDate(c.date)),
+              SHORT_LABELS[c.label] || c.label
+            )
+          )
+        )
+      )
+    );
+  }
+
+  // ============ DAILY FEES (in Section 5) ============
+  function FeesChart() {
+    return e(ChartCard, {
+      title: 'Daily protocol fees and revenue',
+      subtitle: 'Q1 2026 · Futarchy AMM venue only · Source: Artemis',
+    },
+      e(AreaChart, { data: data.fees, margin: { top: 8, right: 16, left: 8, bottom: 0 } },
+        e('defs', null,
+          e('linearGradient', { id: 'feesGrad', x1: 0, y1: 0, x2: 0, y2: 1 },
+            e('stop', { offset: '0%', stopColor: PURPLE, stopOpacity: 0.35 }),
+            e('stop', { offset: '100%', stopColor: PURPLE, stopOpacity: 0.02 })
+          )
+        ),
+        e(CartesianGrid, { stroke: BORDER_INNER, vertical: false }),
+        e(XAxis, {
+          dataKey: 'date', tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: formatDate, interval: 'preserveStartEnd', minTickGap: 50,
+        }),
+        e(YAxis, {
+          tick: TICK_STYLE, axisLine: false, tickLine: false,
+          tickFormatter: formatUSD, width: 60,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          labelFormatter: formatDate,
+          formatter: (v) => [formatUSD(v), 'Fees'],
+        }),
+        e(Area, {
+          type: 'monotone', dataKey: 'value', stroke: PURPLE, strokeWidth: 1.5,
+          fill: 'url(#feesGrad)', activeDot: { r: 4, fill: PURPLE_DARK },
+        })
+      )
+    );
+  }
+
+  // ============ WEEKLY AVG FEES (in Section 5) ============
+  function WeeklyChart() {
+    return e(ChartCard, {
+      title: 'Weekly average daily fees',
+      subtitle: 'Q1 2026 · Source: Artemis',
+    },
+      e(BarChart, { data: data.weekly_avg, margin: { top: 8, right: 16, left: 8, bottom: 0 } },
+        e(CartesianGrid, { stroke: BORDER_INNER, vertical: false }),
+        e(XAxis, {
+          dataKey: 'week', tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: (w) => 'W' + w.split('-W')[1],
+        }),
+        e(YAxis, {
+          tick: TICK_STYLE, axisLine: false, tickLine: false,
+          tickFormatter: formatUSD, width: 60,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          formatter: (v) => [formatUSD(v), 'Avg daily fees'],
+        }),
+        e(Bar, { dataKey: 'value', fill: PURPLE })
+      )
+    );
+  }
+
+  // ============ CUMULATIVE (in Section 5) ============
+  function CumulativeChart() {
+    return e(ChartCard, {
+      title: 'Cumulative platform fees and protocol revenue',
+      subtitle: 'Q1 2026 · Source: Artemis',
+    },
+      e(AreaChart, { data: data.cumulative, margin: { top: 8, right: 16, left: 8, bottom: 0 } },
+        e('defs', null,
+          e('linearGradient', { id: 'cumGrad', x1: 0, y1: 0, x2: 0, y2: 1 },
+            e('stop', { offset: '0%', stopColor: PURPLE_DARK, stopOpacity: 0.25 }),
+            e('stop', { offset: '100%', stopColor: PURPLE_DARK, stopOpacity: 0.02 })
+          )
+        ),
+        e(CartesianGrid, { stroke: BORDER_INNER, vertical: false }),
+        e(XAxis, {
+          dataKey: 'date', tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: formatDate, interval: 'preserveStartEnd', minTickGap: 50,
+        }),
+        e(YAxis, {
+          tick: TICK_STYLE, axisLine: false, tickLine: false,
+          tickFormatter: formatUSD, width: 60,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          labelFormatter: formatDate,
+          formatter: (v) => [formatUSD(v), 'Cumulative'],
+        }),
+        e(Area, {
+          type: 'monotone', dataKey: 'value', stroke: PURPLE_DARK, strokeWidth: 1.5,
+          fill: 'url(#cumGrad)', activeDot: { r: 4 },
+        })
+      )
+    );
+  }
+
+  // ============ MONTHLY (in Section 5) ============
+  function MonthlyChart() {
+    // Filter to Jan, Feb, Mar 2026 only
+    const monthly = data.monthly.filter(m => m.month.startsWith('2026-0') && parseInt(m.month.split('-')[1]) <= 3);
+    return e(ChartCard, {
+      title: 'Monthly platform fees and protocol revenue',
+      subtitle: 'Q1 2026 · Source: Artemis',
+      height: 280,
+    },
+      e(BarChart, { data: monthly, margin: { top: 8, right: 16, left: 8, bottom: 0 } },
+        e(CartesianGrid, { stroke: BORDER_INNER, vertical: false }),
+        e(XAxis, {
+          dataKey: 'month', tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: formatMonth,
+        }),
+        e(YAxis, {
+          tick: TICK_STYLE, axisLine: false, tickLine: false,
+          tickFormatter: formatUSD, width: 60,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          labelFormatter: formatMonth,
+          formatter: (v) => [formatUSD(v), 'Fees'],
+        }),
+        e(Bar, { dataKey: 'value', fill: PURPLE })
+      )
+    );
+  }
+
+  // ============ TVL (in Section 6) ============
+  function TVLChart() {
+    return e(ChartCard, {
+      title: 'Total value locked',
+      subtitle: 'Q1 2026 · Source: Artemis · Coverage from Jan 27, 2026 onward',
+    },
+      e(LineChart, { data: data.tvl, margin: { top: 8, right: 16, left: 8, bottom: 0 } },
+        e(CartesianGrid, { stroke: BORDER_INNER, vertical: false }),
+        e(XAxis, {
+          dataKey: 'date', tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: formatDate, interval: 'preserveStartEnd', minTickGap: 50,
+        }),
+        e(YAxis, {
+          tick: TICK_STYLE, axisLine: false, tickLine: false,
+          tickFormatter: formatUSD, width: 60,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          labelFormatter: formatDate,
+          formatter: (v) => [formatUSD(v), 'TVL'],
+        }),
+        e(Line, {
+          type: 'monotone', dataKey: 'value', stroke: TEXT_PRIMARY, strokeWidth: 1.5,
+          dot: false, activeDot: { r: 4, fill: PURPLE_DARK },
+        })
+      )
+    );
+  }
+
+  // ============ PRICE (in Section 7) ============
+  function PriceChart() {
+    return e(ChartCard, {
+      title: 'META price',
+      subtitle: 'Q1 2026 · Source: Artemis · USD per META',
+    },
+      e(LineChart, { data: data.price, margin: { top: 8, right: 16, left: 8, bottom: 0 } },
+        e(CartesianGrid, { stroke: BORDER_INNER, vertical: false }),
+        e(XAxis, {
+          dataKey: 'date', tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: formatDate, interval: 'preserveStartEnd', minTickGap: 50,
+        }),
+        e(YAxis, {
+          tick: TICK_STYLE, axisLine: false, tickLine: false,
+          tickFormatter: (v) => '$' + v.toFixed(2), width: 60,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          labelFormatter: formatDate,
+          formatter: (v) => ['$' + v.toFixed(2), 'META'],
+        }),
+        e(Line, {
+          type: 'monotone', dataKey: 'value', stroke: PURPLE_DARK, strokeWidth: 1.5,
+          dot: false, activeDot: { r: 4 },
+        })
+      )
+    );
+  }
+
+  // ============ FDV (in Section 7) ============
+  function FDVChart() {
+    return e(ChartCard, {
+      title: 'META fully diluted valuation',
+      subtitle: 'Q1 2026 · Source: Artemis',
+    },
+      e(LineChart, { data: data.fdv, margin: { top: 8, right: 16, left: 8, bottom: 0 } },
+        e(CartesianGrid, { stroke: BORDER_INNER, vertical: false }),
+        e(XAxis, {
+          dataKey: 'date', tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: formatDate, interval: 'preserveStartEnd', minTickGap: 50,
+        }),
+        e(YAxis, {
+          tick: TICK_STYLE, axisLine: false, tickLine: false,
+          tickFormatter: formatUSD, width: 60,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          labelFormatter: formatDate,
+          formatter: (v) => [formatUSD(v), 'FDV'],
+        }),
+        e(Line, {
+          type: 'monotone', dataKey: 'value', stroke: PURPLE_DARK, strokeWidth: 1.5,
+          dot: false, activeDot: { r: 4 },
+        })
+      )
+    );
+  }
+
+  // ============ PEER FEES (in Section 8, log scale) ============
+  function PeerFeesChart() {
+    const sorted = [...data.peer_fees].sort((a, b) => b.value - a.value);
+    return e(ChartCard, {
+      title: 'Daily fee generation: MetaDAO vs Solana peers',
+      subtitle: 'Log scale · Source: Artemis (April 26, 2026 snapshot)',
+      height: 280,
+    },
+      e(BarChart, { data: sorted, layout: 'vertical', margin: { top: 8, right: 60, left: 8, bottom: 8 } },
+        e(CartesianGrid, { stroke: BORDER_INNER, horizontal: false }),
+        e(XAxis, {
+          type: 'number', scale: 'log', domain: [100, 'auto'],
+          tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: formatUSD,
+        }),
+        e(YAxis, {
+          type: 'category', dataKey: 'name', tick: TICK_STYLE, axisLine: false, tickLine: false,
+          width: 90,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          formatter: (v) => [formatUSD(v), 'Daily fees'],
+          cursor: { fill: 'rgba(124, 110, 240, 0.06)' },
+        }),
+        e(Bar, { dataKey: 'value' },
+          ...sorted.map((row, i) =>
+            e(Cell, { key: i, fill: row.name === 'MetaDAO' ? PURPLE : GRAY_BAR })
+          )
+        )
+      )
+    );
+  }
+
+  // ============ PEER TVL (in Section 8, log scale) ============
+  function PeerTVLChart() {
+    const sorted = [...data.peer_tvl].sort((a, b) => b.value - a.value);
+    return e(ChartCard, {
+      title: 'Total value locked: MetaDAO vs Solana peers',
+      subtitle: 'Log scale · Source: Artemis (April 26, 2026 snapshot)',
+      height: 280,
+    },
+      e(BarChart, { data: sorted, layout: 'vertical', margin: { top: 8, right: 60, left: 8, bottom: 8 } },
+        e(CartesianGrid, { stroke: BORDER_INNER, horizontal: false }),
+        e(XAxis, {
+          type: 'number', scale: 'log', domain: [1e6, 'auto'],
+          tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: formatUSD,
+        }),
+        e(YAxis, {
+          type: 'category', dataKey: 'name', tick: TICK_STYLE, axisLine: false, tickLine: false,
+          width: 90,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          formatter: (v) => [formatUSD(v), 'TVL'],
+          cursor: { fill: 'rgba(124, 110, 240, 0.06)' },
+        }),
+        e(Bar, { dataKey: 'value' },
+          ...sorted.map((row, i) =>
+            e(Cell, { key: i, fill: row.name === 'MetaDAO' ? PURPLE : GRAY_BAR })
+          )
+        )
+      )
+    );
+  }
+
+  // ============ PEER MCAP/REV (in Section 8, the punchline) ============
+  function PeerMCapRevChart() {
+    const sorted = [...data.peer_mcap_rev].sort((a, b) => b.value - a.value);
+    return e(ChartCard, {
+      title: 'Market cap / annualized revenue: MetaDAO vs Solana peers',
+      subtitle: 'MetaDAO range reflects Q1 fee uncertainty; lower is cheaper · Source: Artemis (revenue), CoinGecko/CMC (mcap)',
+      height: 280,
+    },
+      e(BarChart, { data: sorted, layout: 'vertical', margin: { top: 8, right: 60, left: 8, bottom: 8 } },
+        e(CartesianGrid, { stroke: BORDER_INNER, horizontal: false }),
+        e(XAxis, {
+          type: 'number', tick: TICK_STYLE, axisLine: AXIS_STYLE, tickLine: false,
+          tickFormatter: (v) => v + 'x',
+        }),
+        e(YAxis, {
+          type: 'category', dataKey: 'name', tick: TICK_STYLE, axisLine: false, tickLine: false,
+          width: 160,
+        }),
+        e(Tooltip, {
+          contentStyle: tooltipStyle,
+          formatter: (v) => [v.toFixed(1) + 'x', 'MCap / Rev'],
+          cursor: { fill: 'rgba(124, 110, 240, 0.06)' },
+        }),
+        e(Bar, { dataKey: 'value' },
+          ...sorted.map((row, i) =>
+            e(Cell, { key: i, fill: row.name.startsWith('MetaDAO') ? PURPLE : GRAY_BAR })
+          )
+        )
+      )
+    );
+  }
+
+  // Mount all charts
+  const mounts = [
+    ['chart-timeline', TimelineChart],
+    ['chart-fees', FeesChart],
+    ['chart-weekly', WeeklyChart],
+    ['chart-cumulative', CumulativeChart],
+    ['chart-monthly', MonthlyChart],
+    ['chart-tvl', TVLChart],
+    ['chart-price', PriceChart],
+    ['chart-fdv', FDVChart],
+    ['chart-peer-fees', PeerFeesChart],
+    ['chart-peer-tvl', PeerTVLChart],
+    ['chart-peer-mcap-rev', PeerMCapRevChart],
+  ];
+  mounts.forEach(([id, Component]) => {
+    const el = document.getElementById(id);
+    if (el) ReactDOM.createRoot(el).render(e(Component));
+  });
+})();
+</script>
+
+</body>
+</html>
