@@ -119,31 +119,54 @@ const QuarterlyReportsTable = ({ reports }) => {
           </div>
         ) : (
           reports.map((r, i) => {
-            const publishedDate = new Date(r.published).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+            const d = new Date(r.published);
+            const publishedDate = `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
             return (
-              <a
+              <div
                 key={r.slug}
-                href={`/research/${r.slug}.html`}
                 onMouseEnter={() => setHoveredRow(i)}
                 onMouseLeave={() => setHoveredRow(null)}
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "1.4fr 0.8fr 3.5fr 1fr 1fr",
-                  padding: "20px 24px",
+                  gridTemplateColumns: "1.4fr 0.8fr 3.5fr 1fr 1.2fr",
+                  padding: "24px",
                   borderBottom: i < reports.length - 1 ? "0.5px solid " + T.border : "none",
                   background: hoveredRow === i ? T.surfaceHover : "transparent",
                   transition: "background 0.15s ease",
-                  textDecoration: "none",
                   alignItems: "center",
                   fontFamily: F,
                 }}
               >
-                <span style={{ fontSize: 15, fontWeight: 500, color: T.white, letterSpacing: "-0.01em" }}>{r.protocol}</span>
+                <span style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ fontSize: 15, fontWeight: 500, color: T.white, letterSpacing: "-0.01em" }}>{r.protocol}</span>
+                  {r.ticker ? (
+                    <span style={{ fontSize: 10, fontWeight: 500, letterSpacing: "0.06em", color: T.textMuted, background: "rgba(255,255,255,0.06)", padding: "3px 7px", borderRadius: 3, textTransform: "uppercase" }}>{r.ticker}</span>
+                  ) : null}
+                </span>
                 <span style={{ fontSize: 13, color: T.textMuted }}>{r.period}</span>
-                <span style={{ fontSize: 13, color: T.textMuted, lineHeight: 1.5, paddingRight: 16 }}>{r.description}</span>
+                <span style={{ fontSize: 13, color: T.textMuted, lineHeight: 1.5, paddingRight: 24, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{r.description}</span>
                 <span style={{ fontSize: 13, color: T.textMuted }}>{publishedDate}</span>
-                <span style={{ fontSize: 11, fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: T.white }}>View →</span>
-              </a>
+                
+                  href={`/research/${r.slug}.html`}
+                  style={{
+                    fontFamily: F,
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color: "#7C6EF0",
+                    textDecoration: "none",
+                    padding: "8px 14px",
+                    border: "1px solid rgba(124, 110, 240, 0.4)",
+                    borderRadius: 4,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                    width: "fit-content",
+                    transition: "all 0.15s ease",
+                  }}
+                >
+                  Access Report <span style={{ fontSize: 11 }}>→</span>
+                </a>
+              </div>
             );
           })
         )}
