@@ -870,7 +870,11 @@ ul.tight-list li {
     </div>
   </div>
 
-  <div id="chart-timeline"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">Q1 2026 META price with major catalysts</div>
+    <div id="chart-timeline" style="height: 380px;"></div>
+    <div class="chart-source">Source: Artemis. Annotations: Novora.</div>
+  </div>
 </section>
 
 <!-- ============ TABLE OF CONTENTS ============ -->
@@ -997,23 +1001,39 @@ ul.tight-list li {
     <span class="tldr-label">TL;DR</span>Monthly trajectory: $368K → $121K → $67K. The Q1 decline correlates with Solana ICO cadence cooling, not with platform-level take rate compression.
   </div>
 
-  <div id="chart-fees"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">Daily platform fees (Futarchy AMM)</div>
+    <div id="chart-fees" style="height: 280px;"></div>
+    <div class="chart-source">Source: Artemis.</div>
+  </div>
 
   <p>Daily Futarchy AMM fees averaged $6,279 across Q1, ranging from a January high of $25,235 to multiple sub-$1,000 days in mid-February and late March. The monthly trajectory ($368K January → $121K February → $67K March) tracks tightly with Solana ecosystem sentiment and ICO cadence rather than any structural change in platform mechanics. The 0.5% take rate held throughout the quarter.</p>
 
   <h3>Protocol revenue and gross margin</h3>
 
-  <div id="chart-cumulative"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">Cumulative platform fees, Q1 2026</div>
+    <div id="chart-cumulative" style="height: 280px;"></div>
+    <div class="chart-source">Source: Artemis.</div>
+  </div>
 
   <p>Cumulative Q1 fees on the Futarchy AMM venue reached $571K, of which approximately $556K accrues as protocol revenue under the Artemis methodology. Including the Meteora LP position (which captures secondary trading on META and certain post-launch ICO tokens), Novora estimates total Q1 protocol revenue at $556–700K. The team's published Q1 financial statements will be the canonical source for the actual venue split.</p>
 
   <h3>Monthly decomposition</h3>
 
-  <div id="chart-monthly"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">Monthly platform fees</div>
+    <div id="chart-monthly" style="height: 240px;"></div>
+    <div class="chart-source">Source: Artemis.</div>
+  </div>
 
   <h3>Take rate dynamics</h3>
 
-  <div id="chart-weekly"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">Weekly average fees (smoothed)</div>
+    <div id="chart-weekly" style="height: 220px;"></div>
+    <div class="chart-source">Source: Artemis. 7-day rolling average.</div>
+  </div>
 
   <p>The 0.5% Futarchy AMM take rate is fixed by the platform's fee schedule (post the Q4 2025 retroactive adjustment that consolidated the previous 50/50 split between MetaDAO and the launching protocol). Take rate stability across the quarter means Q1's revenue decline is fully explained by volume compression, not by pricing pressure. Q2 fee acceleration therefore depends on launch cadence rather than monetization changes.</p>
 </section>
@@ -1027,7 +1047,11 @@ ul.tight-list li {
     <span class="tldr-label">TL;DR</span>TVL is a noisy metric for MetaDAO — capital cycles through ICO escrow rather than parking. Q2 will introduce fee-velocity-per-dollar-of-TVL as the primary engagement metric.
   </div>
 
-  <div id="chart-tvl"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">Total value locked, Q1 2026</div>
+    <div id="chart-tvl" style="height: 280px;"></div>
+    <div class="chart-source">Source: Artemis.</div>
+  </div>
 
   <p>MetaDAO TVL closed Q1 at $10.4M, down from $14.8M at the January 31 reading. The intra-quarter decline reflects two factors: outflows from completed ICO escrow as projects deployed raised capital, and withdrawals from the META Meteora LP as investors trimmed positions during the broader Solana cooldown.</p>
 
@@ -1043,13 +1067,21 @@ ul.tight-list li {
     <span class="tldr-label">TL;DR</span>META compressed −57% during Q1 versus a Solana sector decline of similar magnitude. The token tracks beta to Solana ICO sentiment more than to platform-level fundamentals.
   </div>
 
-  <div id="chart-price"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">META price, Q4 2025 → Q1 2026</div>
+    <div id="chart-price" style="height: 280px;"></div>
+    <div class="chart-source">Source: Artemis.</div>
+  </div>
 
   <p>META opened Q1 at approximately $7.20 and closed at $2.77, a 57% sequential decline. The peak above $10.50 occurred on January 4, on the back of strong Q4 2025 close and Ranger ICO subscription momentum. The trough at $2.77 on March 31 corresponded with weakest cycle conditions for Solana ICOs broadly.</p>
 
   <h3>FDV</h3>
 
-  <div id="chart-fdv"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">Fully diluted valuation, Q1 2026</div>
+    <div id="chart-fdv" style="height: 280px;"></div>
+    <div class="chart-source">Source: Artemis.</div>
+  </div>
 
   <h3>Supply mechanics</h3>
 
@@ -1081,17 +1113,29 @@ ul.tight-list li {
 
   <h3>Daily fees</h3>
 
-  <div id="chart-peer-fees"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">Daily fees vs peers (Q1 average, USD)</div>
+    <div id="chart-peer-fees" style="height: 240px;"></div>
+    <div class="chart-source">Source: Artemis.</div>
+  </div>
 
   <h3>Total value locked</h3>
 
-  <div id="chart-peer-tvl"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">TVL vs peers (Q1-end)</div>
+    <div id="chart-peer-tvl" style="height: 240px;"></div>
+    <div class="chart-source">Source: Artemis.</div>
+  </div>
 
   <p>MetaDAO sits at the smallest scale of its peer set across both fees and TVL, by design. The platform's fundraising-and-governance model is structurally lower-velocity than Jupiter's aggregator volume or Pump.fun's memecoin throughput. The relevant comparison is not absolute scale but valuation per dollar of revenue and trajectory — see below.</p>
 
   <h3>Valuation: market cap / annualized revenue</h3>
 
-  <div id="chart-peer-mcap-rev"></div>
+  <div class="chart-wrap">
+    <div class="chart-title">MCap / Annualized Revenue (lower = cheaper)</div>
+    <div id="chart-peer-mcap-rev" style="height: 260px;"></div>
+    <div class="chart-source">Source: Artemis. MetaDAO range reflects Artemis vs Novora estimate methodology.</div>
+  </div>
 
   <table class="peer-table">
     <thead>
