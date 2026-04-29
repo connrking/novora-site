@@ -59,7 +59,7 @@ const RESEARCH = [
     title: "Meteora: The Gold Standard",
     subtitle: "How Meteora built the highest-scoring IR program in DeFi and what every protocol can learn from it",
     date: "2026-03-22",
-    category: "IR Report",
+    category: "Research",
     tags: ["Meteora", "Solana", "IR Score"],
     featured: false,
     stats: { score: 95 },
@@ -71,7 +71,7 @@ const RESEARCH = [
     title: "Kamino: Bridging the IR Gap",
     subtitle: "Full IR analysis and 180-day roadmap for Kamino Finance",
     date: "2026-03-01",
-    category: "IR Report",
+    category: "Research",
     tags: ["Kamino", "Solana", "IR Score"],
     featured: false,
     stats: { score: 52 },
@@ -80,7 +80,7 @@ const RESEARCH = [
   },
 ];
 
-const CATEGORIES = ["All", "Research", "IR Report"];
+const CATEGORIES = ["All", "Research", "Quarterly Reports"];
 
 const T = {
   bg: "#0A0A0A",
