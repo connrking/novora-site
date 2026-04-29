@@ -83,6 +83,8 @@ const RESEARCH = [
 // Token Holder Reports — populated as advisory clients ship quarterly reports.
 // To add: append { protocol, ticker, period, description, published, slug }
 const QUARTERLY_REPORTS = [
+  /* Hidden — un-comment to publish
+
   {
     protocol: "MetaDAO",
     ticker: "META",
@@ -91,6 +93,7 @@ const QUARTERLY_REPORTS = [
     published: "2026-04-29",
     slug: "metadao-q1-2026",
   },
+  */
 ];
 
 const QuarterlyReportsTable = ({ reports }) => {
