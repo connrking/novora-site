@@ -11,7 +11,7 @@ const RESEARCH = [
     tags: ["IR Score", "DeFi", "Transparency"],
     featured: true,
     stats: { protocols: "150+", metrics: 15, sectors: "10+" },
-    embedUrl: "https://novora.co/research/ir-transparency-2026.html",
+    embedUrl: "https://novora.co/research/ir-transparency-2026",
     description:
       "We audited 150+ crypto protocols across 15 binary, publicly verifiable disclosure metrics — from market maker terms to revenue segmentation to third-party data coverage. The results: 0% disclose MM terms, 2% have an IR hub, and 98% make revenue data accessible but fail to package it for institutional allocators.",
   },
@@ -24,7 +24,7 @@ const RESEARCH = [
     tags: ["Tokenomics", "Value Accrual", "DeFi"],
     featured: false,
     stats: { protocols: 159, models: 6, positive: 5 },
-    embedUrl: "https://novora.co/research/value-accrual-2026.html",
+    embedUrl: "https://novora.co/research/value-accrual-2026",
     description:
       "We mapped 159 tokens across six value accrual mechanisms and tested which translate into shareholder returns. Active value accrual beats governance-only by 10 percentage points. Revenue scale, not mechanism design, drives returns. Governance-only remains the weakest model in the dataset.",
   },
