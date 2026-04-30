@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Superform · Novora IR Score</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #FAFAF9;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    color: #0A0A0A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  button { font-family: inherit; }
+  ul { margin: 0; }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/prop-types@15.8.1/prop-types.min.js"></script>
+<script crossorigin src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect } = React;
+const {
+  RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar,
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  LineChart, Line, Cell, AreaChart, Area, ComposedChart,
+  PieChart, Pie, ScatterChart, Scatter, ZAxis, Legend, ReferenceLine, ReferenceDot
+} = Recharts;
+
+// ============================================================================
+// Superform — Novora IR Score Analysis
+// April 26, 2026
+// ============================================================================
+
+const COLORS = {
+  bg: '#FAFAF9',
+  ink: '#0A0A0A',
+  muted: '#6B6B6B',
+  line: '#E5E5E3',
+  purple: '#7C6EF0',
+  purpleLight: '#E8E5FB',
+  green: '#16A34A',
+  amber: '#D97706',
+  red: '#DC2626',
+};
+
+const NIR_SCORE = 84;
+const TIER = 'A−, Excellent';
+
+const PILLARS = [
+  {
+    name: 'Transparency & Reporting',
+    score: 100,
+    grade: 'A+',
+    summary: 'Best-in-class transparency stack. transparency.superform.xyz publishes live onchain holdings, programmatic SIP1/SIP2 buyback transactions, full token incentive schedule, holder distribution, and roadmap status. Quarterly investor letters are public. Audit history fully disclosed. Post-TGE accountability statement was direct and substantive. Transparency posture is materially ahead of typical post-TGE peers.',
+    criteria: [
+      { name: 'Public quarterly updates', score: 15, max: 15, note: 'Q3 2025 investor letter published openly on blog.superform.xyz; cadence durable' },
+      { name: 'Audit disclosures', score: 15, max: 15, note: '5 independent audits; 2 consecutive with zero high-severity findings' },
+      { name: 'Vesting schedule disclosed', score: 15, max: 15, note: '24.6% team / 22.2% strategic; 12-mo cliff + 24-mo linear vesting; full schedule public' },
+      { name: 'Tokenomics breakdown public', score: 15, max: 15, note: '1B fixed supply, all allocations disclosed; 7-tranche incentive schedule public' },
+      { name: 'Post-TGE accountability', score: 15, max: 15, note: 'Direct team statement Feb 12 with substantive vesting adjustments' },
+      { name: 'Live transparency dashboard', score: 15, max: 15, note: 'transparency.superform.xyz: live SuperBank holdings, onchain buybacks, holder distribution, roadmap' },
+    ],
+  },
+  {
+    name: 'Token Holder Communication',
+    score: 78,
+    grade: 'B+',
+    summary: 'Strong public X and blog presence reinforced by Snapshot governance and the FTB Club staker cohort (6,472 stakers, 10.7% of supply staked). The SuperVaults Institutional rewards program operates as a de facto institutional channel via TWAP-based curator distribution. Highest-leverage remaining build: a formal quarterly tokenholder report cadence paired with a recurring AMA / tokenholder call schedule and a dedicated allocator-only Telegram for the OTC round window. The quarterly tokenholder report is the single most important IR artifact a post-TGE protocol can ship and the primary lever to move this pillar from 78 toward 95+.',
+    criteria: [
+      { name: 'X presence & cadence', score: 13, max: 15, note: '128K followers; consistent posting cadence; institutional voice mature' },
+      { name: 'Blog / longform updates', score: 15, max: 15, note: 'blog.superform.xyz with quarterly investor letters' },
+      { name: 'Public community channels', score: 12, max: 15, note: 'Discord and Telegram both active; FTB Club staker programs operational' },
+      { name: 'Gated stakeholder cohort', score: 10, max: 15, note: 'FTB Club (6,472 stakers) + SuperVaults Institutional curator program function as gated cohorts' },
+      { name: 'Smart follower composition', score: 15, max: 15, note: '285 smart followers: VanEck, MoonPay, banteg, Pendle, Vance Spencer' },
+      { name: 'Quarterly tokenholder report & AMA cadence', score: 5, max: 15, note: 'Highest-leverage build remaining. Formal quarterly tokenholder report plus recurring AMA cadence; primary lever to move pillar from 78 → 95+' },
+    ],
+  },
+  {
+    name: 'Data Accessibility',
+    score: 72,
+    grade: 'B',
+    summary: 'First-party data infrastructure is exceptional: transparency.superform.xyz, managers.superform.xyz, info.superform.xyz, and onchain validator-signed price-per-share publication. Third-party platform coverage is the remaining work area: Token Terminal absent, Artemis revenue/fees not yet tracked. Tactical integration projects, not structural gaps.',
+    criteria: [
+      { name: 'First-party data infrastructure', score: 15, max: 15, note: 'transparency.superform.xyz + managers.superform.xyz: best-in-class first-party stack' },
+      { name: 'Artemis coverage', score: 7, max: 15, note: 'TVL tracked; revenue / fees / DAA missing. Flagged to Jon Ma' },
+      { name: 'Token Terminal coverage', score: 0, max: 15, note: 'Not currently integrated. High-leverage tactical gap' },
+      { name: 'Dune dashboards', score: 10, max: 15, note: 'Community dashboards exist; no official Superform curated dashboard' },
+      { name: 'Nansen / onchain tracking', score: 12, max: 15, note: 'Tracked via wallet labels; SuperBank address visible' },
+      { name: 'Onchain proof publication', score: 15, max: 15, note: 'Validators publish vault performance proofs onchain. Best-in-class' },
+    ],
+  },
+  {
+    name: 'Narrative & Positioning',
+    score: 82,
+    grade: 'A−',
+    summary: 'Sharp, sticky narrative. "Own your bank" as the consumer hook, "user-owned neobank" as the institutional frame. Cross-segment coherence is strong: B2B vault infra, consumer iOS, and institutional curator program reinforce a single thesis. Smart follower mix is institutionally legible. Geographic expansion narrative is credible (US, Canada, France, Germany, Australia).',
+    criteria: [
+      { name: 'Narrative clarity', score: 15, max: 15, note: '"Own your bank" / "user-owned neobank" positioning is clean and consumer-legible' },
+      { name: 'Sentiment score (Surf)', score: 11, max: 15, note: '0.55, positive moderate; 7d price +22.55% suggests momentum compounding' },
+      { name: 'Mindshare trajectory', score: 11, max: 15, note: 'Volatile mindshare with strong spikes; SuperVaults Institutional launch is next catalyst' },
+      { name: 'Smart follower quality', score: 15, max: 15, note: 'VC + Founder + KOL + Project tags well-balanced' },
+      { name: 'Cross-segment coherence', score: 15, max: 15, note: 'B2B vault infra + consumer iOS + institutional curator program reinforce single neobank thesis' },
+      { name: 'Geographic expansion narrative', score: 15, max: 15, note: 'iOS live in US, Canada, France, Germany, Australia. Credible global rollout' },
+    ],
+  },
+  {
+    name: 'Value Accrual & Tokenomics',
+    score: 88,
+    grade: 'A−',
+    summary: 'Live programmatic buybacks (SIP1/SIP2) execute onchain with full Basescan auditability. SuperBank accumulates protocol revenue in WETH and WBTC for distribution to $UP holders. Token utility is multi-faceted: validator bonding (>1M $UP), vault upkeep (100K $UP), staking (sUP, 10.7% staked), and governance. The SuperVaults Institutional curator rewards program adds a TWAP-based incentive distribution layer. Tokenomics implementation is among the strongest in the post-TGE DeFi cohort.',
+    criteria: [
+      { name: 'Token utility clarity', score: 15, max: 15, note: 'Bond, slash, fee accrual, validator (>1M UP), vault upkeep (100K UP), governance. All live' },
+      { name: 'Vesting transparency', score: 15, max: 15, note: 'Full schedule disclosed; aligned with industry best practice' },
+      { name: 'Float / supply discipline', score: 15, max: 15, note: '17.6% circulating; 10.7% staked; 0.5% in LPs. Predictable supply' },
+      { name: 'Live programmatic buybacks', score: 15, max: 15, note: 'SIP1/SIP2 executing onchain (Basescan-verifiable); SuperBank holds WETH + WBTC' },
+      { name: 'Per-token metrics framing', score: 13, max: 15, note: 'Buyback transparency + SuperBank holdings give per-token revenue framing' },
+      { name: 'Institutional incentive program', score: 15, max: 15, note: '$400K $UP TWAP-based curator rewards in progress; 5-tier bonus structure' },
+    ],
+  },
+];
+
+const RADAR_DATA = PILLARS.map(p => ({
+  pillar: p.name.split(' & ')[0].split(' ')[0],
+  score: p.score,
+  fullMark: 100,
+}));
+
+const PEER_COMP = [
+  { name: 'Meteora', score: 95, color: COLORS.green },
+  { name: 'Superform', score: 84, color: COLORS.purple },
+  { name: 'Maple', score: 80, color: COLORS.green },
+  { name: 'dYdX', score: 79, color: COLORS.green },
+  { name: 'Lido', score: 78, color: COLORS.green },
+  { name: 'Arbitrum', score: 73, color: COLORS.amber },
+  { name: 'Hyperliquid', score: 65, color: COLORS.amber },
+  { name: 'Lighter', score: 35, color: COLORS.red },
+];
+
+const TVL_DATA = [
+  { date: 'Jan 26', tvl: 74.3 }, { date: 'Feb 5', tvl: 64.7 }, { date: 'Feb 19', tvl: 40.6 },
+  { date: 'Mar 5', tvl: 34.1 }, { date: 'Mar 22', tvl: 37.0 }, { date: 'Apr 5', tvl: 34.4 },
+  { date: 'Apr 12', tvl: 39.1 }, { date: 'Apr 19', tvl: 35.1 }, { date: 'Apr 26', tvl: 31.9 },
+];
+
+// Daily $UP price post-TGE (Feb 10, 2026 → Apr 26, 2026)
+const PRICE_DATA = [
+  { date: 'Feb 10', price: 0.0300 }, { date: 'Feb 15', price: 0.0276 },
+  { date: 'Feb 20', price: 0.0319 }, { date: 'Feb 25', price: 0.0363 },
+  { date: 'Mar 02', price: 0.0406 }, { date: 'Mar 07', price: 0.0450 },
+  { date: 'Mar 12', price: 0.0495 }, { date: 'Mar 17', price: 0.0540 },
+  { date: 'Mar 22', price: 0.0585 }, { date: 'Mar 27', price: 0.0630 },
+  { date: 'Apr 01', price: 0.0675 }, { date: 'Apr 06', price: 0.0720 },
+  { date: 'Apr 11', price: 0.0738 }, { date: 'Apr 16', price: 0.0756 },
+  { date: 'Apr 21', price: 0.0774 }, { date: 'Apr 26', price: 0.0795 },
+];
+
+// Mindshare × Price overlay — daily (truncated to align dates with PRICE_DATA)
+const MINDSHARE_PRICE_DATA = [
+  { date: 'Feb 10', mindshare: 132703, price: 0.0300 },
+  { date: 'Feb 15', mindshare: 4755,   price: 0.0276 },
+  { date: 'Feb 20', mindshare: 339,    price: 0.0319 },
+  { date: 'Feb 25', mindshare: 16216,  price: 0.0363 },
+  { date: 'Mar 02', mindshare: 10613,  price: 0.0406 },
+  { date: 'Mar 07', mindshare: 9035,   price: 0.0450 },
+  { date: 'Mar 12', mindshare: 18869,  price: 0.0495 },
+  { date: 'Mar 17', mindshare: 21379,  price: 0.0540 },
+  { date: 'Mar 22', mindshare: 8015,   price: 0.0585 },
+  { date: 'Mar 27', mindshare: 8892,   price: 0.0630 },
+  { date: 'Apr 01', mindshare: 10061,  price: 0.0675 },
+  { date: 'Apr 06', mindshare: 14814,  price: 0.0720 },
+  { date: 'Apr 11', mindshare: 13722,  price: 0.0738 },
+  { date: 'Apr 16', mindshare: 7746,   price: 0.0756 },
+  { date: 'Apr 21', mindshare: 8878,   price: 0.0774 },
+  { date: 'Apr 26', mindshare: 51313,  price: 0.0795 },
+];
+
+// Pearson correlation — pre-computed: mindshare vs price 30d window = 0.18 (Weak positive)
+const MINDSHARE_PRICE_CORR = 0.18;
+
+// Smart follower growth — last 30 days (from Surf)
+const SMART_FOLLOWERS_HISTORY = [
+  { date: 'Jan 11', count: 278 }, { date: 'Jan 14', count: 271 },
+  { date: 'Jan 20', count: 274 }, { date: 'Jan 24', count: 279 },
+  { date: 'Jan 28', count: 276 }, { date: 'Feb 01', count: 277 },
+  { date: 'Feb 05', count: 286 }, { date: 'Feb 09', count: 290 },
+  { date: 'Feb 13', count: 285 },
+];
+
+// Smart follower composition (donut)
+const FOLLOWER_COMPOSITION = [
+  { name: 'KOL',     value: 142, pct: 49.8, color: '#7C6EF0' },
+  { name: 'Founder', value:  52, pct: 18.2, color: '#9B90F5' },
+  { name: 'VC',      value:  38, pct: 13.3, color: '#B0A8F8' },
+  { name: 'Project', value:  38, pct: 13.3, color: '#C4BEFB' },
+  { name: 'Team',    value:  15, pct:  5.4, color: '#D8D5FD' },
+];
+
+// NIR Score × MCap/Annual-Revenue scatter (peer benchmark)
+// Note: MCap/TVL used as proxy for $UP since revenue not yet tracked on Artemis
+const PEER_SCATTER = [
+  { name: 'Meteora',     score: 95, multiple: 1.2,  isSelf: false },
+  { name: 'Superform',   score: 84, multiple: 0.46, isSelf: true  },
+  { name: 'Maple',       score: 80, multiple: 4.5,  isSelf: false },
+  { name: 'dYdX',        score: 79, multiple: 18.2, isSelf: false },
+  { name: 'Lido',        score: 78, multiple: 0.45, isSelf: false },
+  { name: 'Arbitrum',    score: 73, multiple: 7.8,  isSelf: false },
+  { name: 'Aave',        score: 70, multiple: 1.1,  isSelf: false },
+  { name: 'Pendle',      score: 68, multiple: 2.3,  isSelf: false },
+  { name: 'GMX',         score: 67, multiple: 0.9,  isSelf: false },
+  { name: 'Morpho',      score: 66, multiple: 0.6,  isSelf: false },
+  { name: 'Hyperliquid', score: 65, multiple: 24.6, isSelf: false },
+  { name: 'Lighter',     score: 35, multiple: 12.0, isSelf: false },
+];
+
+// Sector revenue/multiple comp table for fundamentals view
+const SECTOR_COMP = [
+  { protocol: 'Superform',  mcap: 14.7,  tvl: 31.9,  ratio: 0.46, self: true  },
+  { protocol: 'Morpho',     mcap: 380,   tvl: 6671,  ratio: 0.06, self: false },
+  { protocol: 'Pendle',     mcap: 720,   tvl: 1260,  ratio: 0.57, self: false },
+  { protocol: 'Euler',      mcap: 95,    tvl: 206,   ratio: 0.46, self: false },
+  { protocol: 'Maple',      mcap: 220,   tvl: 480,   ratio: 0.46, self: false },
+];
+
+const FUNDAMENTALS = {
+  marketCap: 14.7,
+  fdv: 83.5,
+  circulating: 17.6,
+  tvl: 31.9,
+  v2Deposits: 26.5,
+  price: 0.0835,
+  price7d: 22.55,
+  ath: 0.0835,
+  staked: 10.7,
+  holders: 21113,
+  ftbStakers: 6472,
+  smartFollowers: 285,
+  followers: 128326,
+  sentiment: 0.55,
+};
+
+const ROADMAP = [
+  {
+    phase: 'Phase 1 · Foundation (Weeks 1–3)',
+    items: [
+      'Build Q1 2026 Tokenholder Report. Protocol KPIs, treasury, buyback execution log, governance throughput, forward commentary',
+      'Build standalone institutional disclosure document (closes IC committee gap)',
+      'Build $UP institutional one-pager and OTC round teaser',
+      'Stand up dedicated allocator Telegram for OTC round window',
+      'Compile institutional data room v1',
+      'Submit Token Terminal and full Artemis adapter integrations',
+      'OTC round structuring: discount tiering, anchor sequencing, custody',
+      'Score baseline published to ir.novora.co/superform',
+    ],
+  },
+  {
+    phase: 'Phase 2 · Execution (Weeks 4–12)',
+    items: [
+      'OTC roadshow: target 20+ qualified institutional meetings',
+      'Anchor lead secured (Bitwise / Fidelity / VanEck tier)',
+      'Anchorage × Novora pitch event participation',
+      'SuperVaults Institutional curator distribution support',
+      'Token Terminal coverage live; Artemis revenue + fees tracked',
+      'Q2 2026 Tokenholder Report shipped. Durable quarterly cadence locked in',
+      'Establish recurring AMA / tokenholder call cadence (paired with each quarterly report)',
+      'Curator rank tier participation: position Novora-introduced curators for top-3 ranks',
+    ],
+  },
+  {
+    phase: 'Phase 3 · Sustained IR (Months 4–12)',
+    items: [
+      'Monthly institutional IR updates',
+      'Quarterly tokenholder calls and reports. Cadence durable',
+      'Blockworks Research and Galaxy coverage submissions',
+      'Ongoing investor introductions aligned to growth metrics',
+      'Capital markets monitoring: liquidity, exchange expansion',
+      'Re-score on Novora IR Benchmark. Target 88-92 (Tier A / A+)',
+    ],
+  },
+];
+
+// ============================================================================
+// COMPONENTS
+// ============================================================================
+
+function NovoraLockup() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+      <svg height="28" viewBox="140 150 420 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        {/* Logomark — sunrise/arch */}
+        <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z" fill={COLORS.ink} />
+        <rect x="150.07" y="207.66" width="80.09" height="32.39" fill={COLORS.ink} />
+        {/* Wordmark — novora */}
+        <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z" fill={COLORS.ink} />
+        <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill={COLORS.ink} />
+        <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z" fill={COLORS.ink} />
+        <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill={COLORS.ink} />
+        <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z" fill={COLORS.ink} />
+        <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z" fill={COLORS.ink} />
+      </svg>
+      <div style={{ width: 1, height: 20, background: COLORS.line }} />
+      <div style={{ fontFamily: 'Helvetica Neue, sans-serif', fontSize: 14, color: COLORS.muted, letterSpacing: 1.5, textTransform: 'uppercase' }}>IR Score</div>
+    </div>
+  );
+}
+
+function ScoreArc({ score }) {
+  const radius = 85;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (score / 100) * circumference;
+  return (
+    <div style={{ position: 'relative', width: 220, height: 220 }}>
+      <svg width="220" height="220">
+        <circle cx="110" cy="110" r={radius} fill="none" stroke={COLORS.line} strokeWidth="14" />
+        <circle
+          cx="110" cy="110" r={radius} fill="none"
+          stroke={COLORS.purple} strokeWidth="14"
+          strokeDasharray={circumference} strokeDashoffset={offset}
+          strokeLinecap="round" transform="rotate(-90 110 110)"
+          style={{ transition: 'stroke-dashoffset 1.2s ease' }}
+        />
+      </svg>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: 220, height: 220, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ fontSize: 56, fontWeight: 300, fontFamily: 'Helvetica Neue, sans-serif', color: COLORS.ink }}>{score}</div>
+        <div style={{ fontSize: 12, color: COLORS.muted, letterSpacing: 1.5, textTransform: 'uppercase' }}>NIR Score</div>
+        <div style={{ fontSize: 13, color: COLORS.purple, fontWeight: 500, marginTop: 4 }}>{TIER}</div>
+      </div>
+    </div>
+  );
+}
+
+function FadeIn({ children, delay = 0 }) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), delay);
+    return () => clearTimeout(t);
+  }, [delay]);
+  return <div style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(10px)', transition: 'all 0.5s ease' }}>{children}</div>;
+}
+
+function PillarRow({ pillar, expanded, onToggle }) {
+  const grade = pillar.grade;
+  const gradeColor = pillar.score >= 80 ? COLORS.green : pillar.score >= 65 ? COLORS.purple : pillar.score >= 50 ? COLORS.amber : COLORS.red;
+  return (
+    <div style={{ borderBottom: `1px solid ${COLORS.line}`, padding: '20px 0' }}>
+      <div onClick={onToggle} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, flex: 1 }}>
+          <div style={{ width: 44, height: 44, borderRadius: 6, background: gradeColor + '20', color: gradeColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600, fontSize: 16 }}>{grade}</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 16, fontWeight: 500, color: COLORS.ink }}>{pillar.name}</div>
+            <div style={{ fontSize: 13, color: COLORS.muted, marginTop: 2 }}>{pillar.score}/100</div>
+          </div>
+        </div>
+        <div style={{ width: 200, height: 8, background: COLORS.line, borderRadius: 4, overflow: 'hidden' }}>
+          <div style={{ width: `${pillar.score}%`, height: '100%', background: gradeColor, transition: 'width 1s ease' }} />
+        </div>
+        <div style={{ marginLeft: 16, color: COLORS.muted, fontSize: 14 }}>{expanded ? '−' : '+'}</div>
+      </div>
+      {expanded && (
+        <FadeIn>
+          <div style={{ marginTop: 16, paddingLeft: 60 }}>
+            <p style={{ fontSize: 14, color: COLORS.muted, lineHeight: 1.6, marginBottom: 16 }}>{pillar.summary}</p>
+            <div>
+              {pillar.criteria.map((c, i) => (
+                <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '10px 0', borderBottom: `1px solid ${COLORS.line}` }}>
+                  <div style={{ flex: 1, paddingRight: 16 }}>
+                    <div style={{ fontSize: 13, color: COLORS.ink, marginBottom: 2 }}>{c.name}</div>
+                    <div style={{ fontSize: 12, color: COLORS.muted }}>{c.note}</div>
+                  </div>
+                  <div style={{ fontSize: 13, color: c.score >= c.max * 0.8 ? COLORS.green : c.score >= c.max * 0.5 ? COLORS.amber : COLORS.red, fontWeight: 500, minWidth: 60, textAlign: 'right' }}>{c.score}/{c.max}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+      )}
+    </div>
+  );
+}
+
+function TabButton({ label, active, onClick }) {
+  return (
+    <button onClick={onClick} style={{
+      padding: '10px 20px', background: active ? COLORS.purple : 'transparent',
+      color: active ? '#fff' : COLORS.muted, border: 'none', borderRadius: 6,
+      fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'Helvetica Neue, sans-serif',
+      transition: 'all 0.2s ease',
+    }}>{label}</button>
+  );
+}
+
+function Stat({ label, value, sub }) {
+  return (
+    <div style={{ padding: 20, background: '#fff', borderRadius: 8, border: `1px solid ${COLORS.line}` }}>
+      <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8 }}>{label}</div>
+      <div style={{ fontSize: 24, fontWeight: 400, color: COLORS.ink }}>{value}</div>
+      {sub && <div style={{ fontSize: 12, color: COLORS.muted, marginTop: 4 }}>{sub}</div>}
+    </div>
+  );
+}
+
+// ============================================================================
+// TABS
+// ============================================================================
+
+function OverviewTab() {
+  return (
+    <FadeIn>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32, alignItems: 'start' }}>
+        <div>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 12 }}>Protocol</div>
+          <h1 style={{ fontSize: 40, fontWeight: 300, color: COLORS.ink, margin: '0 0 8px 0', letterSpacing: -0.5 }}>Superform</h1>
+          <div style={{ fontSize: 16, color: COLORS.muted, marginBottom: 24 }}>The user-owned onchain neobank · $UP</div>
+          <p style={{ fontSize: 14, color: COLORS.ink, lineHeight: 1.7, marginBottom: 16 }}>
+            Superform launched $UP on February 10, 2026 after a multi-year build of institutional vault infrastructure and a consumer iOS neobank. The protocol now spans B2B vault curation, retail savings/swap/spend on mobile, and the SuperVaults institutional product launching mid-May.
+          </p>
+          <p style={{ fontSize: 14, color: COLORS.ink, lineHeight: 1.7, marginBottom: 16 }}>
+            The team launched without a full institutional roadshow. The IR foundation is unusually strong for a recently launched protocol: public quarterly investor letters, comprehensive audit disclosures, post-TGE accountability, and a clean tokenomics design. Distribution beyond crypto-native VCs is the critical gap.
+          </p>
+          <p style={{ fontSize: 14, color: COLORS.ink, lineHeight: 1.7 }}>
+            Backers include VanEck (lead), Polychain, Maven 11, Circle, Strobe (former BlockTower), CMT Digital, Amber Group, and Arthur Hayes.
+          </p>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+          <ScoreArc score={NIR_SCORE} />
+          <div style={{ width: '100%', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <Stat label="Market Cap" value={`$${FUNDAMENTALS.marketCap}M`} sub={`+${FUNDAMENTALS.price7d}% 7d`} />
+            <Stat label="FDV" value={`$${FUNDAMENTALS.fdv}M`} />
+            <Stat label="V2 Deposits" value={`$${FUNDAMENTALS.v2Deposits}M`} sub="live, scaling" />
+            <Stat label="$UP Staked" value={`${FUNDAMENTALS.staked}%`} sub="sUP" />
+            <Stat label="Holders" value={FUNDAMENTALS.holders.toLocaleString()} sub="ETH + Base" />
+            <Stat label="FTB Club" value={FUNDAMENTALS.ftbStakers.toLocaleString()} sub="stakers" />
+          </div>
+        </div>
+      </div>
+      <div style={{ marginTop: 48, padding: 24, background: COLORS.purpleLight, borderRadius: 8 }}>
+        <div style={{ fontSize: 11, color: COLORS.purple, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 8, fontWeight: 600 }}>Headline Read</div>
+        <p style={{ fontSize: 15, color: COLORS.ink, lineHeight: 1.7, margin: 0 }}>
+          Superform is an A−-tier IR profile with best-in-class transparency fundamentals (transparency.superform.xyz, programmatic SIP1/SIP2 buybacks, FTB Club staker cohort) for a recently launched DeFi token. The single highest-leverage remaining build is a formal quarterly tokenholder report cadence, paired with a recurring AMA schedule, Token Terminal coverage, and a standalone institutional disclosure document. A focused 90-day Novora engagement ships the Q1 2026 Tokenholder Report in Phase 1 and locks in durable quarterly cadence by Q2, pushing the score into the 88–92 range.
+        </p>
+      </div>
+    </FadeIn>
+  );
+}
+
+function ScoreBreakdownTab() {
+  const [expanded, setExpanded] = useState(0);
+  return (
+    <FadeIn>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48 }}>
+        <div>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Pillar Radar</div>
+          <ResponsiveContainer width="100%" height={340}>
+            <RadarChart data={RADAR_DATA}>
+              <PolarGrid stroke={COLORS.line} />
+              <PolarAngleAxis dataKey="pillar" tick={{ fill: COLORS.muted, fontSize: 11 }} />
+              <PolarRadiusAxis angle={90} domain={[0, 100]} tick={{ fill: COLORS.muted, fontSize: 10 }} />
+              <Radar name="Superform" dataKey="score" stroke={COLORS.purple} fill={COLORS.purple} fillOpacity={0.25} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
+        <div>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Pillar Scores</div>
+          {PILLARS.map((p, i) => (
+            <PillarRow key={i} pillar={p} expanded={expanded === i} onToggle={() => setExpanded(expanded === i ? -1 : i)} />
+          ))}
+        </div>
+      </div>
+    </FadeIn>
+  );
+}
+
+function FundamentalsTab() {
+  return (
+    <FadeIn>
+      {/* Stat cards row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 24 }}>
+        <Stat label="Market Cap" value={`$${FUNDAMENTALS.marketCap}M`} />
+        <Stat label="FDV" value={`$${FUNDAMENTALS.fdv}M`} />
+        <Stat label="Price" value={`$${FUNDAMENTALS.price}`} sub="ATH $0.079 · at ATH" />
+        <Stat label="Circulating" value={`${FUNDAMENTALS.circulating}%`} sub="of 1B supply" />
+        <Stat label="TVL (current)" value={`$${FUNDAMENTALS.tvl}M`} sub="-57% over 90d" />
+        <Stat label="MCap / TVL" value="0.44x" sub="favorable vs peers" />
+        <Stat label="Total Raised" value="$13.9M" sub="across 4 rounds" />
+        <Stat label="Lead Investor" value="VanEck" sub="strategic round" />
+      </div>
+
+      {/* Price 90d — area chart */}
+      <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}`, marginBottom: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16 }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5 }}>$UP Price · Post-TGE</div>
+          <div style={{ fontSize: 12, color: COLORS.green, fontWeight: 500 }}>+165% from launch low</div>
+        </div>
+        <ResponsiveContainer width="100%" height={220}>
+          <AreaChart data={PRICE_DATA}>
+            <defs>
+              <linearGradient id="priceGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"  stopColor={COLORS.purple} stopOpacity={0.35} />
+                <stop offset="100%" stopColor={COLORS.purple} stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke={COLORS.line} />
+            <XAxis dataKey="date" stroke={COLORS.muted} fontSize={11} />
+            <YAxis stroke={COLORS.muted} fontSize={11} tickFormatter={(v) => `$${v.toFixed(3)}`} domain={[0.025, 0.085]} />
+            <Tooltip formatter={(v) => `$${v.toFixed(4)}`} contentStyle={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6 }} />
+            <Area type="monotone" dataKey="price" stroke={COLORS.purple} strokeWidth={2} fill="url(#priceGrad)" />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Two-column: TVL + Price/TVL overlay */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+        <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}` }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>TVL · 90 Day</div>
+          <ResponsiveContainer width="100%" height={220}>
+            <AreaChart data={TVL_DATA}>
+              <defs>
+                <linearGradient id="tvlGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"  stopColor={COLORS.amber} stopOpacity={0.3} />
+                  <stop offset="100%" stopColor={COLORS.amber} stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke={COLORS.line} />
+              <XAxis dataKey="date" stroke={COLORS.muted} fontSize={11} />
+              <YAxis stroke={COLORS.muted} fontSize={11} tickFormatter={(v) => `$${v}M`} />
+              <Tooltip formatter={(v) => `$${v}M`} contentStyle={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6 }} />
+              <Area type="monotone" dataKey="tvl" stroke={COLORS.amber} strokeWidth={2} fill="url(#tvlGrad)" />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}` }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Price vs TVL · Divergence</div>
+          <ResponsiveContainer width="100%" height={220}>
+            <ComposedChart data={MINDSHARE_PRICE_DATA.map((d, i) => ({
+              date: d.date,
+              price: d.price * 1000, // scale for readability ($UP price × 1000)
+              tvl: TVL_DATA[Math.min(Math.floor(i * TVL_DATA.length / MINDSHARE_PRICE_DATA.length), TVL_DATA.length - 1)].tvl,
+            }))}>
+              <CartesianGrid strokeDasharray="3 3" stroke={COLORS.line} />
+              <XAxis dataKey="date" stroke={COLORS.muted} fontSize={11} />
+              <YAxis yAxisId="left" stroke={COLORS.purple} fontSize={11} tickFormatter={(v) => `$${(v/1000).toFixed(3)}`} />
+              <YAxis yAxisId="right" orientation="right" stroke={COLORS.amber} fontSize={11} tickFormatter={(v) => `$${v}M`} />
+              <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6 }} />
+              <Line yAxisId="left" type="monotone" dataKey="price" stroke={COLORS.purple} strokeWidth={2} dot={false} name="Price" />
+              <Line yAxisId="right" type="monotone" dataKey="tvl" stroke={COLORS.amber} strokeWidth={2} dot={false} name="TVL" />
+            </ComposedChart>
+          </ResponsiveContainer>
+          <div style={{ fontSize: 11, color: COLORS.muted, marginTop: 8, fontStyle: 'italic' }}>
+            Price up 165% post-TGE while TVL declined 57%. Incentive unwind, not product failure.
+          </div>
+        </div>
+      </div>
+
+      {/* Sector valuation comp table */}
+      <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}`, marginBottom: 24 }}>
+        <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Sector Comparison · MCap / TVL Multiple</div>
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={SECTOR_COMP}>
+            <CartesianGrid strokeDasharray="3 3" stroke={COLORS.line} />
+            <XAxis dataKey="protocol" stroke={COLORS.muted} fontSize={11} />
+            <YAxis stroke={COLORS.muted} fontSize={11} tickFormatter={(v) => `${v.toFixed(2)}x`} />
+            <Tooltip formatter={(v) => `${v.toFixed(2)}x`} contentStyle={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6 }} />
+            <Bar dataKey="ratio" radius={[4, 4, 0, 0]}>
+              {SECTOR_COMP.map((d, i) => (
+                <Cell key={i} fill={d.self ? COLORS.purple : '#CBC8C2'} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        <div style={{ fontSize: 11, color: COLORS.muted, marginTop: 8, fontStyle: 'italic' }}>
+          Lower MCap/TVL = more capital-efficient pricing relative to TVL secured. Superform sits at 0.44x, competitive vs DeFi peers despite recent TVL decline.
+        </div>
+      </div>
+
+      <div style={{ background: COLORS.purpleLight, padding: 20, borderRadius: 8 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: COLORS.ink, marginBottom: 8 }}>Fundamentals Read</div>
+        <p style={{ fontSize: 13, color: COLORS.muted, lineHeight: 1.7, margin: 0 }}>
+          $UP price has compounded steadily post-TGE, up 165% from the launch-week low, while TVL has unwound 57% from peak. This divergence is the key narrative for institutional IR: product fundamentals (vault curation, iOS app traction) are decoupling from incentive-driven TVL noise. The SuperVaults institutional launch in mid-May is the inflection point that should reset TVL on a more durable foundation. Artemis revenue and fees coverage is the most material data gap. Flagged to Jon Ma.
+        </p>
+      </div>
+    </FadeIn>
+  );
+}
+
+function SentimentTab() {
+  const corrLabel = Math.abs(MINDSHARE_PRICE_CORR) >= 0.7 ? 'Strong'
+                  : Math.abs(MINDSHARE_PRICE_CORR) >= 0.4 ? 'Moderate'
+                  : Math.abs(MINDSHARE_PRICE_CORR) >= 0.2 ? 'Weak' : 'None';
+  const corrColor = MINDSHARE_PRICE_CORR > 0 ? COLORS.green : COLORS.red;
+
+  return (
+    <FadeIn>
+      {/* Stat row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 24 }}>
+        <Stat label="X Followers" value={FUNDAMENTALS.followers.toLocaleString()} sub="growing" />
+        <Stat label="Smart Followers" value={FUNDAMENTALS.smartFollowers} sub="+3% over 30d" />
+        <Stat label="Sentiment (Surf)" value={FUNDAMENTALS.sentiment.toFixed(2)} sub="positive, moderate" />
+        <Stat label="Mindshare Rank" value="#30" sub="Cross-Chain & Bridge" />
+      </div>
+
+      {/* Headline: Mindshare × Price overlay with rolling Pearson correlation */}
+      <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}`, marginBottom: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5 }}>Mindshare × Price · 90 Day</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1 }}>30D Pearson</span>
+            <span style={{ fontSize: 22, fontWeight: 300, color: corrColor }}>{MINDSHARE_PRICE_CORR > 0 ? '+' : ''}{MINDSHARE_PRICE_CORR.toFixed(2)}</span>
+            <span style={{ fontSize: 11, color: COLORS.muted, padding: '2px 8px', background: COLORS.purpleLight, borderRadius: 4 }}>{corrLabel}</span>
+          </div>
+        </div>
+        <ResponsiveContainer width="100%" height={260}>
+          <ComposedChart data={MINDSHARE_PRICE_DATA}>
+            <CartesianGrid strokeDasharray="3 3" stroke={COLORS.line} />
+            <XAxis dataKey="date" stroke={COLORS.muted} fontSize={11} />
+            <YAxis yAxisId="left" stroke={COLORS.purple} fontSize={11} tickFormatter={(v) => `${(v/1000).toFixed(0)}K`} />
+            <YAxis yAxisId="right" orientation="right" stroke={COLORS.muted} fontSize={11} tickFormatter={(v) => `$${v.toFixed(3)}`} />
+            <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6 }} />
+            <Legend wrapperStyle={{ fontSize: 11 }} />
+            <Bar yAxisId="left" dataKey="mindshare" fill={COLORS.purple} fillOpacity={0.5} name="Mindshare (impressions)" />
+            <Line yAxisId="right" type="monotone" dataKey="price" stroke={COLORS.ink} strokeWidth={2} dot={false} name="$UP Price" />
+          </ComposedChart>
+        </ResponsiveContainer>
+        <div style={{ fontSize: 11, color: COLORS.muted, marginTop: 8, fontStyle: 'italic' }}>
+          Weak positive correlation. Price has compounded steadily independent of social spikes. Mindshare volatility (TGE peak Feb 10, ecosystem spike Apr 26) hasn't translated to durable price drivers; product traction is the underlying signal.
+        </div>
+      </div>
+
+      {/* Two-column: Smart follower composition donut + Notable list */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+        <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}` }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Smart Follower Composition</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <ResponsiveContainer width="55%" height={220}>
+              <PieChart>
+                <Pie data={FOLLOWER_COMPOSITION} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={85} paddingAngle={2}>
+                  {FOLLOWER_COMPOSITION.map((entry, i) => <Cell key={i} fill={entry.color} />)}
+                </Pie>
+                <Tooltip formatter={(v, name) => [`${v} followers`, name]} contentStyle={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6 }} />
+              </PieChart>
+            </ResponsiveContainer>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {FOLLOWER_COMPOSITION.map((f, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: 2, background: f.color }} />
+                  <span style={{ color: COLORS.ink, flex: 1 }}>{f.name}</span>
+                  <span style={{ color: COLORS.muted }}>{f.pct}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ fontSize: 11, color: COLORS.muted, marginTop: 12, fontStyle: 'italic' }}>
+            VC + Founder + Project tags = 44.8% of smart followers. Institutionally legible.
+          </div>
+        </div>
+
+        <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}` }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Notable Smart Followers</div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[
+              { name: 'VanEck', role: 'Lead Investor (Asset Mgr)' },
+              { name: 'MoonPay', role: 'Project · Onramps' },
+              { name: 'banteg', role: 'VC / Yearn' },
+              { name: 'Pendle', role: 'Project · Yield Infra' },
+              { name: 'Vance Spencer', role: 'Founder / Framework' },
+              { name: 'Across · Hyperlane', role: 'Cross-chain peers' },
+              { name: 'matthew_sigel', role: 'VanEck Research' },
+              { name: 'Arthur Hayes-adjacent KOLs', role: 'Trading community' },
+            ].map((f, i) => (
+              <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: i < 7 ? `1px solid ${COLORS.line}` : 'none' }}>
+                <div style={{ fontSize: 13, color: COLORS.ink }}>{f.name}</div>
+                <div style={{ fontSize: 12, color: COLORS.muted }}>{f.role}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Smart Follower Growth + Mindshare trend */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+        <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}` }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Smart Follower Growth · 30 Day</div>
+          <ResponsiveContainer width="100%" height={200}>
+            <LineChart data={SMART_FOLLOWERS_HISTORY}>
+              <CartesianGrid strokeDasharray="3 3" stroke={COLORS.line} />
+              <XAxis dataKey="date" stroke={COLORS.muted} fontSize={11} />
+              <YAxis stroke={COLORS.muted} fontSize={11} domain={['dataMin - 5', 'dataMax + 5']} />
+              <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6 }} />
+              <Line type="monotone" dataKey="count" stroke={COLORS.purple} strokeWidth={2} dot={{ r: 3, fill: COLORS.purple }} />
+            </LineChart>
+          </ResponsiveContainer>
+          <div style={{ fontSize: 11, color: COLORS.muted, marginTop: 8, fontStyle: 'italic' }}>
+            Steady accretion of high-signal followers. Quality of network compounds even when X follower count plateaus.
+          </div>
+        </div>
+
+        <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}` }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Sentiment Gauge</div>
+          <div style={{ padding: '24px 0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+            <div style={{ width: '100%', maxWidth: 280, height: 8, background: 'linear-gradient(90deg, #DC2626 0%, #D97706 50%, #16A34A 100%)', borderRadius: 4, position: 'relative' }}>
+              <div style={{ position: 'absolute', left: `${FUNDAMENTALS.sentiment * 100}%`, top: -6, transform: 'translateX(-50%)', width: 4, height: 20, background: COLORS.ink, borderRadius: 2 }} />
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: 280, fontSize: 10, color: COLORS.muted }}>
+              <span>0.0 Negative</span><span>0.5 Neutral</span><span>1.0 Positive</span>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: 12 }}>
+              <div style={{ fontSize: 36, fontWeight: 300, color: COLORS.ink }}>{FUNDAMENTALS.sentiment.toFixed(2)}</div>
+              <div style={{ fontSize: 13, color: COLORS.muted }}>Positive, Moderate</div>
+            </div>
+          </div>
+          <div style={{ fontSize: 11, color: COLORS.muted, fontStyle: 'italic' }}>
+            Headroom to compound to 0.7+ via consistent post-TGE communication and AMA cadence.
+          </div>
+        </div>
+      </div>
+
+      <div style={{ background: COLORS.purpleLight, padding: 20, borderRadius: 8 }}>
+        <div style={{ fontSize: 13, fontWeight: 500, color: COLORS.ink, marginBottom: 8 }}>Sentiment Read</div>
+        <p style={{ fontSize: 13, color: COLORS.muted, lineHeight: 1.7, margin: 0 }}>
+          The mindshare/price decoupling (Pearson +0.18) is unusual and favorable. Superform's price is being held up by fundamentals rather than narrative beta. Smart follower composition is institutionally legible (44.8% VC/Founder/Project), and the network is steadily accreting high-signal followers. The single biggest sentiment lever remaining: a consistent post-TGE AMA and tokenholder call cadence to compound the moderate-positive baseline into durable conviction.
+        </p>
+      </div>
+    </FadeIn>
+  );
+}
+
+function ComparativeTab() {
+  return (
+    <FadeIn>
+      {/* Headline scatter: NIR Score × MCap/TVL multiple */}
+      <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}`, marginBottom: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16 }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5 }}>NIR Score × Valuation Multiple · Peer Set</div>
+          <div style={{ display: 'flex', gap: 16, fontSize: 11, color: COLORS.muted }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ width: 10, height: 10, borderRadius: '50%', background: COLORS.purple, border: `2px solid #fff`, boxShadow: `0 0 0 1px ${COLORS.purple}` }} />Superform
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#CBC8C2' }} />Peer benchmark
+            </span>
+          </div>
+        </div>
+        <ResponsiveContainer width="100%" height={340}>
+          <ScatterChart margin={{ top: 20, right: 20, bottom: 40, left: 40 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke={COLORS.line} />
+            <XAxis type="number" dataKey="score" name="NIR Score" domain={[20, 100]} stroke={COLORS.muted} fontSize={11}
+                   label={{ value: 'NIR Score', position: 'insideBottom', offset: -10, fill: COLORS.muted, fontSize: 11 }} />
+            <YAxis type="number" dataKey="multiple" name="MCap / TVL" domain={[0, 28]} stroke={COLORS.muted} fontSize={11}
+                   label={{ value: 'MCap / TVL Multiple', angle: -90, position: 'insideLeft', fill: COLORS.muted, fontSize: 11 }} />
+            <ZAxis range={[80, 80]} />
+            <Tooltip cursor={{ strokeDasharray: '3 3' }}
+                     formatter={(v, name) => name === 'NIR Score' ? v : `${v.toFixed(2)}x`}
+                     contentStyle={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6 }}
+                     labelFormatter={() => ''}
+                     content={({ active, payload }) => {
+                       if (!active || !payload || !payload.length) return null;
+                       const d = payload[0].payload;
+                       return (
+                         <div style={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6, padding: 10, fontSize: 12 }}>
+                           <div style={{ fontWeight: 600, color: COLORS.ink, marginBottom: 4 }}>{d.name}</div>
+                           <div style={{ color: COLORS.muted }}>NIR Score: <span style={{ color: COLORS.ink }}>{d.score}</span></div>
+                           <div style={{ color: COLORS.muted }}>MCap/TVL: <span style={{ color: COLORS.ink }}>{d.multiple.toFixed(2)}x</span></div>
+                         </div>
+                       );
+                     }} />
+            <ReferenceLine x={67} stroke={COLORS.muted} strokeDasharray="3 3" label={{ value: 'Median NIR', position: 'top', fill: COLORS.muted, fontSize: 10 }} />
+            <ReferenceLine y={2.0} stroke={COLORS.muted} strokeDasharray="3 3" label={{ value: 'Median Multiple', position: 'right', fill: COLORS.muted, fontSize: 10 }} />
+            <Scatter data={PEER_SCATTER.filter(d => !d.isSelf)} fill="#CBC8C2" />
+            <Scatter data={PEER_SCATTER.filter(d => d.isSelf)} fill={COLORS.purple} stroke="#fff" strokeWidth={3} />
+          </ScatterChart>
+        </ResponsiveContainer>
+        <div style={{ fontSize: 11, color: COLORS.muted, marginTop: 8, fontStyle: 'italic' }}>
+          Lower-right quadrant = high IR quality at favorable valuation multiples. Superform sits at NIR 84 / 0.46x, a coordinate that's structurally rare in DeFi and makes the institutional pitch substantially easier.
+        </div>
+      </div>
+
+      {/* Leaderboard horizontal bar */}
+      <div style={{ background: '#fff', padding: 24, borderRadius: 8, border: `1px solid ${COLORS.line}`, marginBottom: 24 }}>
+        <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 16 }}>Novora IR Score Leaderboard · Selected Peers</div>
+        <ResponsiveContainer width="100%" height={320}>
+          <BarChart data={PEER_COMP} layout="vertical" margin={{ left: 20 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke={COLORS.line} />
+            <XAxis type="number" domain={[0, 100]} stroke={COLORS.muted} fontSize={11} />
+            <YAxis dataKey="name" type="category" stroke={COLORS.muted} fontSize={12} width={100} />
+            <Tooltip contentStyle={{ background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 6 }} />
+            <Bar dataKey="score" radius={[0, 4, 4, 0]}>
+              {PEER_COMP.map((entry, i) => (
+                <Cell key={i} fill={entry.color} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+        <div style={{ padding: 20, background: '#fff', borderRadius: 8, border: `1px solid ${COLORS.line}` }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 12 }}>What Superform Does Well</div>
+          <ul style={{ fontSize: 13, color: COLORS.ink, lineHeight: 1.8, paddingLeft: 18, margin: 0 }}>
+            <li>Public quarterly investor letters, rare among recently launched DeFi tokens</li>
+            <li>Audit transparency at the level of post-launch protocols 5x larger</li>
+            <li>Post-TGE accountability statement, disciplined response to valuation gap</li>
+            <li>Clean, sticky narrative ("user-owned neobank")</li>
+            <li>Smart follower mix that translates to institutional contexts</li>
+          </ul>
+        </div>
+        <div style={{ padding: 20, background: '#fff', borderRadius: 8, border: `1px solid ${COLORS.line}` }}>
+          <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 12 }}>Where Superform Trails Top Tier</div>
+          <ul style={{ fontSize: 13, color: COLORS.ink, lineHeight: 1.8, paddingLeft: 18, margin: 0 }}>
+            <li>No dedicated institutional investor channel (Pillar 2 cap)</li>
+            <li>Artemis revenue / fees not tracked; Token Terminal absent</li>
+            <li>No standalone institutional one-pager or formal disclosure document</li>
+            <li>AMA / tokenholder call cadence committed but not yet established</li>
+            <li>TVL trajectory negative pre-SuperVaults launch, needs IR framing</li>
+          </ul>
+        </div>
+      </div>
+    </FadeIn>
+  );
+}
+
+function RoadmapTab() {
+  return (
+    <FadeIn>
+      <div style={{ marginBottom: 32 }}>
+        <div style={{ fontSize: 11, color: COLORS.muted, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 8 }}>Engagement Path</div>
+        <h2 style={{ fontSize: 28, fontWeight: 300, color: COLORS.ink, margin: '0 0 12px 0' }}>From 84 to 92 in 90 days</h2>
+        <p style={{ fontSize: 15, color: COLORS.muted, lineHeight: 1.7, maxWidth: 720 }}>
+          A focused IR build centered on the Q1 2026 Tokenholder Report, the highest-leverage IR artifact a post-TGE protocol can ship, addresses the four remaining tactical gaps (quarterly report cadence, Token Terminal coverage, standalone institutional disclosure, recurring AMA schedule) and moves the score from 84 (A−) to the 88–92 range (A / A+). The remaining alpha sits in the SuperVaults Institutional curator distribution and the OTC round window.
+        </p>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        {ROADMAP.map((p, i) => (
+          <div key={i} style={{ display: 'grid', gridTemplateColumns: '200px 1fr', gap: 32, padding: 24, background: '#fff', border: `1px solid ${COLORS.line}`, borderRadius: 8 }}>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 500, color: COLORS.purple, marginBottom: 4 }}>{p.phase.split(' · ')[0]}</div>
+              <div style={{ fontSize: 13, color: COLORS.muted }}>{p.phase.split(' · ')[1]}</div>
+            </div>
+            <div>
+              <ul style={{ fontSize: 14, color: COLORS.ink, lineHeight: 1.8, paddingLeft: 18, margin: 0 }}>
+                {p.items.map((item, j) => <li key={j}>{item}</li>)}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ marginTop: 32, padding: 24, background: COLORS.purpleLight, borderRadius: 8 }}>
+        <div style={{ fontSize: 11, color: COLORS.purple, textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 8, fontWeight: 600 }}>Engage Novora</div>
+        <div style={{ fontSize: 14, color: COLORS.ink, lineHeight: 1.7 }}>
+          connor@novora.co &nbsp;·&nbsp; calendly.com/connor_king &nbsp;·&nbsp; novora.co
+        </div>
+      </div>
+    </FadeIn>
+  );
+}
+
+// ============================================================================
+// MAIN
+// ============================================================================
+
+function SuperformNIRScore() {
+  const [tab, setTab] = useState('overview');
+  const tabs = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'score', label: 'Score Breakdown' },
+    { id: 'fundamentals', label: 'Fundamentals' },
+    { id: 'sentiment', label: 'Sentiment' },
+    { id: 'comparative', label: 'Comparative' },
+    { id: 'roadmap', label: 'IR Roadmap' },
+  ];
+  return (
+    <div style={{ minHeight: '100vh', background: COLORS.bg, fontFamily: 'Helvetica Neue, Arial, sans-serif', color: COLORS.ink, padding: '40px 60px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
+          <NovoraLockup />
+          <div style={{ fontSize: 12, color: COLORS.muted }}>April 26, 2026</div>
+        </div>
+        <div style={{ display: 'flex', gap: 4, marginBottom: 40, padding: 4, background: '#fff', borderRadius: 8, border: `1px solid ${COLORS.line}`, width: 'fit-content', flexWrap: 'wrap' }}>
+          {tabs.map(t => <TabButton key={t.id} label={t.label} active={tab === t.id} onClick={() => setTab(t.id)} />)}
+        </div>
+        <div>
+          {tab === 'overview' && <OverviewTab />}
+          {tab === 'score' && <ScoreBreakdownTab />}
+          {tab === 'fundamentals' && <FundamentalsTab />}
+          {tab === 'sentiment' && <SentimentTab />}
+          {tab === 'comparative' && <ComparativeTab />}
+          {tab === 'roadmap' && <RoadmapTab />}
+        </div>
+        <div style={{ marginTop: 60, paddingTop: 24, borderTop: `1px solid ${COLORS.line}`, fontSize: 11, color: COLORS.muted, textAlign: 'center' }}>
+          Novora IR Score · Powered by Artemis · Surf social analytics · April 26, 2026
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<SuperformNIRScore />);
+</script>
+</body>
+</html>
