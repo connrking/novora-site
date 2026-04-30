@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Grass NIR Score · Novora</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script crossorigin src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.23.5/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: #FAFAF9; color: #1A1A1A; -webkit-font-smoothing: antialiased; }
+  #root { min-height: 100vh; }
+  canvas { max-width: 100%; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="env,react">
+const { useState, useEffect, useRef } = React;
+
+const PURPLE = "#7C6EF0";
+const INK = "#1A1A1A";
+const MUTED = "#666666";
+const LIGHT = "#E5E5E3";
+const BG = "#FAFAF9";
+const PURPLE_LIGHT = "#F0EEFE";
+const RED = "#E5484D";
+const GREEN = "#22C55E";
+
+const NovoraLockup = ({ color = INK }) => (
+  <svg height="20" viewBox="140 150 420 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z" fill={color}/>
+    <rect x="150.07" y="207.66" width="80.09" height="32.39" fill={color}/>
+    <path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z" fill={color}/>
+    <path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill={color}/>
+    <path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z" fill={color}/>
+    <path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z" fill={color}/>
+    <path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z" fill={color}/>
+    <path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z" fill={color}/>
+  </svg>
+);
+
+const ChartCanvas = ({ config, height = 280 }) => {
+  const canvasRef = useRef(null);
+  const chartRef = useRef(null);
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    if (chartRef.current) chartRef.current.destroy();
+    chartRef.current = new Chart(canvasRef.current, config);
+    return () => { if (chartRef.current) chartRef.current.destroy(); };
+  }, [JSON.stringify(config)]);
+  return <div style={{ position: "relative", height }}><canvas ref={canvasRef} /></div>;
+};
+
+const priceData = [
+  { date: "Nov 1", price: 0.345 }, { date: "Nov 15", price: 0.282 }, { date: "Nov 30", price: 0.314 },
+  { date: "Dec 15", price: 0.325 }, { date: "Dec 31", price: 0.285 },
+  { date: "Jan 15", price: 0.321 }, { date: "Jan 31", price: 0.221 },
+  { date: "Feb 15", price: 0.210 }, { date: "Feb 28", price: 0.267 },
+  { date: "Mar 15", price: 0.371 }, { date: "Mar 31", price: 0.280 },
+  { date: "Apr 15", price: 0.355 }, { date: "Apr 30", price: 0.323 },
+];
+
+const peerData = [
+  { name: "Meteora", score: 95 },
+  { name: "Superform", score: 84 },
+  { name: "Maple", score: 80 },
+  { name: "dYdX", score: 79 },
+  { name: "Lido", score: 78 },
+  { name: "Arbitrum", score: 73 },
+  { name: "Hyperliquid", score: 65 },
+  { name: "Grass", score: 38 },
+  { name: "Lighter", score: 35 },
+];
+
+const Tab = ({ label, active, onClick }) => (
+  <button onClick={onClick} style={{
+    padding: "12px 20px", border: "none", background: active ? PURPLE : "transparent",
+    color: active ? "#fff" : MUTED, fontSize: 13, fontWeight: 600, cursor: "pointer",
+    borderRadius: 8, fontFamily: "inherit", transition: "all 0.15s",
+  }}>{label}</button>
+);
+
+const Card = ({ children, style = {} }) => (
+  <div style={{ background: "#fff", border: `1px solid ${LIGHT}`, borderRadius: 12, padding: 24, ...style }}>{children}</div>
+);
+
+const StatBox = ({ label, value, sub, color = INK }) => (
+  <div style={{ padding: 20, background: "#fff", border: `1px solid ${LIGHT}`, borderRadius: 12 }}>
+    <div style={{ fontSize: 11, color: MUTED, textTransform: "uppercase", letterSpacing: 0.5, marginBottom: 8 }}>{label}</div>
+    <div style={{ fontSize: 26, fontWeight: 700, color, marginBottom: 4 }}>{value}</div>
+    {sub && <div style={{ fontSize: 12, color: MUTED }}>{sub}</div>}
+  </div>
+);
+
+const PillarBar = ({ name, score, grade }) => {
+  const color = score >= 70 ? "#22C55E" : score >= 50 ? "#F59E0B" : score >= 35 ? "#FB923C" : "#E5484D";
+  return (
+    <div style={{ marginBottom: 18 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+        <span style={{ fontSize: 13, fontWeight: 600 }}>{name}</span>
+        <span style={{ fontSize: 13, color: MUTED }}><b style={{ color }}>{score}/100</b> · Grade {grade}</span>
+      </div>
+      <div style={{ height: 8, background: LIGHT, borderRadius: 4, overflow: "hidden" }}>
+        <div style={{ height: "100%", width: `${score}%`, background: color, borderRadius: 4 }} />
+      </div>
+    </div>
+  );
+};
+
+const PillarCriterion = ({ name, score, max, note }) => (
+  <div style={{ display: "grid", gridTemplateColumns: "1fr 80px", gap: 16, padding: "14px 0", borderBottom: `1px solid ${LIGHT}` }}>
+    <div>
+      <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 4 }}>{name}</div>
+      <div style={{ fontSize: 12, color: MUTED, lineHeight: 1.5 }}>{note}</div>
+    </div>
+    <div style={{ textAlign: "right" }}>
+      <span style={{ fontSize: 14, fontWeight: 700, color: score === 0 ? RED : score >= 12 ? "#22C55E" : score >= 8 ? "#F59E0B" : "#FB923C" }}>{score}/{max}</span>
+    </div>
+  </div>
+);
+
+function App() {
+  const [tab, setTab] = useState("overview");
+  const tabs = [
+    { id: "overview", label: "Overview" },
+    { id: "score", label: "Score Breakdown" },
+    { id: "fundamentals", label: "Fundamentals" },
+    { id: "sentiment", label: "Sentiment" },
+    { id: "comparative", label: "Comparative" },
+    { id: "roadmap", label: "IR Roadmap" },
+  ];
+
+  const radarConfig = {
+    type: "radar",
+    data: {
+      labels: ["Transparency", "Token Comms", "Data Access", "Narrative", "Value Accrual"],
+      datasets: [{
+        label: "Grass",
+        data: [33, 32, 28, 48, 47],
+        backgroundColor: "rgba(124, 110, 240, 0.25)",
+        borderColor: PURPLE, borderWidth: 2,
+        pointBackgroundColor: PURPLE, pointRadius: 4,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: { r: { beginAtZero: true, max: 100, ticks: { stepSize: 25, color: MUTED, font: { size: 10 } }, pointLabels: { color: INK, font: { size: 11 } }, grid: { color: LIGHT }, angleLines: { color: LIGHT } } },
+      plugins: { legend: { display: false } },
+    },
+  };
+
+  const pillarBarConfig = {
+    type: "bar",
+    data: {
+      labels: ["Transparency", "Token Comms", "Data Access", "Narrative", "Value Accrual"],
+      datasets: [{ data: [33, 32, 28, 48, 47], backgroundColor: PURPLE, borderRadius: 4 }],
+    },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      scales: { x: { beginAtZero: true, max: 100, grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 11 } } }, y: { grid: { display: false }, ticks: { color: INK, font: { size: 11 } } } },
+      plugins: { legend: { display: false } },
+    },
+  };
+
+  const priceConfig = {
+    type: "line",
+    data: {
+      labels: priceData.map(d => d.date),
+      datasets: [{ data: priceData.map(d => d.price), borderColor: PURPLE, backgroundColor: "rgba(124, 110, 240, 0.08)", borderWidth: 2.5, fill: true, tension: 0.35, pointRadius: 0, pointHoverRadius: 4 }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { grid: { display: false }, ticks: { color: MUTED, font: { size: 11 } } },
+        y: { grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 11 }, callback: v => "$" + v.toFixed(2) } },
+      },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => "$" + c.parsed.y.toFixed(3) } } },
+    },
+  };
+
+  const unlockConfig = {
+    type: "bar",
+    data: {
+      labels: ["May 28", "Jun 28", "Jul 28", "Aug 28"],
+      datasets: [{ data: [10.4, 10.4, 10.4, 10.4], backgroundColor: RED, borderRadius: 4 }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { grid: { display: false }, ticks: { color: MUTED, font: { size: 11 } } },
+        y: { grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 11 }, callback: v => "$" + v + "M" } },
+      },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => "$" + c.parsed.y + "M" } } },
+    },
+  };
+
+  const followerConfig = {
+    type: "bar",
+    data: {
+      labels: ["KOL", "VC", "Founder", "Project", "Team"],
+      datasets: [{ data: [245, 142, 67, 24, 11], backgroundColor: PURPLE, borderRadius: 4 }],
+    },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      scales: { x: { beginAtZero: true, grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 11 } } }, y: { grid: { display: false }, ticks: { color: INK, font: { size: 12 } } } },
+      plugins: { legend: { display: false } },
+    },
+  };
+
+  const peerConfig = {
+    type: "bar",
+    data: {
+      labels: peerData.map(d => d.name),
+      datasets: [{
+        data: peerData.map(d => d.score),
+        backgroundColor: peerData.map(d =>
+          d.name === "Grass" ? PURPLE :
+          d.score >= 80 ? "#3B82F6" :
+          d.score >= 70 ? "#8B5CF6" :
+          d.score >= 50 ? "#A78BFA" : "#9CA3AF"
+        ),
+        borderRadius: 4,
+      }],
+    },
+    options: {
+      indexAxis: "y", responsive: true, maintainAspectRatio: false,
+      scales: { x: { beginAtZero: true, max: 100, grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 11 } } }, y: { grid: { display: false }, ticks: { color: INK, font: { size: 12 } } } },
+      plugins: { legend: { display: false } },
+    },
+  };
+
+  const projectionConfig = {
+    type: "line",
+    data: {
+      labels: ["Baseline", "Phase 1 (Wk 4)", "Phase 2 (Wk 12)", "Phase 3 (Mo 6)"],
+      datasets: [{
+        data: [38, 55, 68, 75],
+        borderColor: PURPLE, backgroundColor: "rgba(124, 110, 240, 0.12)",
+        borderWidth: 3, fill: true, tension: 0.3,
+        pointBackgroundColor: PURPLE, pointRadius: 7, pointHoverRadius: 9,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { grid: { display: false }, ticks: { color: INK, font: { size: 12 } } },
+        y: { beginAtZero: true, max: 100, grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 11 } } },
+      },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => "NIR Score: " + c.parsed.y } } },
+    },
+  };
+
+  // Sentiment tab data
+  const weeklyData = [
+    {week: "Jan W1", mindshare: 19545, price: 0.3088},
+    {week: "Jan W2", mindshare: 5437, price: 0.3475},
+    {week: "Jan W3", mindshare: 3622, price: 0.3281},
+    {week: "Jan W4", mindshare: 18639, price: 0.2756},
+    {week: "Jan W5", mindshare: 22269, price: 0.2472},
+    {week: "Feb W1", mindshare: 7770, price: 0.1988},
+    {week: "Feb W2", mindshare: 6194, price: 0.1957},
+    {week: "Feb W3", mindshare: 4361, price: 0.1906},
+    {week: "Feb W4", mindshare: 26558, price: 0.2177},
+    {week: "Mar W1", mindshare: 9891, price: 0.2881},
+    {week: "Mar W2", mindshare: 8433, price: 0.3639},
+    {week: "Mar W3", mindshare: 40618, price: 0.3888},
+    {week: "Mar W4", mindshare: 12401, price: 0.3160},
+    {week: "Apr W1", mindshare: 2663, price: 0.2800},
+    {week: "Apr W2", mindshare: 2515, price: 0.3261},
+    {week: "Apr W3", mindshare: 23974, price: 0.3433},
+    {week: "Apr W4", mindshare: 23339, price: 0.3846},
+    {week: "Apr W5", mindshare: 34607, price: 0.3479},
+  ];
+
+  const smartFollowerData = [
+    {date: "Dec 31", count: 423},
+    {date: "Jan 1", count: 362},
+    {date: "Jan 4", count: 520},
+    {date: "Jan 10", count: 530},
+    {date: "Jan 13", count: 529},
+    {date: "Jan 20", count: 508},
+    {date: "Jan 25", count: 507},
+    {date: "Jan 30", count: 499},
+    {date: "Feb 5", count: 501},
+    {date: "Feb 10", count: 499},
+    {date: "Feb 13", count: 489},
+  ];
+
+  const mindsharePriceOverlayConfig = {
+    type: "bar",
+    data: {
+      labels: weeklyData.map(d => d.week),
+      datasets: [
+        {
+          type: "bar",
+          label: "Mindshare",
+          data: weeklyData.map(d => d.mindshare),
+          backgroundColor: "rgba(124, 110, 240, 0.5)",
+          borderColor: PURPLE,
+          borderWidth: 1,
+          yAxisID: "y",
+          order: 2,
+        },
+        {
+          type: "line",
+          label: "$GRASS Price",
+          data: weeklyData.map(d => d.price),
+          borderColor: "#1A1A1A",
+          backgroundColor: "rgba(26, 26, 26, 0.05)",
+          borderWidth: 2.5,
+          pointBackgroundColor: "#1A1A1A",
+          pointRadius: 4,
+          tension: 0.3,
+          yAxisID: "y1",
+          order: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: MUTED, font: { size: 10 } } },
+        y: {
+          type: "linear", position: "left",
+          title: { display: true, text: "Mindshare Index", color: PURPLE, font: { size: 11 } },
+          grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 10 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + "k" : v },
+        },
+        y1: {
+          type: "linear", position: "right",
+          title: { display: true, text: "Price (USD)", color: INK, font: { size: 11 } },
+          grid: { display: false }, ticks: { color: MUTED, font: { size: 10 }, callback: v => "$" + v.toFixed(2) },
+        },
+      },
+      plugins: {
+        legend: { position: "top", align: "end", labels: { font: { size: 11 }, color: INK, usePointStyle: true } },
+      },
+    },
+  };
+
+  const scatterConfig = {
+    type: "scatter",
+    data: {
+      datasets: [{
+        label: "Weekly observations",
+        data: weeklyData.map(d => ({ x: d.mindshare, y: d.price })),
+        backgroundColor: PURPLE,
+        borderColor: PURPLE,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: {
+          title: { display: true, text: "Weekly Mindshare", color: MUTED, font: { size: 11 } },
+          grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 10 }, callback: v => v >= 1000 ? (v/1000).toFixed(0) + "k" : v },
+        },
+        y: {
+          title: { display: true, text: "Weekly Avg Price (USD)", color: MUTED, font: { size: 11 } },
+          grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 10 }, callback: v => "$" + v.toFixed(2) },
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: c => {
+              const point = weeklyData[c.dataIndex];
+              return [`${point.week}`, `Mindshare: ${point.mindshare.toLocaleString()}`, `Price: $${point.price.toFixed(4)}`];
+            }
+          }
+        }
+      },
+    },
+  };
+
+  const smartFollowerConfig = {
+    type: "line",
+    data: {
+      labels: smartFollowerData.map(d => d.date),
+      datasets: [{
+        data: smartFollowerData.map(d => d.count),
+        borderColor: RED, backgroundColor: "rgba(229, 72, 77, 0.10)",
+        borderWidth: 2.5, fill: true, tension: 0.3,
+        pointBackgroundColor: RED, pointRadius: 4, pointHoverRadius: 6,
+      }],
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      scales: {
+        x: { grid: { display: false }, ticks: { color: MUTED, font: { size: 10 } } },
+        y: {
+          min: 350, grid: { color: LIGHT }, ticks: { color: MUTED, font: { size: 10 } },
+        },
+      },
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.parsed.y + " smart followers" } } },
+    },
+  };
+
+  return (
+    <div style={{ maxWidth: 1180, margin: "0 auto", padding: "32px 24px 80px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 32 }}>
+        <NovoraLockup />
+        <div style={{ fontSize: 11, color: MUTED, letterSpacing: 0.5, textTransform: "uppercase" }}>Confidential · April 30, 2026</div>
+      </div>
+
+      <div style={{ marginBottom: 32 }}>
+        <div style={{ fontSize: 11, color: PURPLE, letterSpacing: 2, fontWeight: 700, marginBottom: 8 }}>NIR SCORE</div>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 16, flexWrap: "wrap" }}>
+          <h1 style={{ fontSize: 44, fontWeight: 700, lineHeight: 1 }}>Grass</h1>
+          <span style={{ fontSize: 16, color: MUTED, fontStyle: "italic" }}>$GRASS, the decentralized data layer for AI</span>
+        </div>
+        <div style={{ marginTop: 16, display: "flex", alignItems: "center", gap: 12 }}>
+          <span style={{ fontSize: 28, fontWeight: 700, color: PURPLE }}>38 / 100</span>
+          <span style={{ padding: "4px 12px", background: "#FEE2E2", color: "#B91C1C", fontSize: 12, fontWeight: 600, borderRadius: 999 }}>Tier D · Underbuilt</span>
+        </div>
+      </div>
+
+      <div style={{ display: "flex", gap: 4, marginBottom: 28, borderBottom: `1px solid ${LIGHT}`, paddingBottom: 4, flexWrap: "wrap" }}>
+        {tabs.map(t => <Tab key={t.id} label={t.label} active={tab === t.id} onClick={() => setTab(t.id)} />)}
+      </div>
+
+      {tab === "overview" && (
+        <div style={{ display: "grid", gap: 20 }}>
+          <Card style={{ background: PURPLE_LIGHT, border: `1px solid ${PURPLE}` }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: PURPLE, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.5 }}>The Bottom Line</div>
+            <div style={{ fontSize: 15, lineHeight: 1.6, color: INK }}>
+              Grass has produced one of the most quietly impressive revenue stories in DePIN, with Q4 2025 revenue growing 197% QoQ and ~$80M annualized run-rate.
+              At $0.32 (down 92% from ATH), it trades at ~2.5x revenue and ~4x forward EBITDA, the cheapest revenue-producing AI/DePIN protocol of its scale.
+              The market isn't pricing fundamentals because there's no investor-facing infrastructure to do it. A 90-day Novora engagement closes the most material gaps and resets institutional positioning.
+            </div>
+          </Card>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
+            <StatBox label="Market Cap" value="$194M" sub="MCap / Revenue ~2.4x" />
+            <StatBox label="FDV" value="$324M" sub="58.71% circulating" />
+            <StatBox label="Price" value="$0.323" sub="-91.7% from ATH" color={RED} />
+            <StatBox label="Annualized Rev" value="~$80M" sub="+197% QoQ Q4 '25" color={GREEN} />
+            <StatBox label="Smart Followers" value="489" sub="Surf, predominantly KOL" />
+            <StatBox label="Next Unlock" value="May 28" sub="$10.4M, 5.4% MCap" color={RED} />
+          </div>
+
+          <Card>
+            <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Five-Pillar Snapshot</div>
+            <PillarBar name="Pillar 1: Transparency & Reporting" score={33} grade="D" />
+            <PillarBar name="Pillar 2: Token Holder Communication" score={32} grade="D+" />
+            <PillarBar name="Pillar 3: Data Accessibility" score={28} grade="D" />
+            <PillarBar name="Pillar 4: Narrative & Positioning" score={48} grade="C" />
+            <PillarBar name="Pillar 5: Value Accrual & Tokenomics" score={47} grade="C" />
+          </Card>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 12, color: GREEN }}>Where Grass Outperforms</div>
+              <ul style={{ paddingLeft: 18, fontSize: 13, lineHeight: 1.8, color: INK }}>
+                <li>$80M annualized rev, 197% QoQ growth</li>
+                <li>Cleanest narrative in DePIN: "data layer for AI"</li>
+                <li>Tier-1 cap table: Polychain, Tribe, Delphi, Hack VC</li>
+                <li>Solana ecosystem alignment</li>
+              </ul>
+            </Card>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 12, color: RED }}>Where Grass Trails</div>
+              <ul style={{ paddingLeft: 18, fontSize: 13, lineHeight: 1.8, color: INK }}>
+                <li>No quarterly investor letter</li>
+                <li>No transparency dashboard</li>
+                <li>Artemis & Token Terminal absent</li>
+                <li>No buyback program</li>
+                <li>No gated investor channel</li>
+              </ul>
+            </Card>
+          </div>
+        </div>
+      )}
+
+      {tab === "score" && (
+        <div style={{ display: "grid", gap: 20 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16 }}>Pillar Radar</div>
+              <ChartCanvas config={radarConfig} height={280} />
+            </Card>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16 }}>Score by Pillar</div>
+              <ChartCanvas config={pillarBarConfig} height={280} />
+            </Card>
+          </div>
+
+          {[
+            { name: "Pillar 1: Transparency & Reporting", score: "33/100", grade: "D",
+              criteria: [
+                ["Public quarterly updates", 0, 15, "No public quarterly investor letter. Q4 2025 revenue growth of 197% QoQ known only via third-party commentary"],
+                ["Audit disclosures", 5, 15, "No publicly cataloged audit history for Sovereign Data Rollup or supporting smart contracts"],
+                ["Vesting schedule disclosed", 15, 15, "Full schedule public via Grass Foundation Gitbook, Tokenomist, DropsTab, CoinGlass"],
+                ["Tokenomics breakdown public", 10, 15, "Allocations public but lacks accompanying institutional narrative"],
+                ["Post-TGE accountability", 0, 15, "No team statement addressing 92% drawdown from ATH or path forward"],
+                ["Live transparency dashboard", 3, 15, "No equivalent of transparency.superform.xyz or ir.meteora.ag. Treasury, validator activity all opaque"],
+              ]
+            },
+            { name: "Pillar 2: Token Holder Communication", score: "32/100", grade: "D+",
+              criteria: [
+                ["X presence and cadence", 10, 15, "572K followers; product/announcement focused, not investor-facing"],
+                ["Blog / longform updates", 5, 15, "Blog content exists but no quarterly investor letters or financial summaries"],
+                ["Public community channels", 8, 15, "Discord and Telegram active for users; no separate institutional channel"],
+                ["Gated stakeholder cohort", 0, 15, "No gated allocator Telegram or institutional cohort. Highest-leverage gap"],
+                ["Smart follower composition", 5, 15, "489 smart followers, predominantly KOL/trader. Limited tier-1 VC, asset manager presence"],
+                ["AMA / live cadence", 4, 15, "Sporadic founder appearances; no recurring tokenholder call structure"],
+              ]
+            },
+            { name: "Pillar 3: Data Accessibility", score: "28/100", grade: "D",
+              criteria: [
+                ["First-party data infrastructure", 5, 15, "getgrass.io marketing site present; no first-party metrics or transparency portal"],
+                ["Artemis coverage", 0, 15, "Revenue, fees, TVL, DAA, txns all unavailable. Critical fundamentals gap"],
+                ["Token Terminal coverage", 0, 15, "Not currently integrated. Highest-leverage one-time data integration"],
+                ["Dune dashboards", 5, 15, "Limited community dashboards; no official Grass-curated dashboard"],
+                ["Nansen / onchain tracking", 10, 15, "Token tracked on Solana; foundation wallet activity visible but unlabeled"],
+                ["Onchain proof publication", 8, 15, "Sovereign Data Rollup novel but not surfaced as institutional-readable proof"],
+              ]
+            },
+            { name: "Pillar 4: Narrative & Positioning", score: "48/100", grade: "C",
+              criteria: [
+                ["Narrative clarity", 13, 15, "'Decentralized data layer for AI' is one of the cleanest frames in DePIN"],
+                ["Sentiment score (Surf)", 5, 15, "Sentiment data unavailable on Surf. Inability to monitor is itself a gap"],
+                ["Mindshare trajectory", 7, 15, "Volatile and not coordinated with announcement cadence or revenue milestones"],
+                ["Smart follower quality", 6, 15, "Heavily skewed to KOL/trader rather than VC/research/asset manager"],
+                ["Cross-segment coherence", 10, 15, "DePIN/AI/Solana positioning coherent across product, narrative, chain"],
+                ["Geographic expansion narrative", 7, 15, "Global node operator base implied but not framed as institutional thesis"],
+              ]
+            },
+            { name: "Pillar 5: Value Accrual & Tokenomics", score: "47/100", grade: "C",
+              criteria: [
+                ["Token utility clarity", 10, 15, "Router rewards and node operator incentives clear; institutional path less defined"],
+                ["Vesting transparency", 12, 15, "Schedule disclosed but May 28 unlock cliff lacks comms plan"],
+                ["Float / supply discipline", 10, 15, "58.7% circulating; monthly cliff unlocks of ~$10M through Q3 2026"],
+                ["Live programmatic buybacks", 0, 15, "No buyback program. Material gap for $80M annualized revenue protocol"],
+                ["Per-token metrics framing", 8, 15, "Per-token revenue math favorable but not surfaced in any official communication"],
+                ["Institutional incentive program", 7, 15, "No institutional staking, allocator vault, or curator-style program"],
+              ]
+            },
+          ].map((p, i) => (
+            <Card key={i}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                <div style={{ fontSize: 16, fontWeight: 700 }}>{p.name}</div>
+                <div style={{ fontSize: 13, color: MUTED }}>Score: <b style={{ color: PURPLE }}>{p.score}</b> · Grade: <b style={{ color: PURPLE }}>{p.grade}</b></div>
+              </div>
+              {p.criteria.map((c, j) => <PillarCriterion key={j} name={c[0]} score={c[1]} max={c[2]} note={c[3]} />)}
+            </Card>
+          ))}
+        </div>
+      )}
+
+      {tab === "fundamentals" && (
+        <div style={{ display: "grid", gap: 20 }}>
+          <Card style={{ background: "#FEF3C7", border: "1px solid #F59E0B" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#B45309", marginBottom: 8 }}>⚠ Critical Data Coverage Gap</div>
+            <div style={{ fontSize: 13, color: INK, lineHeight: 1.6 }}>
+              Artemis returns "metric not available" for Grass on revenue, fees, TVL, DAA, and txns. Token Terminal has no Grass coverage.
+              For a protocol with $80M annualized revenue, the absence from default fundamentals platforms is the single highest-leverage tactical gap.
+            </div>
+          </Card>
+
+          <Card>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16 }}>$GRASS Price (Nov 2025 - Apr 2026)</div>
+            <ChartCanvas config={priceConfig} height={300} />
+          </Card>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16 }}>Upcoming Unlock Cliffs</div>
+              <ChartCanvas config={unlockConfig} height={240} />
+              <div style={{ fontSize: 11, color: MUTED, marginTop: 8 }}>31.58M GRASS each month, ~5.4% MCap per cliff</div>
+            </Card>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16 }}>Token Allocation</div>
+              <div style={{ display: "grid", gap: 10 }}>
+                {[
+                  ["Early Investors", 25.2, "#7C6EF0"],
+                  ["Foundation & Ecosystem", 22.8, "#9B8FF5"],
+                  ["Contributors", 22.0, "#B1A8F8"],
+                  ["Future Incentives", 17.0, "#C8C1FB"],
+                  ["Airdrop One", 10.0, "#DCD8FC"],
+                  ["Router Rewards", 3.0, "#EBE8FE"],
+                ].map(([name, pct, color], i) => (
+                  <div key={i}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12, marginBottom: 4 }}>
+                      <span>{name}</span><b>{pct}%</b>
+                    </div>
+                    <div style={{ height: 8, background: LIGHT, borderRadius: 4 }}>
+                      <div style={{ width: `${pct * 4}%`, height: "100%", background: color, borderRadius: 4 }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          </div>
+
+          <Card>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>Investor Base</div>
+            <div style={{ fontSize: 13, color: INK, lineHeight: 1.7 }}>
+              <b>Series A (Sep 2024, lead Hack VC):</b> Polychain Capital, Delphi Ventures, Lattice, Brevan Howard Digital, Hack VC<br/>
+              <b>Seed (Dec 2023, $3.5M, lead Polychain & Tribe):</b> Bitscale Capital, Big Brain Holdings, Mozaik Capital, Typhon Ventures, Advisors Anonymous<br/>
+              <b>Pre-Seed (Jul 2023, $1M, lead No Limit):</b> Big Brain, Builder Capital, Cogitent, Kyle Samani<br/>
+              <b>Undisclosed (Oct 2025, $10M):</b> Polychain Capital, Tribe Capital<br/>
+              <span style={{ color: MUTED, fontSize: 12 }}>Total raised: $14.5M</span>
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {tab === "sentiment" && (
+        <div style={{ display: "grid", gap: 20 }}>
+          <Card style={{ background: "#FEF3C7", border: "1px solid #F59E0B" }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "#B45309", marginBottom: 8 }}>The Diagnostic</div>
+            <div style={{ fontSize: 13, color: INK, lineHeight: 1.6 }}>
+              Three signals tell the same story. <b>Price-mindshare correlation is 0.30</b> on smoothed weekly data (healthy IR programs run 0.55-0.75). <b>Smart followers have declined 7.7%</b> since the January peak (530 to 489) while overall X followers grew. <b>Sentiment data is unavailable on Surf</b>, meaning the protocol cannot monitor or respond to its own narrative. Mindshare spikes are not coordinated with price action or product milestones, so social activity is not building durable institutional positioning.
+            </div>
+          </Card>
+
+          <Card>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <div style={{ fontSize: 14, fontWeight: 700 }}>Mindshare × Price Overlay (Weekly, Jan-Apr 2026)</div>
+              <div style={{ fontSize: 12, color: MUTED }}>Pearson r = <b style={{ color: "#F59E0B" }}>+0.30</b> · weak</div>
+            </div>
+            <ChartCanvas config={mindsharePriceOverlayConfig} height={320} />
+            <div style={{ fontSize: 11, color: MUTED, marginTop: 12, padding: 12, background: BG, borderRadius: 8 }}>
+              <b style={{ color: INK }}>Reading:</b> Healthy IR posture pairs mindshare events with price reaction. Grass shows multiple decoupled events: Mar W3 mindshare spike (40,618) coincided with price stagnation; Apr W5 spike (34,607) was followed by price decline. The opposite also holds: Feb W4 mindshare (26,558) preceded price recovery, but the protocol did not coordinate communication around the move.
+            </div>
+          </Card>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>Mindshare vs Price Scatter</div>
+              <div style={{ fontSize: 11, color: MUTED, marginBottom: 12 }}>Each point is one week. A tight cluster along a diagonal indicates aligned narrative & price.</div>
+              <ChartCanvas config={scatterConfig} height={260} />
+            </Card>
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 4 }}>Smart Follower Trend</div>
+              <div style={{ fontSize: 11, color: MUTED, marginBottom: 12 }}>Quality follower attrition: <b style={{ color: RED }}>-7.7%</b> from Jan peak</div>
+              <ChartCanvas config={smartFollowerConfig} height={260} />
+            </Card>
+          </div>
+
+          <Card>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>Smart Follower Composition (489 total)</div>
+            <ChartCanvas config={followerConfig} height={240} />
+            <div style={{ fontSize: 12, color: MUTED, marginTop: 12, padding: 12, background: BG, borderRadius: 8 }}>
+              <b style={{ color: INK }}>Composition diagnostic:</b> 50% of smart followers are tagged KOL, 29% VC. The institutional voice (asset managers, research desks, allocators) is structurally underrepresented compared to peer protocols at the A-tier benchmark. Combined with the 41-follower decline from January peak, the composition is degrading at the high-quality end while overall reach grows.
+            </div>
+          </Card>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 16 }}>
+            <StatBox label="X Followers" value="572,502" sub="@grass" />
+            <StatBox label="Smart Followers" value="489" sub="-7.7% from Jan peak" color={RED} />
+            <StatBox label="Sentiment Score" value="N/A" sub="Surf data unavailable" color={RED} />
+            <StatBox label="Price-Mindshare r" value="+0.30" sub="Weak; healthy: 0.55-0.75" color="#F59E0B" />
+          </div>
+
+          <Card>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>Notable Smart Followers</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 10, fontSize: 12 }}>
+              {[
+                ["Solana", "Project"], ["toly", "VC"], ["KuCoin", "Project"], ["MartiniGuyYT", "KOL"],
+                ["Ansem", "VC"], ["Adam Cochran", "VC"], ["Miles Deutscher", "VC"], ["Austin Barack", "VC"],
+                ["Laura Shin", "KOL"], ["Pudgy Penguins (Luca)", "Founder"], ["Solflare", "Project"], ["CoinMarketCap", "Project"],
+              ].map(([name, tag], i) => (
+                <div key={i} style={{ padding: 10, background: BG, borderRadius: 8 }}>
+                  <div style={{ fontWeight: 600 }}>{name}</div>
+                  <div style={{ color: MUTED, fontSize: 11 }}>{tag}</div>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          <Card style={{ background: PURPLE_LIGHT, border: `1px solid ${PURPLE}` }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: PURPLE, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.5 }}>What Closes the Gap</div>
+            <ul style={{ paddingLeft: 20, fontSize: 13, color: INK, lineHeight: 1.7 }}>
+              <li><b>Pair every mindshare spike with substantive disclosure.</b> Q1 letter, revenue updates, treasury reports, validator stats — turn social attention into institutional readability.</li>
+              <li><b>Rebalance follower composition.</b> Targeted research desk and allocator outreach pulls VC/Project/Asset Manager %s up while KOL share drops naturally as institutional reach grows.</li>
+              <li><b>Coordinate around unlock cliffs.</b> Each May/Jun/Jul/Aug 28 unlock is a forced narrative event. With proactive comms, it becomes a milestone, not a sell trigger.</li>
+              <li><b>Build sentiment monitoring.</b> A protocol that cannot see its own sentiment cannot respond to it. Surf integration plus a structured weekly review unlocks closed-loop IR.</li>
+            </ul>
+          </Card>
+        </div>
+      )}
+
+      {tab === "comparative" && (
+        <div style={{ display: "grid", gap: 20 }}>
+          <Card>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16 }}>Novora IR Benchmark Position</div>
+            <ChartCanvas config={peerConfig} height={360} />
+          </Card>
+
+          <Card>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>Peer Comparison Detail</div>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+              <thead>
+                <tr style={{ background: PURPLE_LIGHT }}>
+                  <th style={{ padding: 10, textAlign: "left", fontWeight: 600 }}>Protocol</th>
+                  <th style={{ padding: 10, textAlign: "center", fontWeight: 600 }}>NIR Score</th>
+                  <th style={{ padding: 10, textAlign: "left", fontWeight: 600 }}>Tier</th>
+                  <th style={{ padding: 10, textAlign: "left", fontWeight: 600 }}>Standout Pillar</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Meteora", 95, "S, Gold Standard", "Transparency, value accrual"],
+                  ["Superform", 84, "A−, Excellent", "Transparency, value accrual"],
+                  ["Maple Finance", 80, "A−, Excellent", "Institutional disclosure"],
+                  ["dYdX", 79, "A−, Strong", "Token holder comms"],
+                  ["Lido", 78, "A−, Strong", "Data accessibility"],
+                  ["Arbitrum", 73, "B, Strong", "Narrative, ecosystem"],
+                  ["Hyperliquid", 65, "B−, Solid", "Narrative, value accrual"],
+                  ["Grass", 38, "D, Underbuilt", "Narrative only"],
+                  ["Lighter", 35, "D, Underbuilt", "(Reference only)"],
+                ].map((r, i) => (
+                  <tr key={i} style={{ borderBottom: `1px solid ${LIGHT}`, background: r[0] === "Grass" ? PURPLE_LIGHT : "transparent" }}>
+                    <td style={{ padding: 10, fontWeight: r[0] === "Grass" ? 700 : 400 }}>{r[0]}</td>
+                    <td style={{ padding: 10, textAlign: "center", fontWeight: 700, color: r[0] === "Grass" ? PURPLE : INK }}>{r[1]}</td>
+                    <td style={{ padding: 10 }}>{r[2]}</td>
+                    <td style={{ padding: 10, color: MUTED }}>{r[3]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Card>
+
+          <Card>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16 }}>Cost of Inaction</div>
+            <div style={{ display: "grid", gap: 12 }}>
+              {[
+                ["No quarterly investor letter", "30-50% reduction in institutional inbound interest"],
+                ["No Token Terminal / Artemis coverage", "40-60% exclusion from quantitative DeFi/DePIN screens"],
+                ["No transparency dashboard", "25-40% lower close rate at tier-1 anchor allocators"],
+                ["No coordinated unlock comms", "10-20% additional drawdown around each monthly unlock"],
+                ["No programmatic value accrual", "Materially weaker positioning vs Hyperliquid, Pump, Maple, Superform"],
+              ].map(([gap, loss], i) => (
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "200px 1fr", gap: 16, padding: 12, background: BG, borderRadius: 8 }}>
+                  <div style={{ fontWeight: 600, fontSize: 13 }}>{gap}</div>
+                  <div style={{ fontSize: 13, color: MUTED }}>{loss}</div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {tab === "roadmap" && (
+        <div style={{ display: "grid", gap: 20 }}>
+          <Card>
+            <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 16 }}>Projected Score Trajectory</div>
+            <ChartCanvas config={projectionConfig} height={280} />
+          </Card>
+
+          {[
+            { phase: "Phase 1: Foundation", weeks: "Weeks 1-4", target: "55 (Tier C)", color: "#FB923C",
+              items: [
+                "Build Q1 2026 Tokenholder Report (revenue, treasury, validator stats, forward commentary)",
+                "Build transparency.getgrass.io: live treasury, foundation wallets, revenue attribution, vesting tracker",
+                "Grass institutional one-pager and disclosure document for IC processes",
+                "Stand up gated allocator Telegram and institutional mailing list",
+                "Submit Token Terminal and Artemis adapter integrations",
+                "Pre-unlock investor briefing for May 28 cliff: top-50 holder outreach",
+                "Compile institutional data room v1 (allocator-ready)",
+                "NIR Score baseline published to ir.novora.co/grass",
+              ]
+            },
+            { phase: "Phase 2: Execution", weeks: "Weeks 5-12", target: "68 (Tier B)", color: "#F59E0B",
+              items: [
+                "Q2 2026 Tokenholder Report shipped on durable cadence",
+                "Coordinated communication around June 28 / July 28 unlocks paired with revenue milestones",
+                "Institutional roadshow: 25+ qualified meetings",
+                "Token Terminal and Artemis coverage live",
+                "Programmatic buyback design and announcement, structured against quarterly revenue",
+                "Recurring AMA / tokenholder call cadence established",
+                "Blockworks Research and Galaxy coverage submissions; Messari quarterly research",
+              ]
+            },
+            { phase: "Phase 3: Sustained IR", weeks: "Months 4-6", target: "75 (Tier B+)", color: "#22C55E",
+              items: [
+                "Monthly institutional IR updates",
+                "Quarterly tokenholder calls and reports, cadence durable",
+                "Programmatic buyback executing onchain with full audit trail",
+                "Smart follower composition rebalanced toward institutional voice",
+                "Capital markets monitoring: liquidity, exchange relationships, MM performance",
+                "Re-score on Novora IR Benchmark; target 72-78 (Tier B+)",
+              ]
+            },
+          ].map((p, i) => (
+            <Card key={i} style={{ borderLeft: `4px solid ${p.color}` }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+                <div>
+                  <div style={{ fontSize: 16, fontWeight: 700 }}>{p.phase}</div>
+                  <div style={{ fontSize: 12, color: MUTED }}>{p.weeks}</div>
+                </div>
+                <div style={{ fontSize: 13, color: p.color, fontWeight: 700 }}>Target: {p.target}</div>
+              </div>
+              <ul style={{ paddingLeft: 18, fontSize: 13, lineHeight: 1.8, color: INK }}>
+                {p.items.map((item, j) => <li key={j}>{item}</li>)}
+              </ul>
+            </Card>
+          ))}
+
+          <Card style={{ background: PURPLE_LIGHT }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: PURPLE, marginBottom: 8 }}>The Compounding Benefit</div>
+            <div style={{ fontSize: 13, color: INK, lineHeight: 1.6 }}>
+              75 places Grass within the B+ range, alongside Arbitrum and Hyperliquid, and within striking distance of A-tier peers.
+              For a protocol with stronger underlying fundamentals than most A-tier peers, this is the floor. The compounding benefit beyond the NIR Score itself is institutional inbound, sell-side coverage, and a closing of the gap between fundamentals and market perception.
+            </div>
+          </Card>
+        </div>
+      )}
+
+      <div style={{ marginTop: 60, paddingTop: 24, borderTop: `1px solid ${LIGHT}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ fontSize: 11, color: MUTED }}>connor@novora.co · novora.co · ir.novora.co</div>
+        <NovoraLockup color={MUTED} />
+      </div>
+    </div>
+  );
+}
+
+// =============== Password Gate ===============
+const PASSWORD_HASH = "0b71f66110d10b875025dee395b5387cf6059985b09a3393add5aceb82e63c37";
+const STORAGE_KEY = "novora_grass_unlocked";
+
+async function sha256Hex(str) {
+  const buf = new TextEncoder().encode(str);
+  const digest = await crypto.subtle.digest("SHA-256", buf);
+  return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+function Gate() {
+  const [unlocked, setUnlocked] = useState(false);
+  const [pw, setPw] = useState("");
+  const [error, setError] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    try {
+      if (sessionStorage.getItem(STORAGE_KEY) === "1") setUnlocked(true);
+    } catch (e) { /* sessionStorage unavailable */ }
+    setChecking(false);
+  }, []);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const hash = await sha256Hex(pw);
+    if (hash === PASSWORD_HASH) {
+      try { sessionStorage.setItem(STORAGE_KEY, "1"); } catch (e) {}
+      setUnlocked(true);
+      setError(false);
+    } else {
+      setError(true);
+      setPw("");
+    }
+  }
+
+  if (checking) return null;
+  if (unlocked) return <App />;
+
+  return (
+    <div style={{
+      minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
+      background: "#FAFAF9", fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif", padding: 24,
+    }}>
+      <div style={{ width: "100%", maxWidth: 420, textAlign: "center" }}>
+        <div style={{ marginBottom: 32, display: "flex", justifyContent: "center" }}>
+          <NovoraLockup />
+        </div>
+        <div style={{ fontSize: 11, letterSpacing: 1.5, color: PURPLE, textTransform: "uppercase", fontWeight: 600, marginBottom: 24 }}>
+          Confidential · Restricted
+        </div>
+        <h1 style={{ fontSize: 28, fontWeight: 300, color: INK, margin: "0 0 12px" }}>Access required</h1>
+        <p style={{ fontSize: 14, color: MUTED, lineHeight: 1.6, margin: "0 0 32px" }}>
+          This research is shared by invitation. Enter the password provided to view.
+        </p>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            value={pw}
+            onChange={e => { setPw(e.target.value); setError(false); }}
+            placeholder="Password"
+            autoFocus
+            style={{
+              width: "100%", padding: "14px 16px", fontSize: 15, fontFamily: "inherit",
+              background: "#fff",
+              border: `1px solid ${error ? "#E5484D" : LIGHT}`,
+              borderRadius: 8, marginBottom: 12, outline: "none",
+              transition: "border-color 0.15s",
+            }}
+          />
+          <button type="submit" style={{
+            width: "100%", padding: "14px 16px", fontSize: 14, fontWeight: 600,
+            color: "#fff", background: PURPLE, border: "none", borderRadius: 8,
+            cursor: "pointer", fontFamily: "inherit",
+          }}>Continue</button>
+          <div style={{ minHeight: 20, marginTop: 12, fontSize: 12, color: error ? "#E5484D" : "transparent" }}>
+            {error ? "Incorrect password. Try again." : " "}
+          </div>
+        </form>
+        <div style={{ marginTop: 32, fontSize: 12, color: MUTED }}>
+          Need access? Contact <a href="mailto:connor@novora.co" style={{ color: PURPLE, textDecoration: "none" }}>connor@novora.co</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<Gate />);
+</script>
+</body>
+</html>
