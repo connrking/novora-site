@@ -181,7 +181,7 @@ export default function LeaderboardPage() {
         }}>
           <div>#</div>
           <div>Protocol</div>
-          <div className="lb-ticker-col">Ticker</div>
+          <div className="lb-ticker-col" style={{ textAlign: "center" }}>Ticker</div>
           <div style={{ textAlign: "right" }}>Score</div>
           <div className="lb-tier-col" style={{ textAlign: "center" }}>Tier</div>
           <div className="lb-pillars-col">Pillars</div>
@@ -204,7 +204,7 @@ export default function LeaderboardPage() {
               <div style={{ fontSize: 16, color: C.white, fontWeight: 400 }}>
                 {p.name}
               </div>
-              <div className="lb-ticker-col">
+              <div className="lb-ticker-col" style={{ textAlign: "center" }}>
                 <span style={{
                   fontSize: 10, color: C.gray400, letterSpacing: "0.05em",
                   background: C.gray700, padding: "3px 8px", borderRadius: 2,
