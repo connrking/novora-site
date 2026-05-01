@@ -7,29 +7,48 @@ import FadeIn from "@/components/FadeIn";
 // Add additional protocols as they're scored. Pillar order:
 // [Transparency, Communication, Data, Narrative, Value Accrual]
 const PROTOCOLS = [
+  // Source: Notion IR Benchmark DB (200f3d6e-1197-4aeb-9d37-90e90e37ad59), May 2026
+  // Pillar order: [Transparency, Communication, Data, Narrative, Value Accrual] — all on /20 scale
+  // Pillars=null means score available but pillar breakdown not yet populated in Notion.
   {
     rank: 1, name: "Meteora", ticker: "MET", score: 95, tier: "A+",
-    pillars: [19, 19, 20, 19, 18],
+    pillars: [18, 19, 20, 20, 18],
   },
   {
     rank: 2, name: "Maple Finance", ticker: "SYRUP", score: 80, tier: "A−",
-    pillars: [17, 16, 16, 16, 15],
+    pillars: null,
   },
   {
-    rank: 3, name: "Aave", ticker: "AAVE", score: 72, tier: "B+",
-    pillars: [15, 14, 16, 14, 13],
+    rank: 3, name: "Sky", ticker: "SKY", score: 72, tier: "B+",
+    pillars: [16, 13, 16, 12, 15],
   },
   {
-    rank: 4, name: "Morpho", ticker: "MORPHO", score: 71, tier: "B+",
-    pillars: [15, 13, 16, 14, 13],
+    rank: 4, name: "Aave", ticker: "AAVE", score: 72, tier: "B+",
+    pillars: null,
   },
   {
-    rank: 5, name: "Jito", ticker: "JTO", score: 67, tier: "B",
-    pillars: [14, 13, 14, 14, 12],
+    rank: 5, name: "Morpho", ticker: "MORPHO", score: 71, tier: "B+",
+    pillars: [14, 15, 18, 16, 8],
   },
   {
-    rank: 6, name: "Sky", ticker: "SKY", score: 60, tier: "B−",
-    pillars: [13, 12, 13, 12, 10],
+    rank: 6, name: "MetaDAO", ticker: "META", score: 71, tier: "B+",
+    pillars: [20, 12, 15, 15, 9],
+  },
+  {
+    rank: 7, name: "Jito", ticker: "JTO", score: 67, tier: "B",
+    pillars: null,
+  },
+  {
+    rank: 8, name: "Hyperliquid", ticker: "HYPE", score: 65, tier: "B",
+    pillars: [9, 7, 14, 18, 17],
+  },
+  {
+    rank: 9, name: "Compound", ticker: "COMP", score: 45, tier: "C",
+    pillars: [10, 7, 14, 6, 8],
+  },
+  {
+    rank: 10, name: "dYdX", ticker: "DYDX", score: 31, tier: "D",
+    pillars: [8, 6, 5, 8, 4],
   },
 ];
 
@@ -43,6 +62,14 @@ const PILLAR_NAMES = [
 ];
 
 function PillarBars({ pillars }) {
+  if (!pillars) {
+    return (
+      <div style={{
+        display: "flex", alignItems: "center", height: 24,
+        fontSize: 13, color: "rgba(255,255,255,0.25)", fontFamily: "inherit",
+      }}>—</div>
+    );
+  }
   return (
     <div style={{ display: "flex", gap: 6, alignItems: "flex-end", height: 24 }}>
       {pillars.map((val, i) => {
