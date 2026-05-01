@@ -445,6 +445,10 @@ export default function NovoraResearch() {
   const featured = RESEARCH.find((r) => r.featured);
 
   const handleSelect = (item) => {
+    if (item.embedUrl && item.embedUrl.startsWith("/research/")) {
+      window.location.href = item.embedUrl;
+      return;
+    }
     setSelectedItem(item);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
