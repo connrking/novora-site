@@ -5,11 +5,8 @@ import FadeIn from "@/components/FadeIn";
 
 // Hardcoded leaderboard data — seeded with the 6 published scores.
 // Add additional protocols as they're scored. Pillar order:
-// [Transparency, Communication, Data, Narrative, Value Accrual]
 const PROTOCOLS = [
   // Source: Notion IR Benchmark DB (200f3d6e-1197-4aeb-9d37-90e90e37ad59), May 2026
-  // Pillar order: [Transparency, Communication, Data, Narrative, Value Accrual] — all on /20 scale
-  // Pillars=null means score available but pillar breakdown not yet populated in Notion.
   {
     rank: 1, name: "Meteora", ticker: "MET", score: 95, tier: "A+",
     pillars: [18, 19, 20, 20, 18],
@@ -52,53 +49,7 @@ const PROTOCOLS = [
   },
 ];
 
-const PILLAR_LABELS = ["T&R", "THC", "DA", "N&P", "VA&T"];
-const PILLAR_NAMES = [
-  "Transparency & Reporting",
-  "Token Holder Communication",
-  "Data Accessibility",
-  "Narrative & Positioning",
-  "Value Accrual & Tokenomics",
-];
 
-function PillarBars({ pillars }) {
-  if (!pillars) {
-    return (
-      <div style={{
-        display: "flex", alignItems: "center", height: 24,
-        fontSize: 13, color: "rgba(255,255,255,0.25)", fontFamily: "inherit",
-      }}>—</div>
-    );
-  }
-  return (
-    <div style={{ display: "flex", gap: 6, alignItems: "flex-end", height: 24 }}>
-      {pillars.map((val, i) => {
-        const pct = (val / 20) * 100;
-        return (
-          <div
-            key={i}
-            title={`${PILLAR_NAMES[i]}: ${val}/20`}
-            style={{
-              width: 14,
-              height: "100%",
-              background: "rgba(255,255,255,0.05)",
-              borderRadius: 1,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div style={{
-              position: "absolute", bottom: 0, left: 0, right: 0,
-              height: `${pct}%`,
-              background: pct >= 90 ? C.white : pct >= 70 ? C.gray200 : C.gray400,
-              transition: "height 0.6s ease",
-            }} />
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 
 export default function LeaderboardPage() {
   const [sortBy, setSortBy] = useState("rank");
@@ -153,7 +104,7 @@ export default function LeaderboardPage() {
             fontFamily: F.h, fontSize: 16, color: C.gray200, fontWeight: 400,
             maxWidth: 600, margin: "0 auto", lineHeight: 1.65,
           }}>
-            Crypto protocols ranked across five pillars of investor relations. Every score is independently assessed and benchmarked against the scored universe.
+            Crypto protocols ranked by investor relations quality. Every score is independently assessed and benchmarked against the scored universe.
           </p>
         </FadeIn>
       </section>
