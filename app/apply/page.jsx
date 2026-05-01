@@ -172,7 +172,7 @@ export default function ApplyPage() {
         {/* Header */}
         <div className="apply-header">
           <div className="brand-mark">
-            <a href="https://ir.novora.co" style={{display:"flex",alignItems:"center",gap:8,textDecoration:"none"}}>
+            <a href="/ir" style={{display:"flex",alignItems:"center",gap:8,textDecoration:"none"}}>
               <svg height={18} viewBox="130 150 430 110" fill="#1A1A2E" xmlns="http://www.w3.org/2000/svg">
                 <path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z"/>
                 <rect x="150.07" y="207.66" width="80.09" height="32.39"/>
@@ -384,7 +384,7 @@ export default function ApplyPage() {
         {/* Footer */}
         <footer className="apply-footer">
           <span>Novora Holdings LLC</span>
-          <a href="/">ir.novora.co</a>
+          <a href="/ir">novora.co/ir</a>
         </footer>
       </div>
 

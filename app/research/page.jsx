@@ -131,7 +131,7 @@ const QuarterlyReportsTable = ({ reports }) => {
           <div style={{ padding: "80px 32px", textAlign: "center" }}>
             <p style={{ fontFamily: F, fontSize: 16, fontWeight: 400, color: T.white, letterSpacing: "-0.01em", margin: "0 0 12px" }}>First reports shipping soon</p>
             <p style={{ fontFamily: F, fontSize: 13, color: T.textMuted, lineHeight: 1.6, maxWidth: 460, margin: "0 auto 28px" }}>Novora produces token holder reports for advisory clients in active engagements. New reports publish at the start of each quarter.</p>
-            <a href="https://ir.novora.co/apply" style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: T.white, textDecoration: "none", padding: "10px 24px", border: "0.5px solid " + T.borderLight, display: "inline-block" }}>GET IN TOUCH</a>
+            <a href="/ir" style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: T.white, textDecoration: "none", padding: "10px 24px", border: "0.5px solid " + T.borderLight, display: "inline-block" }}>GET IN TOUCH</a>
           </div>
         ) : (
           reports.map((r, i) => {
@@ -523,7 +523,7 @@ export default function NovoraResearch() {
       <FadeIn>
         <div style={{ borderTop: `0.5px solid ${T.border}`, padding: "56px 48px", textAlign: "center" }}>
           <p style={{ fontFamily: F, fontSize: 13, color: T.textMuted, marginBottom: 20 }}>Want a custom IR analysis for your protocol?</p>
-          <a href="https://ir.novora.co/apply"
+          <a href="/ir"
             style={{ fontFamily: F, fontSize: 11, fontWeight: 500, letterSpacing: "0.1em", color: T.white, textDecoration: "none", padding: "12px 32px", border: `0.5px solid ${T.borderLight}` }}>
             GET IN TOUCH
           </a>

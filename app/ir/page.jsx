@@ -59,11 +59,11 @@ function PillarCard({ pillar, index, maxScore }) {
   );
 }
 
-export default function IRScorePage() {
+export default function IRPage() {
   const pillars = [
     { name: "Transparency & Reporting", desc: "Financial disclosures, token supply schedules, treasury visibility, and proactive unlock communication." },
     { name: "Token Holder Communication", desc: "Structured calls, dedicated IR channels, investor Q&A access, and regular reporting cadence." },
-    { name: "Data Accessibility", desc: "Presence on institutional platforms like Artemis, Token Terminal, Dune, DefiLlama, and Blockworks Research." },
+    { name: "Data Accessibility", desc: "Presence on institutional platforms like Artemis, Token Terminal, Dune, Nansen, and Blockworks Research." },
     { name: "Narrative & Positioning", desc: "Investment thesis clarity, competitive differentiation, and strategic content that makes a PM's job easier." },
     { name: "Value Accrual & Tokenomics", desc: "Fee switches, buybacks, staking yields, dilution management, and clear token utility." },
   ];
@@ -96,18 +96,18 @@ export default function IRScorePage() {
           <h1 className="ir-hero-h1" style={{
             fontFamily: F.h, fontSize: 52, fontWeight: 300,
             color: C.white, letterSpacing: "-0.02em", margin: "0 0 24px", lineHeight: 1.15,
-          }}>The independent framework<br />for crypto IR.</h1>
+          }}>The independent standard<br />for crypto IR.</h1>
         </FadeIn>
         <FadeIn delay={0.2}>
           <p className="hero-sub" style={{
             fontFamily: F.h, fontSize: 17, color: C.gray200, fontWeight: 400,
             maxWidth: 520, margin: "0 auto 48px", lineHeight: 1.65,
           }}>
-            Five pillars. 100 points. A structured methodology for evaluating how crypto protocols communicate with their investors.
+            Five pillars. 100 points. A concrete diagnostic for how well crypto protocols communicate with their investors.
           </p>
         </FadeIn>
         <FadeIn delay={0.4}>
-          <a href="https://ir.novora.co" style={{
+          <a href="/ir/leaderboard" style={{
             fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500,
             color: C.bg, background: C.white, padding: "14px 32px",
             textDecoration: "none", borderRadius: 2, display: "inline-block",
@@ -146,13 +146,13 @@ export default function IRScorePage() {
               <h2 className="section-h2" style={{
                 fontSize: 32, fontWeight: 300, color: C.white,
                 letterSpacing: "-0.01em", margin: "0 0 20px",
-              }}>150+ protocols assessed and counting</h2>
+              }}>11 protocols scored and counting</h2>
               <p style={{
                 fontSize: 15, lineHeight: 1.7, color: C.gray200, fontWeight: 400, margin: "0 0 32px",
               }}>
                 Each protocol receives a detailed analysis across all five pillars, a comparative benchmark against the scored universe, and a 180-day roadmap to improve their score.
               </p>
-              <a href="https://ir.novora.co" style={{
+              <a href="/ir/leaderboard" style={{
                 fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500,
                 color: C.white, padding: "12px 24px",
                 textDecoration: "none", borderRadius: 2,
@@ -197,10 +197,10 @@ export default function IRScorePage() {
                 </div>
               ))}
               <div style={{ marginTop: 16, textAlign: "center" }}>
-                <a href="https://ir.novora.co" style={{
+                <a href="/ir/leaderboard" style={{
                   fontSize: 12, color: C.gray300, textDecoration: "none",
                   borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2,
-                }}>View all protocols →</a>
+                }}>View all 11 protocols →</a>
               </div>
             </div>
           </FadeIn>
@@ -227,7 +227,7 @@ export default function IRScorePage() {
               color: C.bg, background: C.white, padding: "14px 32px",
               textDecoration: "none", borderRadius: 2,
             }}>GET SCORED</a>
-            <a href="https://ir.novora.co" style={{
+            <a href="/ir/leaderboard" style={{
               fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 400,
               color: C.gray200, padding: "14px 32px", textDecoration: "none",
               borderRadius: 2, border: `0.5px solid ${C.border}`,

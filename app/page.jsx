@@ -56,7 +56,7 @@ export default function HomePage() {
         <FadeIn delay={0.8}>
           <div className="cta-row" style={{ display: "flex", gap: 16, marginTop: 48 }}>
             <a href="mailto:contact@novora.co" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500, color: C.bg, background: C.white, padding: "14px 32px", textDecoration: "none", borderRadius: 2 }}>CONTACT US</a>
-            <a href="https://ir.novora.co" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 400, color: C.gray200, background: "transparent", padding: "14px 32px", textDecoration: "none", borderRadius: 2, border: `0.5px solid ${C.border}` }}>VIEW IR SCORES →</a>
+            <a href="/ir/leaderboard" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 400, color: C.gray200, background: "transparent", padding: "14px 32px", textDecoration: "none", borderRadius: 2, border: `0.5px solid ${C.border}` }}>VIEW IR SCORES →</a>
           </div>
         </FadeIn>
         <div style={{ position: "absolute", bottom: 40, left: "50%", transform: "translateX(-50%)" }}>
@@ -120,7 +120,7 @@ export default function HomePage() {
               <p style={{ fontSize: 16, lineHeight: 1.7, color: C.creamSub, fontWeight: 400, margin: "0 0 32px" }}>
                 The independent standard for crypto investor relations. Five pillars, 100 points. Protocols are scored, benchmarked, and given a concrete roadmap to institutional-grade IR.
               </p>
-              <a href="https://ir.novora.co" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500, color: C.creamText, padding: "14px 28px", textDecoration: "none", borderRadius: 2, border: "1px solid rgba(0,0,0,0.15)", display: "inline-block" }}>EXPLORE IR SCORES →</a>
+              <a href="/ir/leaderboard" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500, color: C.creamText, padding: "14px 28px", textDecoration: "none", borderRadius: 2, border: "1px solid rgba(0,0,0,0.15)", display: "inline-block" }}>EXPLORE IR SCORES →</a>
             </div>
           </FadeIn>
           <FadeIn delay={0.15}>

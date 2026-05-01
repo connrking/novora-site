@@ -22,6 +22,12 @@ const nextConfig = {
       destination: `/research/${slug}.html`,
     }));
   },
+  async redirects() {
+    return [
+      { source: '/ir-score', destination: '/ir', permanent: true },
+      { source: '/ir-score/:path*', destination: '/ir/:path*', permanent: true },
+    ];
+  },
 };
 
 module.exports = nextConfig;

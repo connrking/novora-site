@@ -8,7 +8,7 @@ import NovoraLogo from "./NovoraLogo";
 const links = [
   { label: "Home", href: "/" },
   { label: "Advisory", href: "/advisory" },
-  { label: "IR Score", href: "/ir-score" },
+  { label: "IR Score", href: "/ir" },
   { label: "Research", href: "/research" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },

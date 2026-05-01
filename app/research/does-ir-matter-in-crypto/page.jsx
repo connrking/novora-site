@@ -233,7 +233,7 @@ export default function Research() {
       <div className="rs-rankings-section" style={{padding:"0 48px 80px"}}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
           <div style={{fontSize:10,fontWeight:700,letterSpacing:3,color:"#7C6EF0",textTransform:"uppercase"}}>Protocol Rankings</div>
-          <a href="https://ir.novora.co" style={{fontSize:11,color:"#666",textDecoration:"none",letterSpacing:1}}>Full leaderboard →</a>
+          <a href="/ir/leaderboard" style={{fontSize:11,color:"#666",textDecoration:"none",letterSpacing:1}}>Full leaderboard →</a>
         </div>
         <div className="rs-table-wrap" style={{background:"#fff",border:"1px solid #E8E6E0",borderRadius:4,overflow:"hidden"}}>
           <table style={{width:"100%",borderCollapse:"collapse",fontSize:12}}>
