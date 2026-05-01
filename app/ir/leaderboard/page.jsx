@@ -199,7 +199,7 @@ export default function LeaderboardPage() {
         {/* Header row */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "60px 1fr 100px 80px 60px 160px",
+          gridTemplateColumns: "60px 1fr 100px 80px 60px",
           gap: 16, alignItems: "center",
           padding: "12px 16px",
           fontFamily: F.h, fontSize: 10, letterSpacing: "0.15em",
@@ -211,7 +211,6 @@ export default function LeaderboardPage() {
           <div className="lb-ticker-col" style={{ textAlign: "center" }}>Ticker</div>
           <div style={{ textAlign: "right" }}>Score</div>
           <div className="lb-tier-col" style={{ textAlign: "center" }}>Tier</div>
-          <div className="lb-pillars-col">Pillars</div>
         </div>
 
         {/* Rows */}
@@ -219,7 +218,7 @@ export default function LeaderboardPage() {
           <FadeIn key={p.ticker} delay={i * 0.04}>
             <div className="lb-row" style={{
               display: "grid",
-              gridTemplateColumns: "60px 1fr 100px 80px 60px 160px",
+              gridTemplateColumns: "60px 1fr 100px 80px 60px",
               gap: 16, alignItems: "center",
               padding: "20px 16px",
               fontFamily: F.h,
@@ -248,30 +247,9 @@ export default function LeaderboardPage() {
                 fontSize: 12, color: C.gray300, textAlign: "center",
                 letterSpacing: "0.05em",
               }}>{p.tier}</div>
-              <div className="lb-pillars-col">
-                <PillarBars pillars={p.pillars} />
-              </div>
             </div>
           </FadeIn>
         ))}
-
-        {/* Pillar legend */}
-        <div className="lb-pillars-col" style={{
-          marginTop: 32, paddingTop: 24,
-          borderTop: `0.5px solid ${C.border}`,
-          fontFamily: F.h, fontSize: 11, color: C.gray400,
-          display: "flex", gap: 24, flexWrap: "wrap",
-        }}>
-          <span style={{ letterSpacing: "0.15em", textTransform: "uppercase", color: C.gray500 }}>
-            Pillars:
-          </span>
-          {PILLAR_LABELS.map((label, i) => (
-            <span key={i}>
-              <strong style={{ color: C.white, fontWeight: 500 }}>{label}</strong>
-              <span style={{ color: C.gray400 }}> · {PILLAR_NAMES[i]}</span>
-            </span>
-          ))}
-        </div>
       </section>
 
       {/* CTA */}
