@@ -29,6 +29,19 @@ const RESEARCH = [
       "We mapped 159 tokens across six value accrual mechanisms and tested which translate into shareholder returns. Active value accrual beats governance-only by 10 percentage points. Revenue scale, not mechanism design, drives returns. Governance-only remains the weakest model in the dataset.",
   },
   {
+    id: "bullpen-entertainment-finance",
+    title: "Bullpen: The Entertainment Finance Thesis",
+    subtitle: "Why entertainment finance is the defining crypto category of this cycle, and why Bullpen is its purest product expression",
+    date: "2026-05-01",
+    category: "Research",
+    tags: ["Bullpen", "Entertainment Finance", "Thesis"],
+    featured: false,
+    stats: null,
+    embedUrl: "/research/bullpen-entertainment-finance",
+    description:
+      "Entertainment finance is what happens when financial risk-taking becomes a form of leisure. Crypto is the infrastructure layer killing the intermediary tax on that activity. Bullpen, co-founded by Ansem, is the clearest product expression of the thesis: a unified trading terminal whose Market Bubble livestream feature turns trading into a spectator sport. The vig is dead. The game is just getting started.",
+  },
+  {
     id: "reintroducing-novora",
     title: "Reintroducing Novora",
     subtitle: "Why the next era of crypto needs an independent capital markets advisory firm",
