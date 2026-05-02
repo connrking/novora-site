@@ -675,12 +675,12 @@ aside.callout .callout-label {
   margin-bottom: 8px;
 }
 aside.callout .callout-text {
-  font-family: var(--serif);
-  font-size: 18px;
+  font-family: var(--sans);
+  font-size: 15px;
   font-weight: 400;
   font-style: italic;
-  line-height: 1.5;
-  color: var(--text-primary);
+  line-height: 1.55;
+  color: var(--text-body);
 }
 
 table.events-summary, table.metrics-table, table.product-table, table.checklist-table, table.peer-table {
@@ -833,7 +833,7 @@ ul.tight-list li {
   <h2>Building through the cycle</h2>
 
   <div class="tldr-card">
-    <span class="tldr-label">TL;DR</span>Q1 fees declined sequentially as Solana ICO sentiment cooled, but the platform shipped its largest structural upgrade since launch — Futardio, the Omnibus liquidity migration, the Ranger liquidation, and Colosseum STAMP integration all closed during the quarter.
+    <span class="tldr-label">TL;DR</span>Q1 fees declined sequentially as Solana ICO sentiment cooled. The platform still shipped its largest structural upgrade since launch: Futardio, the Omnibus liquidity migration, the Ranger liquidation, and the Colosseum STAMP integration all closed during the quarter.
   </div>
 
   <p>Q1 2026 followed the strongest quarter in MetaDAO's history. Q4 2025 generated $2.52M in protocol revenue (per the team's published financial statements), launched 6 ICOs raising approximately $25.6M in subscription capital, and closed with a $10M META OTC raise via Proposal #34 that took the treasury from $1.96M to $12.24M USDC. Umbra's October ICO drew $154.9M in commitments against a $3M hard cap, and META reached an all-time high above $10.</p>
@@ -842,7 +842,7 @@ ul.tight-list li {
 
   <aside class="callout">
     <div class="callout-label">// HEADLINE NUMBER</div>
-    <div class="callout-text">$5.04M returned to RNGR holders via the first successful onchain liquidation in crypto governance history — a working proof of futarchy as a binding contract.</div>
+    <div class="callout-text">$5.04M returned to RNGR holders via the first successful onchain liquidation in crypto governance history. Futarchy worked as a binding contract.</div>
   </aside>
 
   <h3 style="margin-top: 56px; margin-bottom: 8px; font-style: normal; font-size: 22px;">Key Metrics</h3>
@@ -893,13 +893,19 @@ ul.tight-list li {
 <!-- ============ 02. METADAO & NETWORK CONTEXT ============ -->
 <section id="context">
   <div class="section-eyebrow">// 02 · MetaDAO &amp; Network Context</div>
-  <h2>Why this protocol exists</h2>
+  <h2>The ownership coin thesis</h2>
 
   <div class="tldr-card">
-    <span class="tldr-label">TL;DR</span>MetaDAO is the futarchy-based fundraising and governance platform on Solana. Three live products generate fees through ICO subscription and post-launch trading.
+    <span class="tldr-label">TL;DR</span>MetaDAO produces ownership coins: tokens with legal claim on the issuing entity, market-gated treasury spending, slow-drip supply, and team unlocks contingent on sustained price performance. The platform's products and fees follow from that asset-class definition.
   </div>
 
-  <p>MetaDAO is a futarchy-based fundraising and governance platform on Solana. The platform's core product set entered Q1 with three live components: the curated ICO launchpad that originated the platform's recent growth, the futarchy governance system that binds every launched protocol's treasury and major decisions to onchain decision markets, and a dual-venue secondary market structure that captures trading fees on META and ICO-issued ownership tokens via the protocol-owned Futarchy AMM and a Meteora LP position the protocol holds at 99.74%. During Q1 the platform shipped a fourth component, Futardio, a permissionless launchpad that opens issuance to teams without MetaDAO's curation gate.</p>
+  <p>Most crypto tokens have negative drift. Opaque treasuries, foundation cash-outs, 40%+ float at launch, and day-one CEX listings that exhaust marginal demand all point in the same direction over time. To compete with 10–30%+ early-stage venture IRRs and retain capital, tokens need a different structural baseline.</p>
+
+  <p>MetaDAO is building that baseline. Every project launched through the platform issues an ownership coin: a token whose underlying entity (a Cayman segregated portfolio) is bound by onchain governance. Treasury USDC sits under market oversight, with monthly spending caps and any larger spend approved by a futarchy decision market. If the token trades below NAV, holders can vote a buyback. If the team underdelivers, holders can vote a liquidation. The Ranger precedent in Q1 settled the question of whether that mechanism actually binds: $5.04M was returned to holders.</p>
+
+  <p>Supply works the same way. Float at launch is 10–15%, with slow drip to team and early backers and team unlocks gated on sustained premiums to ICO price. CEX listings are reserved for the winners that reach scale, which protects marginal bidders during the price-discovery window. Founders are paid to create value; holders underwrite option value rather than enterprise value. The mental frame is startup upside with structural downside protection.</p>
+
+  <p>The platform's product lines are the mechanism by which ownership coins are issued, governed, and traded. The curated launchpad originated growth and sets the quality bar. The Futarchy AMM and Meteora LP position (99.74% protocol-owned) capture trading fees on META and the ownership-coin cohort. Futarchy governance enforces the asset-class commitments. Futardio, shipped in Q1, opens issuance to teams without curation, on the same governance rails. The fee base is the byproduct; the asset class is the product.</p>
 
   <h3>Product lines</h3>
 
@@ -1250,7 +1256,7 @@ ul.tight-list li {
 
   <div class="event-detail">
     <h3>Ecosystem price performance and runway</h3>
-    <p>Token-level performance across the MetaDAO ecosystem (Hurupay, the early Futardio cohort, and prior launchpad graduates) varied meaningfully during Q1. Live price, liquidity, and runway tracking for the Futardio launch cohort and broader MetaDAO ecosystem is published at <a href="https://www.futard.trade/" target="_blank" rel="noopener">futard.trade</a>.</p>
+    <p>Token-level performance across the MetaDAO ecosystem (the early Futardio cohort and prior launchpad graduates) varied meaningfully during Q1. Live price, liquidity, and runway tracking for the Futardio launch cohort and broader MetaDAO ecosystem is published at <a href="https://www.futard.trade/" target="_blank" rel="noopener">futard.trade</a>.</p>
     <ul class="tight-list">
       <li>Q1 setting: weakening Solana subscription appetite from late January onward</li>
       <li>Performance dispersion: wide across the cohort; product execution is the differentiator</li>
