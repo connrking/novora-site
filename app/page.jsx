@@ -56,7 +56,7 @@ export default function HomePage() {
         <FadeIn delay={0.8}>
           <div className="cta-row" style={{ display: "flex", gap: 16, marginTop: 48 }}>
             <a href="mailto:contact@novora.co" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500, color: C.bg, background: C.white, padding: "14px 32px", textDecoration: "none", borderRadius: 2 }}>CONTACT US</a>
-            <a href="/ir/leaderboard" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 400, color: C.gray200, background: "transparent", padding: "14px 32px", textDecoration: "none", borderRadius: 2, border: `0.5px solid ${C.border}` }}>VIEW IR SCORES →</a>
+            <a href="/research" style={{ fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 400, color: C.gray200, background: "transparent", padding: "14px 32px", textDecoration: "none", borderRadius: 2, border: `0.5px solid ${C.border}` }}>VIEW RESEARCH →</a>
           </div>
         </FadeIn>
         <div style={{ position: "absolute", bottom: 40, left: "50%", transform: "translateX(-50%)" }}>
@@ -131,7 +131,7 @@ export default function HomePage() {
                 { name: "Maple Finance", score: 80, ticker: "SYRUP" },
                 { name: "Aave", score: 72, ticker: "AAVE" },
                 { name: "Jito", score: 67, ticker: "JTO" },
-                { name: "MetaDAO", score: 53, ticker: "META" },
+                { name: "MetaDAO", score: 71, ticker: "META" },
               ].map((p, i) => (
                 <div key={i} className="lb-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderBottom: i < 4 ? `0.5px solid ${C.border}` : "none" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
