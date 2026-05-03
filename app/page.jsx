@@ -130,8 +130,8 @@ export default function HomePage() {
                 { name: "Meteora", score: 95, ticker: "MET" },
                 { name: "Maple Finance", score: 80, ticker: "SYRUP" },
                 { name: "Aave", score: 72, ticker: "AAVE" },
-                { name: "Jito", score: 67, ticker: "JTO" },
                 { name: "MetaDAO", score: 71, ticker: "META" },
+                { name: "Jito", score: 67, ticker: "JTO" },
               ].map((p, i) => (
                 <div key={i} className="lb-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderBottom: i < 4 ? `0.5px solid ${C.border}` : "none" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
