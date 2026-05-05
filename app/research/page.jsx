@@ -96,17 +96,14 @@ const RESEARCH = [
 // Token Holder Reports — populated as advisory clients ship quarterly reports.
 // To add: append { protocol, ticker, period, description, published, slug }
 const QUARTERLY_REPORTS = [
-  /* Hidden — un-comment to publish
-
   {
     protocol: "MetaDAO",
     ticker: "META",
     period: "Q1 2026",
-    description: "MetaDAO's Q1 2026 followed the strongest quarter in its history, with $556K-$700K in protocol fees, the Ranger Finance liquidation returning $5M to tokenholders, and Futardio launching as a permissionless complement to the curated launchpad",
-    published: "2026-04-29",
+    description: "Quarterly token holder report covering MetaDAO's protocol fundamentals, token performance, peer comparison, and Q2 2026 outlook.",
+    published: "2026-05-05",
     slug: "metadao-q1-2026",
   },
-  */
 ];
 
 const QuarterlyReportsTable = ({ reports }) => {
