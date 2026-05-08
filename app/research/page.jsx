@@ -168,7 +168,7 @@ const QuarterlyReportsTable = ({ reports }) => {
                     color: "#1A28F5",
                     textDecoration: "none",
                     padding: "8px 14px",
-                    border: "1px solid rgba(124, 110, 240, 0.4)",
+                    border: "1px solid rgba(26, 40, 245, 0.4)",
                     borderRadius: 4,
                     display: "inline-flex",
                     alignItems: "center",
