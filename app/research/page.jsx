@@ -165,7 +165,7 @@ const QuarterlyReportsTable = ({ reports }) => {
                     fontFamily: F,
                     fontSize: 12,
                     fontWeight: 500,
-                    color: "#7C6EF0",
+                    color: "#1A28F5",
                     textDecoration: "none",
                     padding: "8px 14px",
                     border: "1px solid rgba(124, 110, 240, 0.4)",
