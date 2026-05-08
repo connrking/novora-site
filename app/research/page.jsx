@@ -102,7 +102,7 @@ const QUARTERLY_REPORTS = [
     period: "Q1 2026",
     description: "Quarterly token holder report covering MetaDAO's protocol fundamentals, token performance, peer comparison, and Q2 2026 outlook.",
     published: "2026-05-05",
-    slug: "metadao-q1-2026",
+    slug: "metadao-q1-2026-presentation",
   },
 ];
 
