@@ -16,19 +16,6 @@ const RESEARCH = [
       "Crypto tokens have a structural problem: they exhibit negative drift. Most launch at high FDVs, unlock supply on autopilot, and give holders no claim on the underlying business. Ownership coins are the first serious answer, combining treasury oversight, legal claim on the business, and performance-gated unlocks. MetaDAO is the issuance venue purpose-built for this category, with an ICO basket outperforming SOL by 173 percentage points on an equal-weight basis.",
   },
   {
-    id: "ownership-coins-thesis",
-    title: "The Case for Ownership Coins",
-    subtitle: "How MetaDAO is rebuilding token issuance around investor alignment",
-    date: "2026-05-12",
-    category: "Research",
-    tags: ["Ownership Coins", "MetaDAO", "Futarchy"],
-    featured: true,
-    stats: null,
-    embedUrl: "https://x.com/connorking/status/2054218485312487527",
-    description:
-      "Crypto tokens have a structural problem: they exhibit negative drift. Most launch at high FDVs, unlock supply on autopilot, and give holders no claim on the underlying business. Ownership coins are the first serious answer, combining treasury oversight, legal claim on the business, and performance-gated unlocks. MetaDAO is the issuance venue purpose-built for this category, with an ICO basket outperforming SOL by 173 percentage points on an equal-weight basis.",
-  },
-  {
     id: "ir-transparency-2026",
     title: "IR & Token Transparency in 2026",
     subtitle: "A quantitative assessment of token disclosure practices across 150+ crypto protocols",
