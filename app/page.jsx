@@ -80,36 +80,6 @@ export default function HomePage() {
       {/* Logo marquee */}
       <Marquee />
 
-      {/* Partners */}
-      <section className="section-pad" style={{ padding: "80px 80px", background: C.bg }}>
-        <FadeIn>
-          <div style={{
-            fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
-            marginBottom: 48, fontFamily: F.h, textTransform: "uppercase",
-            textAlign: "center",
-          }}>Select Partners</div>
-          <div className="partners-row" style={{
-            display: "flex", justifyContent: "center", alignItems: "center",
-            gap: 56, flexWrap: "wrap",
-          }}>
-            {[
-              { name: "Artemis", url: "https://artemis.xyz" },
-              { name: "MetaDAO", url: "https://metadao.fi" },
-              { name: "deBridge", url: "https://debridge.finance" },
-              { name: "Bullpen", url: "https://bullpen.fi" },
-              { name: "Katana", url: "https://katana.network" },
-              { name: "Chakra", url: "https://chakra.dev" },
-              { name: "Jolly", url: "https://jolly.com" },
-            ].map(p => (
-              <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer" className="partner-name" style={{
-                fontFamily: F.h, fontSize: 17, fontWeight: 300,
-                letterSpacing: "0.01em", textDecoration: "none",
-              }}>{p.name}</a>
-            ))}
-          </div>
-        </FadeIn>
-      </section>
-
       {/* IR Score Feature */}
       <section className="section-pad section-v-pad ir-score-bg" style={{ padding: "120px 80px", background: C.cream }}>
         <div className="two-col-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "center" }}>
