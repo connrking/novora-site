@@ -2,7 +2,7 @@
 import { C } from "./tokens";
 
 const PARTNERS = [
-  { name: "MetaDAO",   src: "/partners/metadao.png",   h: 35 },
+  { name: "MetaDAO",   src: "/partners/metadao.png",   h: 33 },
   { name: "Superform", src: "/partners/superform.svg", h: 34 },
   { name: "deBridge",  src: "/partners/debridge.svg",  h: 38 },
   { name: "Credible",  src: "/partners/credible.svg",  h: 30 },
@@ -10,8 +10,8 @@ const PARTNERS = [
   { name: "Bullpen",   src: "/partners/bullpen.png",   h: 43 },
   { name: "Chakra",    src: "/partners/chakra.svg",    h: 28 },
   { name: "Katana",    src: "/partners/katana.svg",    h: 41 },
-  { name: "FactMachine", src: "/partners/factmachine.png", h: 26 },
-  { name: "Jolly",       src: "/partners/jolly.png",       h: 39 },
+  { name: "FactMachine", src: "/partners/factmachine.png", h: 30 },
+  { name: "Jolly",       src: "/partners/jolly.png",       h: 45 },
 ];
 
 export default function Marquee() {
