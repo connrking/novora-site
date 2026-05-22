@@ -1,79 +1,36 @@
 "use client";
 import { C } from "./tokens";
 
-const PARTNERS = [
-  { name: "MetaDAO",   src: "/partners/metadao.png",   h: 35 },
-  { name: "Superform", src: "/partners/superform.svg", h: 34 },
-  { name: "deBridge",  src: "/partners/debridge.svg",  h: 38 },
-  { name: "Credible",  src: "/partners/credible.svg",  h: 30 },
-  { name: "Artemis",   src: "/partners/artemis.svg",   h: 31 },
-  { name: "Bullpen",   src: "/partners/bullpen.png",   h: 43 },
-  { name: "Chakra",    src: "/partners/chakra.svg",    h: 28 },
-  { name: "Katana",    src: "/partners/katana.svg",    h: 41 },
-  { name: "FactMachine", src: "/partners/factmachine.png", h: 26 },
-  { name: "Jolly",       src: "/partners/jolly.png",       h: 39 },
-];
-
 export default function Marquee() {
-  const loop = [...PARTNERS, ...PARTNERS];
+  const logomark = (
+    <svg width="320" height="320" viewBox="0 0 300 300" fill="currentColor">
+      <path d="M100.46,154.36c1.23-26.33,22.91-47.32,49.54-47.32s48.31,20.99,49.54,47.32h22.58v-76.48H77.87v76.48h22.58Z"/>
+      <rect x="77.87" y="163.79" width="144.25" height="58.33"/>
+    </svg>
+  );
   return (
-    <section style={{
-      background: C.bg,
-      padding: "88px 0 96px",
-      overflow: "hidden",
-      position: "relative",
+    <div style={{
+      overflow: "hidden", padding: "40px 0",
       borderTop: `0.5px solid ${C.border}`,
       borderBottom: `0.5px solid ${C.border}`,
+      background: C.bg,
     }}>
       <style>{`
-        @keyframes novora-partner-scroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
-        .novora-partner-eyebrow {
-          text-align: center;
-          color: rgba(255,255,255,0.42);
-          font-size: 11px;
-          font-weight: 500;
-          letter-spacing: 0.26em;
-          text-transform: uppercase;
-          margin: 0 0 56px;
-        }
-        .novora-partner-viewport {
-          position: relative;
-          overflow: hidden;
-          mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
-          -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
-        }
-        .novora-partner-track {
-          display: flex;
-          align-items: center;
-          gap: 96px;
-          width: max-content;
-          animation: novora-partner-scroll 50s linear infinite;
-          will-change: transform;
-        }
-        .novora-partner-track:hover { animation-play-state: paused; }
-        .novora-partner-logo {
-          display: flex;
-          align-items: center;
-          flex-shrink: 0;
-          opacity: 0.9;
-          transition: opacity 0.25s ease;
-        }
-        .novora-partner-logo:hover { opacity: 1; }
-        .novora-partner-logo img { display: block; width: auto; }
+        @keyframes novora-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .novora-marquee-track { display: flex; align-items: center; animation: novora-marquee 25s linear infinite; width: max-content; }
+        .novora-marquee-track:hover { animation-play-state: paused; }
       `}</style>
-      <p className="novora-partner-eyebrow">Select Partners</p>
-      <div className="novora-partner-viewport">
-        <div className="novora-partner-track">
-          {loop.map((p, i) => (
-            <div key={i} className="novora-partner-logo">
-              <img src={p.src} alt={p.name} style={{ height: p.h + "px" }} />
-            </div>
-          ))}
-        </div>
+      <div className="novora-marquee-track">
+        {[...Array(12)].map((_, i) => (
+          <div key={i} style={{
+            display: "flex", alignItems: "center",
+            marginRight: 240, flexShrink: 0,
+            color: "rgba(255,255,255,0.2)",
+          }}>
+            {logomark}
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
