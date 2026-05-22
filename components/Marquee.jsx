@@ -10,8 +10,8 @@ const PARTNERS = [
   { name: "Bullpen",   src: "/partners/bullpen.png",   h: 43 },
   { name: "Chakra",    src: "/partners/chakra.svg",    h: 28 },
   { name: "Katana",    src: "/partners/katana.svg",    h: 41 },
-  { name: "FactMachine", src: "/partners/factmachine.png", h: 30 },
-  { name: "Jolly",       src: "/partners/jolly.png",       h: 45 },
+  { name: "FactMachine", src: "/partners/factmachine.png", h: 38 },
+  { name: "Jolly",       src: "/partners/jolly.png",       h: 56 },
 ];
 
 export default function Marquee() {
