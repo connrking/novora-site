@@ -1,51 +1,310 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { C, F } from "@/components/tokens";
 import FadeIn from "@/components/FadeIn";
 
-// Hardcoded leaderboard data — seeded with the 6 published scores.
-// Add additional protocols as they're scored. Pillar order:
+// Top 100 IR Score leaderboard.
 const PROTOCOLS = [
-  // Source: Notion IR Benchmark DB (200f3d6e-1197-4aeb-9d37-90e90e37ad59), May 2026
+  // Source of truth: "NIR Leaderboard" Google Sheet, snapshot 2026-06-11. Served live via /api/leaderboard; this array is the SSR/offline fallback.
   {
-    rank: 1, name: "Meteora", ticker: "MET", score: 95, tier: "A+",
-    pillars: [18, 19, 20, 20, 18],
+    rank: 1, name: "Jito", ticker: "JTO", score: 95, tier: "Institutional",
   },
   {
-    rank: 2, name: "Maple Finance", ticker: "SYRUP", score: 80, tier: "A−",
-    pillars: null,
+    rank: 2, name: "Meteora", ticker: "MET", score: 95, tier: "Institutional",
   },
   {
-    rank: 3, name: "Sky", ticker: "SKY", score: 72, tier: "B+",
-    pillars: [16, 13, 16, 12, 15],
+    rank: 3, name: "Raydium", ticker: "RAY", score: 88, tier: "Institutional",
   },
   {
-    rank: 4, name: "Aave", ticker: "AAVE", score: 72, tier: "B+",
-    pillars: null,
+    rank: 4, name: "Jupiter", ticker: "JUP", score: 83, tier: "Strong",
   },
   {
-    rank: 5, name: "Morpho", ticker: "MORPHO", score: 71, tier: "B+",
-    pillars: [14, 15, 18, 16, 8],
+    rank: 5, name: "MetaDAO", ticker: "META", score: 83, tier: "Strong",
   },
   {
-    rank: 6, name: "MetaDAO", ticker: "META", score: 71, tier: "B+",
-    pillars: [20, 12, 15, 15, 9],
+    rank: 6, name: "Pyth Network", ticker: "PYTH", score: 81, tier: "Strong",
   },
   {
-    rank: 7, name: "Jito", ticker: "JTO", score: 67, tier: "B",
-    pillars: null,
+    rank: 7, name: "Sky", ticker: "SKY", score: 79, tier: "Strong",
   },
   {
-    rank: 8, name: "Hyperliquid", ticker: "HYPE", score: 65, tier: "B",
-    pillars: [9, 7, 14, 18, 17],
+    rank: 8, name: "dYdX", ticker: "DYDX", score: 78, tier: "Strong",
   },
   {
-    rank: 9, name: "Compound", ticker: "COMP", score: 45, tier: "C",
-    pillars: [10, 7, 14, 6, 8],
+    rank: 9, name: "Morpho", ticker: "MORPHO", score: 77, tier: "Strong",
   },
   {
-    rank: 10, name: "dYdX", ticker: "DYDX", score: 31, tier: "D",
-    pillars: [8, 6, 5, 8, 4],
+    rank: 10, name: "deBridge", ticker: "DBR", score: 77, tier: "Strong",
+  },
+  {
+    rank: 11, name: "Chainlink", ticker: "LINK", score: 74, tier: "Strong",
+  },
+  {
+    rank: 12, name: "Near Protocol", ticker: "NEAR", score: 74, tier: "Strong",
+  },
+  {
+    rank: 13, name: "Maple Finance", ticker: "SYRUP", score: 74, tier: "Strong",
+  },
+  {
+    rank: 14, name: "Lido", ticker: "LDO", score: 72, tier: "Strong",
+  },
+  {
+    rank: 15, name: "Arbitrum", ticker: "ARB", score: 68, tier: "Developing",
+  },
+  {
+    rank: 16, name: "Ethena", ticker: "ENA", score: 67, tier: "Developing",
+  },
+  {
+    rank: 17, name: "Algorand", ticker: "ALGO", score: 67, tier: "Developing",
+  },
+  {
+    rank: 18, name: "Cardano", ticker: "ADA", score: 66, tier: "Developing",
+  },
+  {
+    rank: 19, name: "EtherFi", ticker: "ETHFI", score: 66, tier: "Developing",
+  },
+  {
+    rank: 20, name: "Aave", ticker: "AAVE", score: 65, tier: "Developing",
+  },
+  {
+    rank: 21, name: "Spark", ticker: "SPK", score: 65, tier: "Developing",
+  },
+  {
+    rank: 22, name: "PancakeSwap", ticker: "CAKE", score: 65, tier: "Developing",
+  },
+  {
+    rank: 23, name: "Render", ticker: "RENDER", score: 63, tier: "Developing",
+  },
+  {
+    rank: 24, name: "Stellar", ticker: "XLM", score: 62, tier: "Developing",
+  },
+  {
+    rank: 25, name: "Hedera", ticker: "HBAR", score: 61, tier: "Developing",
+  },
+  {
+    rank: 26, name: "Marinade", ticker: "MNDE", score: 61, tier: "Developing",
+  },
+  {
+    rank: 27, name: "Solana", ticker: "SOL", score: 60, tier: "Developing",
+  },
+  {
+    rank: 28, name: "Helium", ticker: "HNT", score: 60, tier: "Developing",
+  },
+  {
+    rank: 29, name: "Uniswap", ticker: "UNI", score: 57, tier: "Developing",
+  },
+  {
+    rank: 30, name: "Fluid", ticker: "FLUID", score: 57, tier: "Developing",
+  },
+  {
+    rank: 31, name: "Stacks", ticker: "STX", score: 57, tier: "Developing",
+  },
+  {
+    rank: 32, name: "Optimism", ticker: "OP", score: 57, tier: "Developing",
+  },
+  {
+    rank: 33, name: "Livepeer", ticker: "LPT", score: 57, tier: "Developing",
+  },
+  {
+    rank: 34, name: "Synthetix", ticker: "SNX", score: 56, tier: "Developing",
+  },
+  {
+    rank: 35, name: "zkSync", ticker: "ZK", score: 56, tier: "Developing",
+  },
+  {
+    rank: 36, name: "Gnosis", ticker: "GNO", score: 55, tier: "Developing",
+  },
+  {
+    rank: 37, name: "Akash Network", ticker: "AKT", score: 55, tier: "Developing",
+  },
+  {
+    rank: 38, name: "Orca", ticker: "ORCA", score: 55, tier: "Developing",
+  },
+  {
+    rank: 39, name: "Mantle", ticker: "MNT", score: 53, tier: "Early-Stage",
+  },
+  {
+    rank: 40, name: "ENS", ticker: "ENS", score: 53, tier: "Early-Stage",
+  },
+  {
+    rank: 41, name: "Cosmos Hub", ticker: "ATOM", score: 53, tier: "Early-Stage",
+  },
+  {
+    rank: 42, name: "Starknet", ticker: "STRK", score: 52, tier: "Early-Stage",
+  },
+  {
+    rank: 43, name: "Tezos", ticker: "XTZ", score: 52, tier: "Early-Stage",
+  },
+  {
+    rank: 44, name: "Euler Finance", ticker: "EUL", score: 51, tier: "Early-Stage",
+  },
+  {
+    rank: 45, name: "Hyperliquid", ticker: "HYPE", score: 50, tier: "Early-Stage",
+  },
+  {
+    rank: 46, name: "Pendle", ticker: "PENDLE", score: 50, tier: "Early-Stage",
+  },
+  {
+    rank: 47, name: "GMX", ticker: "GMX", score: 50, tier: "Early-Stage",
+  },
+  {
+    rank: 48, name: "Pump.fun", ticker: "PUMP", score: 49, tier: "Early-Stage",
+  },
+  {
+    rank: 49, name: "Balancer", ticker: "BAL", score: 49, tier: "Early-Stage",
+  },
+  {
+    rank: 50, name: "SushiSwap", ticker: "SUSHI", score: 49, tier: "Early-Stage",
+  },
+  {
+    rank: 51, name: "Ronin", ticker: "RON", score: 49, tier: "Early-Stage",
+  },
+  {
+    rank: 52, name: "Venus Protocol", ticker: "XVS", score: 48, tier: "Early-Stage",
+  },
+  {
+    rank: 53, name: "Frax", ticker: "FRAX", score: 48, tier: "Early-Stage",
+  },
+  {
+    rank: 54, name: "Rocket Pool", ticker: "RPL", score: 48, tier: "Early-Stage",
+  },
+  {
+    rank: 55, name: "Benqi", ticker: "QI", score: 45, tier: "Early-Stage",
+  },
+  {
+    rank: 56, name: "Tron", ticker: "TRX", score: 44, tier: "Early-Stage",
+  },
+  {
+    rank: 57, name: "Avalanche", ticker: "AVAX", score: 44, tier: "Early-Stage",
+  },
+  {
+    rank: 58, name: "Injective", ticker: "INJ", score: 44, tier: "Early-Stage",
+  },
+  {
+    rank: 59, name: "Aerodrome", ticker: "AERO", score: 44, tier: "Early-Stage",
+  },
+  {
+    rank: 60, name: "Curve Finance", ticker: "CRV", score: 44, tier: "Early-Stage",
+  },
+  {
+    rank: 61, name: "Drift", ticker: "DRIFT", score: 44, tier: "Early-Stage",
+  },
+  {
+    rank: 62, name: "Toncoin", ticker: "TON", score: 42, tier: "Early-Stage",
+  },
+  {
+    rank: 63, name: "Sei", ticker: "SEI", score: 42, tier: "Early-Stage",
+  },
+  {
+    rank: 64, name: "The Graph", ticker: "GRT", score: 42, tier: "Early-Stage",
+  },
+  {
+    rank: 65, name: "1inch", ticker: "1INCH", score: 42, tier: "Early-Stage",
+  },
+  {
+    rank: 66, name: "Ethereum", ticker: "ETH", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 67, name: "Sui", ticker: "SUI", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 68, name: "Aptos", ticker: "APT", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 69, name: "Polygon", ticker: "POL", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 70, name: "Celestia", ticker: "TIA", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 71, name: "Kamino", ticker: "KMNO", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 72, name: "Compound", ticker: "COMP", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 73, name: "Virtuals Protocol", ticker: "VIRTUAL", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 74, name: "Immutable", ticker: "IMX", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 75, name: "Across Protocol", ticker: "ACX", score: 41, tier: "Early-Stage",
+  },
+  {
+    rank: 76, name: "Flow", ticker: "FLOW", score: 40, tier: "Early-Stage",
+  },
+  {
+    rank: 77, name: "Polkadot", ticker: "DOT", score: 39, tier: "Early-Stage",
+  },
+  {
+    rank: 78, name: "Filecoin", ticker: "FIL", score: 39, tier: "Early-Stage",
+  },
+  {
+    rank: 79, name: "Convex Finance", ticker: "CVX", score: 39, tier: "Early-Stage",
+  },
+  {
+    rank: 80, name: "XRP", ticker: "XRP", score: 38, tier: "Early-Stage",
+  },
+  {
+    rank: 81, name: "Bittensor", ticker: "TAO", score: 38, tier: "Early-Stage",
+  },
+  {
+    rank: 82, name: "Safe", ticker: "SAFE", score: 38, tier: "Early-Stage",
+  },
+  {
+    rank: 83, name: "Manta Network", ticker: "MANTA", score: 38, tier: "Early-Stage",
+  },
+  {
+    rank: 84, name: "Arweave", ticker: "AR", score: 37, tier: "Early-Stage",
+  },
+  {
+    rank: 85, name: "EigenLayer", ticker: "EIGEN", score: 32, tier: "No IR",
+  },
+  {
+    rank: 86, name: "Ondo Finance", ticker: "ONDO", score: 31, tier: "No IR",
+  },
+  {
+    rank: 87, name: "Wormhole", ticker: "W", score: 31, tier: "No IR",
+  },
+  {
+    rank: 88, name: "Litecoin", ticker: "LTC", score: 28, tier: "No IR",
+  },
+  {
+    rank: 89, name: "Kaspa", ticker: "KAS", score: 28, tier: "No IR",
+  },
+  {
+    rank: 90, name: "Theta Network", ticker: "THETA", score: 27, tier: "No IR",
+  },
+  {
+    rank: 91, name: "Grass", ticker: "GRASS", score: 26, tier: "No IR",
+  },
+  {
+    rank: 92, name: "Bonk", ticker: "BONK", score: 25, tier: "No IR",
+  },
+  {
+    rank: 93, name: "Shiba Inu", ticker: "SHIB", score: 23, tier: "No IR",
+  },
+  {
+    rank: 94, name: "Blur", ticker: "BLUR", score: 23, tier: "No IR",
+  },
+  {
+    rank: 95, name: "Pepe", ticker: "PEPE", score: 22, tier: "No IR",
+  },
+  {
+    rank: 96, name: "Fartcoin", ticker: "FARTCOIN", score: 22, tier: "No IR",
+  },
+  {
+    rank: 97, name: "Jasmy", ticker: "JASMY", score: 22, tier: "No IR",
+  },
+  {
+    rank: 98, name: "Dogecoin", ticker: "DOGE", score: 21, tier: "No IR",
+  },
+  {
+    rank: 99, name: "Monero", ticker: "XMR", score: 21, tier: "No IR",
+  },
+  {
+    rank: 100, name: "aixbt", ticker: "AIXBT", score: 20, tier: "No IR",
   },
 ];
 
@@ -53,8 +312,20 @@ const PROTOCOLS = [
 
 export default function LeaderboardPage() {
   const [sortBy, setSortBy] = useState("rank");
+  // Source of truth = the "NIR Leaderboard" Google Sheet, served via /api/leaderboard.
+  // PROTOCOLS below is the SSR seed / offline fallback if the sheet fetch fails.
+  const [protocols, setProtocols] = useState(PROTOCOLS);
 
-  const sorted = [...PROTOCOLS].sort((a, b) => {
+  useEffect(() => {
+    let alive = true;
+    fetch("/api/leaderboard")
+      .then((r) => r.json())
+      .then((d) => { if (alive && d?.protocols?.length) setProtocols(d.protocols); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
+
+  const sorted = [...protocols].sort((a, b) => {
     if (sortBy === "rank") return a.rank - b.rank;
     if (sortBy === "name") return a.name.localeCompare(b.name);
     if (sortBy === "score") return b.score - a.score;
