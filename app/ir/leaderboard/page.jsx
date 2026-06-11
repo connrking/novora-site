@@ -364,7 +364,7 @@ export default function LeaderboardPage() {
           <div style={{
             fontSize: 11, letterSpacing: "0.2em", color: C.gray400,
             marginBottom: 16, fontFamily: F.h, textTransform: "uppercase",
-          }}>Leaderboard · Q1 2026</div>
+          }}>Leaderboard · Q2 2026</div>
           <h1 style={{
             fontFamily: F.h, fontSize: 48, fontWeight: 300,
             color: C.white, letterSpacing: "-0.02em", margin: "0 0 24px", lineHeight: 1.15,
