@@ -146,7 +146,7 @@ export default function IRPage() {
               <h2 className="section-h2" style={{
                 fontSize: 32, fontWeight: 300, color: C.white,
                 letterSpacing: "-0.01em", margin: "0 0 20px",
-              }}>11 protocols scored and counting</h2>
+              }}>100 protocols scored and counting</h2>
               <p style={{
                 fontSize: 15, lineHeight: 1.7, color: C.gray200, fontWeight: 400, margin: "0 0 32px",
               }}>
@@ -166,15 +166,15 @@ export default function IRPage() {
               border: `0.5px solid ${C.border}`,
             }}>
               <div style={{ fontSize: 11, letterSpacing: "0.15em", color: C.gray400, marginBottom: 20, textTransform: "uppercase" }}>
-                Top Scores · Q1 2026
+                Top Scores · Q2 2026
               </div>
               {[
+                { name: "Jito", score: 95, ticker: "JTO" },
                 { name: "Meteora", score: 95, ticker: "MET" },
-                { name: "Maple Finance", score: 80, ticker: "SYRUP" },
-                { name: "Aave", score: 72, ticker: "AAVE" },
-                { name: "Morpho", score: 71, ticker: "MORPHO" },
-                { name: "Jito", score: 67, ticker: "JTO" },
-                { name: "Sky", score: 60, ticker: "SKY" },
+                { name: "Raydium", score: 88, ticker: "RAY" },
+                { name: "Jupiter", score: 83, ticker: "JUP" },
+                { name: "MetaDAO", score: 83, ticker: "META" },
+                { name: "Pyth Network", score: 81, ticker: "PYTH" },
               ].map((p, i) => (
                 <div key={i} className="ir-row" style={{
                   display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -200,7 +200,7 @@ export default function IRPage() {
                 <a href="/ir/leaderboard" style={{
                   fontSize: 12, color: C.gray300, textDecoration: "none",
                   borderBottom: `0.5px solid ${C.gray500}`, paddingBottom: 2,
-                }}>View all 11 protocols →</a>
+                }}>View all 100 protocols →</a>
               </div>
             </div>
           </FadeIn>

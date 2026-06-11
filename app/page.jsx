@@ -95,13 +95,13 @@ export default function HomePage() {
           </FadeIn>
           <FadeIn delay={0.15}>
             <div style={{ background: C.bg, borderRadius: 4, padding: "32px 28px", fontFamily: F.h }}>
-              <div style={{ fontSize: 11, letterSpacing: "0.15em", color: C.gray400, marginBottom: 24, textTransform: "uppercase" }}>Leaderboard · Q1 2026</div>
+              <div style={{ fontSize: 11, letterSpacing: "0.15em", color: C.gray400, marginBottom: 24, textTransform: "uppercase" }}>Leaderboard · Q2 2026</div>
               {[
+                { name: "Jito", score: 95, ticker: "JTO" },
                 { name: "Meteora", score: 95, ticker: "MET" },
-                { name: "Maple Finance", score: 80, ticker: "SYRUP" },
-                { name: "Aave", score: 72, ticker: "AAVE" },
-                { name: "MetaDAO", score: 71, ticker: "META" },
-                { name: "Jito", score: 67, ticker: "JTO" },
+                { name: "Raydium", score: 88, ticker: "RAY" },
+                { name: "Jupiter", score: 83, ticker: "JUP" },
+                { name: "MetaDAO", score: 83, ticker: "META" },
               ].map((p, i) => (
                 <div key={i} className="lb-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "12px 0", borderBottom: i < 4 ? `0.5px solid ${C.border}` : "none" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
