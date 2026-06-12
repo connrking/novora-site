@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Institutional Readiness Gap | Novora Research</title>
+<meta name="description" content="Novora scored the investor relations of the 100 largest companies and protocols onchain across five pillars. The median is 49/100; three reach institutional grade.">
+<meta property="og:title" content="The Institutional Readiness Gap">
+<meta property="og:description" content="Why crypto companies and protocols still communicate like startups. The 100 largest assets onchain, scored on the Novora IR Score.">
+<meta property="og:image" content="/research/institutional-readiness-gap/slide_01.png">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#F4F5F8; --panel:#FFFFFF; --ink:#0E0E12; --ink-soft:#2D2D33; --ink-body:#3A3A40;
+    --ink-faint:#76767E; --rule:#DEE0E6; --accent:#2C5BFF; --accent-deep:#1B3FCC; --accent-faint:#EEF2FF;
+    --serif:'EB Garamond',Georgia,serif; --sans:'DM Sans',-apple-system,system-ui,sans-serif; --mono:'JetBrains Mono',monospace;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink-body);-webkit-font-smoothing:antialiased;line-height:1.6}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:20;background:rgba(244,245,248,0.86);backdrop-filter:saturate(180%) blur(12px);border-bottom:0.5px solid var(--rule)}
+  .nav-in{max-width:1080px;margin:0 auto;padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+  .nav a.back{font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none}
+  .nav a.back:hover{color:var(--ink)}
+  .logo{height:18px;width:auto;display:block}
+
+  /* hero */
+  .hero{padding:72px 0 36px;position:relative;overflow:hidden}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  h1{font-family:var(--serif);font-weight:400;font-size:60px;line-height:1.0;letter-spacing:-0.012em;color:var(--ink);margin-bottom:20px}
+  h1 .dot{color:var(--accent)}
+  .sub{font-family:var(--serif);font-style:italic;font-size:23px;color:var(--ink-soft);max-width:760px;margin-bottom:30px}
+  .meta{font-family:var(--mono);font-size:11px;letter-spacing:0.05em;color:var(--ink-faint);text-transform:uppercase;margin-bottom:36px}
+  .stats{display:flex;gap:44px;flex-wrap:wrap;padding:26px 0;border-top:0.5px solid var(--rule);border-bottom:0.5px solid var(--rule);margin-bottom:30px}
+  .stat .num{font-family:var(--serif);font-size:40px;color:var(--ink);line-height:1}
+  .stat .num span{font-size:18px;color:var(--ink-faint)}
+  .stat .lbl{font-family:var(--mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);margin-top:8px}
+  .actions{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:0.02em;text-decoration:none;padding:13px 24px;border-radius:3px;display:inline-block;transition:all .2s}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--accent-deep)}
+  .btn-ghost{border:0.5px solid var(--rule);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--ink-faint)}
+
+  /* lede */
+  .lede{padding:8px 0 40px}
+  .lede p{font-size:17px;line-height:1.75;color:var(--ink-body);max-width:780px;margin-bottom:18px}
+  .lede p b{color:var(--ink);font-weight:600}
+
+  /* slides */
+  .report{padding:8px 0 24px}
+  .report img{width:100%;height:auto;display:block;border:0.5px solid var(--rule);border-radius:4px;box-shadow:0 6px 24px rgba(14,14,18,0.06);margin-bottom:18px;background:#fff}
+
+  /* cta */
+  .cta{margin:40px 0 80px;background:var(--ink);color:#F4F5F8;border-radius:6px;padding:56px 48px;text-align:center}
+  .cta h2{font-family:var(--serif);font-size:34px;font-weight:400;color:#fff;margin-bottom:14px}
+  .cta p{font-size:15px;color:#B9BAC4;max-width:560px;margin:0 auto 28px}
+  .cta .actions{justify-content:center}
+  .cta .btn-ghost{border-color:rgba(255,255,255,0.22);color:#fff}
+  .cta .btn-ghost:hover{border-color:#fff}
+  .foot{font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-faint);text-align:center;padding-bottom:48px}
+
+  @media(max-width:720px){
+    h1{font-size:40px}.sub{font-size:19px}.stat .num{font-size:32px}
+    .hero{padding:48px 0 28px}.cta{padding:40px 24px}.cta h2{font-size:26px}
+  }
+</style>
+</head>
+<body>
+  <nav class="nav"><div class="nav-in">
+    <a href="/research"><svg class="logo" viewBox="130 150 430 110" xmlns="http://www.w3.org/2000/svg" fill="#0E0E12"><path d="M162.61,202.42c.68-14.62,12.72-26.27,27.51-26.27s26.82,11.65,27.51,26.27h12.54v-42.46h-80.09v42.46h12.54Z"/><rect x="150.07" y="207.66" width="80.09" height="32.39"/><path d="M294.29,198.84c0-10.47-4.84-14.13-10.08-14.13s-15.91,3.46-15.91,19.07v22.92h-9.58v-49.4h9.58v9.88c2.07-7.01,8.5-10.97,16.6-10.97,10.67,0,18.97,6.72,18.97,22.63v27.86h-9.58v-27.86Z"/><path d="M336.46,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM336.46,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/><path d="M391.9,226.7h-10.87l-19.07-49.4h10.08l14.43,38.83,14.43-38.83h10.08l-19.07,49.4Z"/><path d="M436.37,176.21c14.33,0,25.99,11.66,25.99,25.79s-11.66,25.79-25.99,25.79-25.89-11.46-25.89-25.79,11.66-25.79,25.89-25.79ZM436.37,219.29c9.09,0,16.4-7.71,16.4-17.19s-7.31-17.39-16.4-17.39-16.3,7.81-16.3,17.39,7.31,17.19,16.3,17.19Z"/><path d="M479.34,188.46c1.68-7.81,7.11-12.25,13.24-12.25,1.78,0,3.16.49,4.54,1.09v9.39c-1.58-.89-3.46-1.28-5.24-1.28-3.26,0-12.55,1.58-12.55,22.63v18.67h-9.58v-49.4h9.58v11.17Z"/><path d="M522.46,176.21c6.62,0,13.14,2.27,17.88,8.99v-7.9h9.58v49.4h-9.58v-7.9c-4.74,6.72-11.26,8.99-17.88,8.99-14.82,0-24.5-11.66-24.5-25.79s9.68-25.79,24.5-25.79ZM523.65,184.71c-10.28,0-16.11,7.9-16.11,17.29s5.83,17.29,16.11,17.29,16.8-7.31,16.89-17.29c-.1-9.98-6.92-17.29-16.89-17.29Z"/></svg></a>
+    <a class="back" href="/research">← All research</a>
+  </div></nav>
+
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">// Novora Research &nbsp;·&nbsp; NIR Score Benchmark &nbsp;·&nbsp; June 2026</div>
+      <h1>The Institutional<br>Readiness Gap<span class="dot">.</span></h1>
+      <div class="sub">Why crypto companies and protocols still communicate like startups.</div>
+      <div class="stats">
+        <div class="stat"><div class="num">100</div><div class="lbl">Protocols scored</div></div>
+        <div class="stat"><div class="num">49<span>/100</span></div><div class="lbl">Median IR score</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">Institutional-grade</div></div>
+        <div class="stat"><div class="num">62</div><div class="lbl">No real IR layer</div></div>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="/research/institutional-readiness-gap/the-institutional-readiness-gap.pdf" target="_blank" rel="noopener">Download the PDF</a>
+        <a class="btn btn-ghost" href="/ir">View the live leaderboard</a>
+      </div>
+    </section>
+
+    <section class="lede">
+      <p>Crypto is a multi-trillion-dollar asset class, held by institutions, treasuries, and millions of investors. Its investor communications have not kept pace.</p>
+      <p>We scored the investor relations infrastructure of the 100 largest companies and protocols onchain across five pillars. The median score is <b>49 out of 100</b>. Three reach institutional grade. The largest assets in crypto are underwritten with less disclosure than a Series A startup provides its investors.</p>
+    </section>
+
+    <section class="report">
+      <img src="/research/institutional-readiness-gap/slide_01.png" alt="The Institutional Readiness Gap — cover" loading="eager">
+      <img src="/research/institutional-readiness-gap/slide_02.png" alt="The thesis" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_03.png" alt="The Novora IR Score methodology" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_04.png" alt="Tier distribution" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_05.png" alt="IR quality by sector" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_06.png" alt="The mega-cap gap" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_07.png" alt="What protocols are missing" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_08.png" alt="The opportunity" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_09.png" alt="The institutional-grade cohort: Meteora, Jito, Raydium" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_10.png" alt="Case study: MetaDAO" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_11.png" alt="Case study: Pyth" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_12.png" alt="Case study: Helium" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_13.png" alt="Work with Novora" loading="lazy">
+      <img src="/research/institutional-readiness-gap/slide_14.png" alt="Novora" loading="lazy">
+    </section>
+
+    <section class="cta">
+      <h2>Where does your protocol rank?</h2>
+      <p>See your score on the live leaderboard, then request the full five-pillar diagnostic and the roadmap to close the gap.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/ir">View the leaderboard</a>
+        <a class="btn btn-ghost" href="mailto:connor@novora.co?subject=NIR%20Diagnostic">Request your diagnostic</a>
+      </div>
+    </section>
+    <div class="foot">Novora Research · The Institutional Readiness Gap · June 2026</div>
+  </div>
+</body>
+</html>
