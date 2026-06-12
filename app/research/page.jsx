@@ -10,7 +10,7 @@ const RESEARCH = [
     category: "Research",
     tags: ["IR Score", "NIR Benchmark", "Institutional"],
     featured: true,
-    stats: { protocols: 100, "median IR": 49, "no real IR": 62 },
+    stats: { protocols: 100, "median ir": 49, "no real ir": 62 },
     embedUrl: "/research/institutional-readiness-gap",
     description:
       "We scored the investor relations infrastructure of the 100 largest companies and protocols onchain across five pillars. The median is 49 out of 100; only three reach institutional grade and 62 have no real IR layer. Market cap and IR quality are uncorrelated: XRP, Ethereum, and Dogecoin are worth roughly $280B combined and score 38, 41, and 21. The largest assets in crypto are underwritten with less disclosure than a Series A startup provides its investors.",
