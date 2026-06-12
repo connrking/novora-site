@@ -224,7 +224,7 @@ export default function AdvisoryPage() {
           "Market intelligence & sentiment",
           "90-day GTM roadmap",
         ]}
-        disclaimer="Novora does not act as a broker-dealer, placement agent, or finder, and does not accept investment commitments on behalf of clients. Our work is strategic advisory and investor-readiness execution, not capital formation."
+        disclaimer="Novora does not act as a broker-dealer, placement agent, or finder, and does not accept investment commitments on behalf of clients. Our work is strategic advisory and investor-readiness execution."
       />
       <ServiceSection
         num="IV"
