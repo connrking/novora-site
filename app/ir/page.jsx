@@ -222,7 +222,7 @@ export default function IRPage() {
             fontWeight: 400, marginBottom: 40,
           }}>Every score includes a detailed analysis and actionable roadmap.</p>
           <div className="cta-row" style={{ display: "flex", gap: 16, justifyContent: "center" }}>
-            <a href="mailto:contact@novora.co" style={{
+            <a href="/apply" style={{
               fontFamily: F.h, fontSize: 13, letterSpacing: "0.06em", fontWeight: 500,
               color: C.bg, background: C.white, padding: "14px 32px",
               textDecoration: "none", borderRadius: 2,
